@@ -49,7 +49,6 @@ struct MyProfileHeader: View {
     }
 }
 
-
 struct MyProfileHeader_Previews: PreviewProvider {
     static var previews: some View {
         MyProfileHeader(user: .constant(usersData[0]))

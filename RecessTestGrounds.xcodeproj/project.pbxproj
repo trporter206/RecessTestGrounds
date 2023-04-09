@@ -51,6 +51,7 @@
 		D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E229DA21FE00C7DF7A /* CameraView.swift */; };
 		D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */; };
 		D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E829DAB69E00C7DF7A /* Modifiers.swift */; };
+		D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		D7C814E229DA21FE00C7DF7A /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMapView.swift; sourceTree = "<group>"; };
 		D7C814E829DAB69E00C7DF7A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestListItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 				D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */,
 				D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */,
 				D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */,
+				D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				D7C5872029DB618500EC9955 /* ActivityReviewPlayerItem.swift in Sources */,
 				D7C5873229DBCD1400EC9955 /* ActivityDetailHeader.swift in Sources */,
 				D7C5872429DB692F00EC9955 /* ActivityActionButtonView.swift in Sources */,
+				D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,
 				D7C814D529D7A21600C7DF7A /* ClubDetailView.swift in Sources */,

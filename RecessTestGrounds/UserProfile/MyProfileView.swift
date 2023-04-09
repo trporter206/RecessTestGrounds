@@ -20,17 +20,15 @@ struct MyProfileView: View {
                     MyProfileHeader(user: $user)
                     CameraView(onCapture: { capturedImage in
                         user.profilePic = Image(uiImage: capturedImage)
-                        tD.users[0].profilePic = Image(uiImage: capturedImage)
                     })
                     .padding()
                     ProfileClubsList(user: $user)
                     ProfileFriendsList(user: $user)
                     ProfileFriendRequests(user: $user)
-                    ProfileAchievementsList()
+//                    ProfileAchievementsList()
                 }
             }
             .background(Color("LightBlue"))
-            .edgesIgnoringSafeArea(.top)
         }
     }
 }

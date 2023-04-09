@@ -23,10 +23,8 @@ struct DashboardMapView: UIViewRepresentable {
         uiView.removeAnnotations(uiView.annotations)
         // add new annotations to the map
         uiView.addAnnotations(annotations)
-        
         // zoom to fit all annotations
         uiView.showAnnotations(annotations, animated: true)
-        
     }
 }
 

@@ -9,26 +9,41 @@ import Foundation
 
 struct Activity: Identifiable {
     var id: UUID
+    let points = 50
     var sport: String
     var maxPlayers: Int
     var playerCount: Int
-    var locationName: String
     var date: String
     var description: String
     var creator: User
     var players: [User]
     var coordinates: [Double]
-    var currentlyActive: Bool = false
+    var currentlyActive: Bool
+    
+    init(sport: String, maxPlayers: Int, date: String, description: String = "", coordinates: [Double], creator: User) {
+        self.id = UUID()
+        self.sport = sport
+        self.maxPlayers = maxPlayers
+        self.date = date
+        self.description = description
+        self.coordinates = coordinates
+        self.creator = creator
+        self.playerCount = 1
+        self.players = [creator]
+        self.currentlyActive = false
+    }
     
     mutating func addPlayer(_ user: User) {
         if !players.contains(user) {
-                players.append(user)
-            }
+            players.append(user)
+            playerCount += 1
+        }
     }
     
     mutating func removePlayer(_ user: User) {
         if let index = players.firstIndex(of: user) {
             players.remove(at: index)
+            playerCount -= 1
         }
     }
     
@@ -44,10 +59,6 @@ struct Activity: Identifiable {
     
     func getPlayerCount() -> Int {
         return self.playerCount
-    }
-    
-    func getLocationName() -> String {
-        return self.locationName
     }
     
     func getDate() -> String {

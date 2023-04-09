@@ -42,14 +42,18 @@ struct ActivityActionButtonView: View {
                     })
                 }
             } else {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 50)
-                        .foregroundColor(.orange)
-                        .frame(width: 300, height: 60)
-                    Text("Join Activity")
-                        .foregroundColor(.white)
-                        .bold()
-                }
+                Button(action: {
+                    activity.addPlayer(tD.currentUser)
+                }, label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 50)
+                            .foregroundColor(.orange)
+                            .frame(width: 300, height: 60)
+                        Text("Join Activity")
+                            .foregroundColor(.white)
+                            .bold()
+                    }
+                })
                 .padding()
                 Text("Join to see activity messages")
                     .foregroundColor(Color("TextBlue"))

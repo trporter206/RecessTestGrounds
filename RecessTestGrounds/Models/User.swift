@@ -13,25 +13,56 @@ struct User: Identifiable, Equatable {
     var id: UUID
     var name: String
     var tier: Int
-    var rating: Int
+    var positiveRatingCount: Int
     var clubs: [Club]
     var friends: [User]
     var achievements: [String]
     var profilePic: Image?
     var points: Int
     var friendRequests: [FriendRequest]
+    var numRatings: Int
+    var rating: Double
     
-    init(name: String, tier: Int, rating: Int, clubs: [Club] = [], friends: [User] = [], pic: Image? = nil) {
+    init(name: String) {
         self.id = UUID()
         self.name = name
-        self.tier = tier
-        self.rating = rating
-        self.clubs = clubs
-        self.friends = friends
+        self.tier = 5
+        self.positiveRatingCount = 0
+        self.clubs = []
+        self.friends = []
         self.achievements = []
-        self.profilePic = pic
-        self.points = 100
+        self.profilePic = Image(systemName: "person")
+        self.points = 0
         self.friendRequests = []
+        self.numRatings = 0
+        self.rating = 0.0
+    }
+    
+    mutating func addRating(_ num: Int) {
+        self.numRatings += 1
+        if num == 1 {
+            self.positiveRatingCount += 1
+        }
+    }
+    
+    mutating func updateRating(_ rating: Int) {
+        addRating(rating)
+        self.rating = Double(positiveRatingCount / numRatings)
+    }
+    
+    mutating func checkTier() {
+        switch points {
+        case let p where p > 750:
+            self.tier = 1
+        case let p where p > 500:
+            self.tier = 2
+        case let p where p > 250:
+            self.tier = 3
+        case let p where p > 100:
+            self.tier = 4
+        default:
+            self.tier = 5
+        }
     }
     
     mutating func acceptRequest(request: FriendRequest) {
@@ -49,6 +80,7 @@ struct User: Identifiable, Equatable {
     
     mutating func addPoints(_ points: Int) {
         self.points += points
+        self.checkTier()
     }
     
     func getImage() -> Image {

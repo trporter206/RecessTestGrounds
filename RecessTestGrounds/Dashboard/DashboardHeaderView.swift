@@ -23,23 +23,23 @@ struct DashboardHeaderView: View {
                         .modifier(PageTitle())
                 }
                 Spacer()
-                if showingMap {
-                    Image(systemName: "list.bullet")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding([.trailing], 20)
-                        .onTapGesture {
-                            showingMap.toggle()
-                        }
-                } else {
-                    Image(systemName: "map")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding([.trailing], 20)
-                        .onTapGesture {
-                            showingMap.toggle()
-                        }
-                }
+//                if showingMap {
+//                    Image(systemName: "list.bullet")
+//                        .resizable()
+//                        .frame(width: 30, height: 30)
+//                        .padding([.trailing], 20)
+//                        .onTapGesture {
+//                            showingMap.toggle()
+//                        }
+//                } else {
+//                    Image(systemName: "map")
+//                        .resizable()
+//                        .frame(width: 30, height: 30)
+//                        .padding([.trailing], 20)
+//                        .onTapGesture {
+//                            showingMap.toggle()
+//                        }
+//                }
             }
             HStack {
                 Rectangle()

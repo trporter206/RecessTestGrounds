@@ -33,7 +33,7 @@ struct NextActivityView: View {
                         .padding([.leading, .trailing])
                         VStack (alignment: .leading) {
                             Text(activity.getSport()).bold().font(.title)
-                            Text(activity.getLocationName())
+                            Text("Hosted by \(activity.creator.getName())")
                             Divider()
                             HStack {
                                 Spacer()

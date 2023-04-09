@@ -9,7 +9,7 @@ import Foundation
 
 struct FriendRequest: Identifiable, Equatable {
     let id = UUID()
-    let sender: User
-    let receiver: User
+    var sender: User
+    var receiver: User
     var isAccepted: Bool = false
 }

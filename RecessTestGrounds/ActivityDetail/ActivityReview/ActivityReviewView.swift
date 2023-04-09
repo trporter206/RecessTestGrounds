@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ActivityReviewView: View {
+    @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
-    @State var winningTeam = 0
+    @State var playerReviews: [Int] = []
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView(.vertical) {
@@ -23,29 +25,49 @@ struct ActivityReviewView: View {
                     .background(Color("TextBlue"))
                 Text("Duration: ")
                     .padding()
-                Text("Winning Team")
-                Picker("Select winning team", selection: $winningTeam) {
-                    Text("Team 1").tag(0)
-                    Text("Team 2").tag(1)
-                }
-                .pickerStyle(.segmented)
-                .padding([.leading, .trailing])
+//                if activity.creator.id == tD.currentUser.id {
+//                    Text("Winning Team")
+//                    Picker("Select winning team", selection: $winningTeam) {
+//                        Text("Team 1").tag(0)
+//                        Text("Team 2").tag(1)
+//                    }
+//                    .pickerStyle(.segmented)
+//                    .padding([.leading, .trailing])
+//                }
                 Text("Players")
-                ForEach($activity.players) { $player in
-                    ActivityReviewPlayerItem(player: $player)
+                ForEach($activity.players.indices) { index in
+                    ActivityReviewPlayerItem(activity: $activity,
+                                             playerReviews: $playerReviews,
+                                             playerIndex: index)
                 }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 50)
-                        .foregroundColor(.orange)
-                        .frame(width: 300, height: 60)
-                    Text("Submit")
-                        .foregroundColor(.white)
-                        .bold()
-                }
-                .padding()
-                
+                NavigationLink(destination: DashboardView(), label: {
+                    Button(action: {
+                        for (index, review) in playerReviews.enumerated() {
+                            if review == 1 {
+                                activity.players[index].updateRating(1)
+                            } else if review == 0 {
+                                activity.players[index].updateRating(0)
+                            }
+                        }
+                        presentationMode.wrappedValue.dismiss()
+                        tD.activities.removeAll(where: {$0.id == activity.id})
+                    }, label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 50)
+                                .foregroundColor(.orange)
+                                .frame(width: 300, height: 60)
+                            Text("Submit")
+                                .foregroundColor(.white)
+                                .bold()
+                        }
+                        .padding()
+                    })
+                })
             }
             .background(Color("LightBlue"))
+            .onAppear {
+                playerReviews = Array(repeating: 2, count: activity.players.count)
+            }
         }
     }
 }

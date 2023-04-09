@@ -16,10 +16,9 @@ struct ProfileFriendRequests: View {
                 .modifier(SectionHeader())
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(user.friendRequests) { request in
-                        HStack {
-                            Text(request.sender.name)
-                            Spacer()
+                    ForEach($user.friendRequests) { $request in
+                        VStack {
+                            ProfilePicView(user: $request.sender, height: 60)
                             Button("Accept") {
                                 user.acceptRequest(request: request)
                             }
