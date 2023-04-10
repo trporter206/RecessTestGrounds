@@ -12,19 +12,19 @@ struct DashboardView: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     
-    @State var showingMapView = false
-    @State var annotations: [ActivityAnnotation] = []
+//    @State var showingMapView = false
+//    @State var annotations: [ActivityAnnotation] = []
     
     var body: some View {
         NavigationStack {
-            if showingMapView {
-                VStack {
-                    DashboardHeaderView(user: $tD.currentUser, showingMap: $showingMapView)
-                    DashboardMapView(annotations: $annotations)
-                }
-            } else {
+//            if showingMapView {
+//                VStack {
+////                    DashboardHeaderView(user: $tD.currentUser, showingMap: $showingMapView)
+////                    DashboardMapView(annotations: $annotations)
+//                }
+//            } else {
                 ScrollView(.vertical) {
-                    DashboardHeaderView(user: $tD.currentUser, showingMap: $showingMapView)
+                    DashboardHeaderView(user: $tD.currentUser, showingMap: false)
                     VStack(alignment: .leading) {
                         Text("Nearby Activities")
                             .modifier(SectionHeader())
@@ -50,11 +50,11 @@ struct DashboardView: View {
                     }
                 }
                 .background(Color("LightBlue"))
-            }
+//            }
         }
-        .onAppear {
-            annotations = getAnnotations()
-        }
+//        .onAppear {
+//            annotations = getAnnotations()
+//        }
     }
 }
 

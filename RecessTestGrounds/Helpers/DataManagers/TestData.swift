@@ -8,6 +8,24 @@
 import Foundation
 import SwiftUI
 
+class TestData: ObservableObject {
+    @Published var users = usersData
+    @Published var clubs = clubsData
+    @Published var activities = activitiesData
+    @Published var currentUser = usersData[0]
+    
+    init() {
+        currentUser.friendRequests.append(FriendRequest(sender: usersData[1], receiver: currentUser))
+        activities[0].addPlayer(users[1])
+        activities[0].addPlayer(users[2])
+        activities[0].addPlayer(users[3])
+        activities[0].addPlayer(users[4])
+    }
+}
+
+
+
+
 var usersData: [User] = [
     User(name: "Torri Porter"),
     User(name: "Alison Parker"),
@@ -118,18 +136,3 @@ var allAchievements: [String] = [
     "Star1",
     "Violet ribbon"
 ]
-
-class TestData: ObservableObject {
-    @Published var users = usersData
-    @Published var clubs = clubsData
-    @Published var activities = activitiesData
-    @Published var currentUser = usersData[0]
-    
-    init() {
-        currentUser.friendRequests.append(FriendRequest(sender: usersData[1], receiver: currentUser))
-        activities[0].addPlayer(users[1])
-        activities[0].addPlayer(users[2])
-        activities[0].addPlayer(users[3])
-        activities[0].addPlayer(users[4])
-    }
-}
