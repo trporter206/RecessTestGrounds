@@ -10,7 +10,7 @@ import SwiftUI
 
 struct User: Identifiable, Equatable {
     
-    var id: UUID
+    var id: String
     var name: String
     var tier: Int
     var positiveRatingCount: Int
@@ -24,7 +24,7 @@ struct User: Identifiable, Equatable {
     var rating: Double
     
     init(name: String) {
-        self.id = UUID()
+        self.id = UUID().uuidString
         self.name = name
         self.tier = 5
         self.positiveRatingCount = 0

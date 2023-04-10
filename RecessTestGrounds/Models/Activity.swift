@@ -8,7 +8,7 @@
 import Foundation
 
 struct Activity: Identifiable {
-    var id: UUID
+    var id: String
     let points = 50
     var sport: String
     var maxPlayers: Int
@@ -21,7 +21,7 @@ struct Activity: Identifiable {
     var currentlyActive: Bool
     
     init(sport: String, maxPlayers: Int, date: String, description: String = "", coordinates: [Double], creator: User) {
-        self.id = UUID()
+        self.id = UUID().uuidString
         self.sport = sport
         self.maxPlayers = maxPlayers
         self.date = date
@@ -75,5 +75,36 @@ struct Activity: Identifiable {
     
     func getPlayers() -> [User] {
         return self.players
+    }
+}
+
+extension Activity {
+    struct Data {
+        var sport: String = ""
+        var maxPlayers: Int = 0
+        var date: String = ""
+        var description: String = ""
+        var coordinates: [Double] = []
+    }
+    
+    var data: Data {
+        Data(sport: sport,
+        maxPlayers: maxPlayers,
+        date: date,
+        description: description,
+        coordinates: coordinates)
+    }
+    
+    init(data: Data, manager: TestData) {
+        id = UUID().uuidString
+        sport = data.sport
+        maxPlayers = data.maxPlayers
+        date = data.date
+        description = data.description
+        coordinates = data.coordinates
+        creator = manager.currentUser
+        playerCount = 1
+        players = [creator]
+        currentlyActive = false
     }
 }

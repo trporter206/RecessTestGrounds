@@ -17,15 +17,17 @@ struct ActivityListView: View {
             ScrollView(.vertical) {
                 ActivityListHeader(searchText: $searchText)
                 VStack(alignment: .leading) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 50)
-                            .foregroundColor(.orange)
-                            .frame(width: 300, height: 60)
-                        Text("Create Activity")
-                            .foregroundColor(.white)
-                            .bold()
-                    }
-                    .padding()
+                    NavigationLink(destination: CreateActivityView(), label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 50)
+                                .foregroundColor(.orange)
+                                .frame(width: 300, height: 60)
+                            Text("Create Activity")
+                                .foregroundColor(.white)
+                                .bold()
+                        }
+                        .padding()
+                    })
                     Text("Looking for 1 more")
                         .modifier(SectionHeader())
                     ScrollView(.horizontal) {

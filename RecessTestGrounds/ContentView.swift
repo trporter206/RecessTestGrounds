@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 struct ContentView: View {
     @StateObject var locationManager = LocationManager()
     @StateObject var tD = TestData()
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some View {
         NavBarView()
             .environmentObject(locationManager)
