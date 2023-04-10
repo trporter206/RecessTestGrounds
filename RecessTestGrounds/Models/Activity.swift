@@ -13,14 +13,14 @@ struct Activity: Identifiable {
     var sport: String
     var maxPlayers: Int
     var playerCount: Int
-    var date: String
+    var date: Date
     var description: String
     var creator: User
     var players: [User]
     var coordinates: [Double]
     var currentlyActive: Bool
     
-    init(sport: String, maxPlayers: Int, date: String, description: String = "", coordinates: [Double], creator: User) {
+    init(sport: String, maxPlayers: Int, date: Date, description: String = "", coordinates: [Double], creator: User) {
         self.id = UUID().uuidString
         self.sport = sport
         self.maxPlayers = maxPlayers
@@ -61,7 +61,7 @@ struct Activity: Identifiable {
         return self.playerCount
     }
     
-    func getDate() -> String {
+    func getDate() -> Date {
         return self.date
     }
     
@@ -82,7 +82,7 @@ extension Activity {
     struct Data {
         var sport: String = ""
         var maxPlayers: Int = 0
-        var date: String = ""
+        var date: Date = Date.now
         var description: String = ""
         var coordinates: [Double] = []
     }

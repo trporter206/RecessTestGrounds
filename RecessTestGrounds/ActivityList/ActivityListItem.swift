@@ -12,6 +12,8 @@ struct ActivityListItem: View {
     @EnvironmentObject var lM: LocationManager
     @Binding var activity: Activity
     
+    let dateFormatter: () = DateFormatter().dateFormat = "M/d, h:mma"
+    
     var body: some View {
         NavigationLink(destination: ActivityDetailView(activity: $activity), label: {
             HStack {
@@ -26,7 +28,7 @@ struct ActivityListItem: View {
                         Text("\(activity.playerCount)/\(activity.maxPlayers)")
                             .fontWeight(.light)
                         Image(systemName: "person.3.fill")
-                        Text("\(activity.date)").fontWeight(.light)
+                        Text("\(activity.date.formatted())").fontWeight(.light)
                         Image(systemName: "calendar")
                     }
                     .foregroundColor(Color("TextBlue"))

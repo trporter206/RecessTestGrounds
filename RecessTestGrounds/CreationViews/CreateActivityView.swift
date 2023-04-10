@@ -23,7 +23,7 @@ struct CreateActivityView: View {
                 .padding()
             TextField("Sport", text: $activityData.sport)
                 .padding()
-            TextField("Date", text: $activityData.date)
+            DatePicker("Time", selection: $activityData.date, in: Date.now...Date.now.addingTimeInterval(1209600))
                 .padding()
             TextField("Description", text: $activityData.description)
                 .padding()
