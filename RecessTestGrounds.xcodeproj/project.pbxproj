@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */; };
+		D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CD29E50AF400FE3074 /* CreateClubView.swift */; };
 		D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */; };
 		D78D328629D51F0C00DD2F05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328529D51F0C00DD2F05 /* ContentView.swift */; };
 		D78D328829D51F0D00DD2F05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
+		D78373CD29E50AF400FE3074 /* CreateClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubView.swift; sourceTree = "<group>"; };
 		D78D328029D51F0C00DD2F05 /* RecessTestGrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecessTestGrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecessTestGroundsApp.swift; sourceTree = "<group>"; };
 		D78D328529D51F0C00DD2F05 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D78373CC29E50AD800FE3074 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
+				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 		D78D327729D51F0B00DD2F05 = {
 			isa = PBXGroup;
 			children = (
@@ -239,8 +250,8 @@
 		D7BF82C129E4AB620064A7A5 /* CreationViews */ = {
 			isa = PBXGroup;
 			children = (
-				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
-				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
+				D78373CC29E50AD800FE3074 /* Activity */,
+				D78373CD29E50AF400FE3074 /* CreateClubView.swift */,
 			);
 			path = CreationViews;
 			sourceTree = "<group>";
@@ -409,6 +420,7 @@
 				D7C814DB29D8A6C800C7DF7A /* TierView.swift in Sources */,
 				D7C814D829D8A00F00C7DF7A /* AchievementView.swift in Sources */,
 				D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */,
+				D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */,
 				D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */,
 				D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */,
 				D7C814DE29D9F5A700C7DF7A /* LocationManager.swift in Sources */,

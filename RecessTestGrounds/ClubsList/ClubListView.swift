@@ -16,15 +16,17 @@ struct ClubListView: View {
             ScrollView(.vertical) {
                 ClubListHeaderView(searchText: $searchText)
                 VStack(alignment: .leading) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 50)
-                            .foregroundColor(.orange)
-                            .frame(width: 300, height: 60)
-                        Text("Create Club")
-                            .foregroundColor(.white)
-                            .bold()
-                    }
-                    .padding()
+                    NavigationLink(destination: CreateClubView(), label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 50)
+                                .foregroundColor(.orange)
+                                .frame(width: 300, height: 60)
+                            Text("Create Club")
+                                .foregroundColor(.white)
+                                .bold()
+                        }
+                        .padding()
+                    })
                     Text("Featured Club")
                         .modifier(SectionHeader())
                     ClubListItem(club: $tD.clubs[0])

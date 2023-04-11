@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct Club: Identifiable {
-    var id: UUID
+    var id: String
     var creator: User
     var name: String
     var sport: String
@@ -18,14 +18,6 @@ struct Club: Identifiable {
     var numActivities: Int
     var type: String
     var description: String
-    var coverPhoto: Image?
-    
-    func getImage() -> Image {
-        guard let image = self.coverPhoto else {
-            return Image(systemName: "person.3.fill")
-        }
-        return image
-    }
     
     mutating func addMember(_ user: User) {
         if !members.contains(user) {
@@ -37,5 +29,33 @@ struct Club: Identifiable {
         if let index = members.firstIndex(of: user) {
             members.remove(at: index)
         }
+    }
+}
+
+extension Club {
+    struct Data {
+        var name: String = ""
+        var sport: String = ""
+        var type: String = ""
+        var description: String = ""
+    }
+    
+    var data: Data {
+        Data(name: name,
+             sport: sport,
+             type: type,
+             description: description)
+    }
+    
+    init(data: Data, manager: TestData) {
+        id = UUID().uuidString
+        creator = manager.currentUser
+        name = data.name
+        sport = data.sport
+        members = []
+        upcomingActivities = []
+        numActivities = 0
+        type = data.type
+        description = data.description
     }
 }
