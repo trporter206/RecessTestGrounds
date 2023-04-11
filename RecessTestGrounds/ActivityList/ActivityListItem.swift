@@ -12,7 +12,7 @@ struct ActivityListItem: View {
     @EnvironmentObject var lM: LocationManager
     @Binding var activity: Activity
     
-    let dateFormatter: () = DateFormatter().dateFormat = "M/d, h:mma"
+    let dateFormatter = DateFormatter()
     
     var body: some View {
         NavigationLink(destination: ActivityDetailView(activity: $activity), label: {
@@ -28,25 +28,23 @@ struct ActivityListItem: View {
                         Text("\(activity.playerCount)/\(activity.maxPlayers)")
                             .fontWeight(.light)
                         Image(systemName: "person.3.fill")
-                        Text("\(activity.date.formatted())").fontWeight(.light)
-                        Image(systemName: "calendar")
+                        Text(dateFormatter.string(from: activity.date)).fontWeight(.light)
                     }
                     .foregroundColor(Color("TextBlue"))
                 }
                 if distanceToKilometers() != nil {
-                    VStack {
-                        Image(systemName: "mappin")
-                            .font(.system(size: 25))
-                        Text("\(distanceToKilometers()!)km")
-                    }
-                    .foregroundColor(Color("TextBlue"))
-                    .padding()
+                    Text("\(distanceToKilometers()!)km")
+                        .foregroundColor(Color("TextBlue"))
+                        .padding()
                 }
             }
             .background(RoundedRectangle(cornerRadius: 50)
                 .foregroundColor(.white)
                 .shadow(radius: 1))
         })
+        .onAppear {
+            dateFormatter.dateFormat = "M/d, h:mma"
+        }
     }
 }
 

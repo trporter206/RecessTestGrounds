@@ -84,7 +84,7 @@ extension Activity {
         var maxPlayers: Int = 0
         var date: Date = Date.now
         var description: String = ""
-        var coordinates: [Double] = []
+        var coordinates: [Double] = [0.0, 0.0]
     }
     
     var data: Data {

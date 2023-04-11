@@ -41,6 +41,7 @@ struct DashboardView: View {
                 }
             }
         }
+        .background(Color("LightBlue"))
     }
 }
 

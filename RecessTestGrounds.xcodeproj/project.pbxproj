@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */; };
 		D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */; };
 		D78D328629D51F0C00DD2F05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328529D51F0C00DD2F05 /* ContentView.swift */; };
 		D78D328829D51F0D00DD2F05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
 		D78D328029D51F0C00DD2F05 /* RecessTestGrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecessTestGrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecessTestGroundsApp.swift; sourceTree = "<group>"; };
 		D78D328529D51F0C00DD2F05 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
+				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
 			);
 			path = CreationViews;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,
+				D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */,
 				D7C814D529D7A21600C7DF7A /* ClubDetailView.swift in Sources */,
 				D7C814D229D765C900C7DF7A /* ActivityDetailView.swift in Sources */,
 				D78D32AB29D6142100DD2F05 /* ClubListView.swift in Sources */,
