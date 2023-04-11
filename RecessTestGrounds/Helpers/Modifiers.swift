@@ -41,3 +41,15 @@ struct SectionHeader: ViewModifier {
             .padding()
     }
 }
+
+struct FormField: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .bold()
+            .foregroundColor(.white)
+            .background(RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(Color("TextBlue"))
+                .frame(height: 30))
+            .padding()
+    }
+}

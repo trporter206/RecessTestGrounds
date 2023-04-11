@@ -27,14 +27,22 @@ struct CreateActivityView: View {
                 .font(.largeTitle)
                 .foregroundColor(Color("TextBlue"))
                 .padding()
-            TextField("Sport", text: $activityData.sport)
+            SuperTextField(placeholder: Text("   Sport").foregroundColor(.white),
+                           text: $activityData.sport)
+            .modifier(FormField())
+            DatePicker("   Time", selection: $activityData.date, in: Date.now...Date.now.addingTimeInterval(1209600))
+                .preferredColorScheme(.dark)
+                .bold()
+                .foregroundColor(.white)
+                .background(RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(Color("TextBlue"))
+                    .frame(height: 40))
                 .padding()
-            DatePicker("Time", selection: $activityData.date, in: Date.now...Date.now.addingTimeInterval(1209600))
-                .padding()
-            TextField("Description", text: $activityData.description)
-                .padding()
+            SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
+                           text: $activityData.description)
+            .modifier(FormField())
             HStack {
-                Text("Number of Players")
+                Text("   Number of Players")
                 Spacer()
                 Picker("Number of people", selection: $activityData.maxPlayers) {
                     ForEach(1 ..< 20) {
@@ -42,11 +50,18 @@ struct CreateActivityView: View {
                     }
                 }
             }
-            .padding()
+            .modifier(FormField())
             NavigationLink(destination: ActivityChooseLocalMap(addressText: $addressText, activityData: $activityData), label: {
-                Text("Choose Location")
+                Text("Choose Location         ")
+                    .bold()
+                    .foregroundColor(.orange)
+                    .background(RoundedRectangle(cornerRadius: 20)
+                        .foregroundColor(Color("TextBlue"))
+                        .frame(height: 40))
+                    .padding()
             })
-            Text("Location address: \(addressText)")
+            Text(addressTextState())
+                .foregroundColor(.orange)
             Spacer()
             Button(action: {
                 let activity = Activity(data: activityData, manager: tD)
@@ -74,6 +89,13 @@ struct CreateActivityView: View {
 }
 
 extension CreateActivityView {
+    func addressTextState() -> String {
+        if addressText == "" {
+            return "Address will show here"
+        }
+        return addressText
+    }
+    
     func createActivity(activity: Activity) {
         let id = UUID().uuidString
         Firestore.firestore().collection("Activities").document(id).setData([

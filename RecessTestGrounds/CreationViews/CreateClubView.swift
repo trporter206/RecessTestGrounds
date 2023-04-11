@@ -22,14 +22,18 @@ struct CreateClubView: View {
                 .font(.largeTitle)
                 .foregroundColor(Color("TextBlue"))
                 .padding()
-            TextField("Name", text: $clubData.name)
-                .padding()
-            TextField("Sport", text: $clubData.sport)
-                .padding()
-            TextField("Type", text: $clubData.type)
-                .padding()
-            TextField("Description", text: $clubData.description)
-                .padding()
+            SuperTextField(placeholder: Text("   Name").foregroundColor(.white),
+                           text: $clubData.name)
+            .modifier(FormField())
+            SuperTextField(placeholder: Text("   Sport").foregroundColor(.white),
+                           text: $clubData.sport)
+            .modifier(FormField())
+            SuperTextField(placeholder: Text("   Type").foregroundColor(.white),
+                           text: $clubData.type)
+            .modifier(FormField())
+            SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
+                           text: $clubData.description)
+            .modifier(FormField())
             Spacer()
             Button(action: {
                 let club = Club(data: clubData, manager: tD)
@@ -46,6 +50,7 @@ struct CreateClubView: View {
                 .padding()
             })
         }
+        .background(Color("LightBlue"))
     }
 }
 
@@ -65,6 +70,20 @@ extension CreateClubView {
         ])
         showingAlert = true
         self.presentationMode.wrappedValue.dismiss()
+    }
+}
+
+struct SuperTextField: View {
+    var placeholder: Text
+    @Binding var text: String
+    var editingChanged: (Bool)->() = { _ in }
+    var commit: ()->() = { }
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            if text.isEmpty { placeholder }
+            TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
+        }
     }
 }
 
