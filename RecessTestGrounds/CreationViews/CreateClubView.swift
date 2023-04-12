@@ -23,17 +23,17 @@ struct CreateClubView: View {
                 .foregroundColor(Color("TextBlue"))
                 .padding()
             SuperTextField(placeholder: Text("   Name").foregroundColor(.white),
-                           text: $clubData.name)
-            .modifier(FormField())
+                         text: $clubData.name)
+                .modifier(FormField())
             SuperTextField(placeholder: Text("   Sport").foregroundColor(.white),
-                           text: $clubData.sport)
-            .modifier(FormField())
+                         text: $clubData.sport)
+                .modifier(FormField())
             SuperTextField(placeholder: Text("   Type").foregroundColor(.white),
-                           text: $clubData.type)
-            .modifier(FormField())
+                         text: $clubData.type)
+                .modifier(FormField())
             SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
-                           text: $clubData.description)
-            .modifier(FormField())
+                         text: $clubData.description)
+                .modifier(FormField())
             Spacer()
             Button(action: {
                 let club = Club(data: clubData, manager: tD)

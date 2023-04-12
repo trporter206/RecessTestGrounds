@@ -22,8 +22,9 @@ struct User: Identifiable, Equatable {
     var friendRequests: [FriendRequest]
     var numRatings: Int
     var rating: Double
+    var emailAddress: String
     
-    init(name: String) {
+    init(name: String, email: String) {
         self.id = UUID().uuidString
         self.name = name
         self.tier = 5
@@ -36,6 +37,7 @@ struct User: Identifiable, Equatable {
         self.friendRequests = []
         self.numRatings = 0
         self.rating = 0.0
+        self.emailAddress = email
     }
     
     mutating func addRating(_ num: Int) {
@@ -108,5 +110,33 @@ struct User: Identifiable, Equatable {
     
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id
+    }
+}
+
+extension User {
+    struct Data {
+        var name: String = ""
+        var email: String = ""
+    }
+    
+    var data: Data {
+        Data(name: name,
+             email: emailAddress)
+    }
+    
+    //profile pic???
+    init(data: Data) {
+        id = UUID().uuidString
+        name = data.name
+        emailAddress = data.email
+        tier = 5
+        positiveRatingCount = 0
+        clubs = []
+        friends = []
+        achievements = []
+        points = 0
+        friendRequests = []
+        numRatings = 0
+        rating = 0.0
     }
 }

@@ -23,44 +23,50 @@ struct CreateActivityView: View {
     
     var body: some View {
         VStack {
-            Text("Create New Activity")
-                .font(.largeTitle)
-                .foregroundColor(Color("TextBlue"))
-                .padding()
-            SuperTextField(placeholder: Text("   Sport").foregroundColor(.white),
-                           text: $activityData.sport)
-            .modifier(FormField())
-            DatePicker("   Time", selection: $activityData.date, in: Date.now...Date.now.addingTimeInterval(1209600))
-                .preferredColorScheme(.dark)
-                .bold()
-                .foregroundColor(.white)
-                .background(RoundedRectangle(cornerRadius: 10)
+            Group {
+                Text("Create New Activity")
+                    .font(.largeTitle)
                     .foregroundColor(Color("TextBlue"))
-                    .frame(height: 40))
-                .padding()
-            SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
-                           text: $activityData.description)
-            .modifier(FormField())
-            HStack {
-                Text("   Number of Players")
-                Spacer()
-                Picker("Number of people", selection: $activityData.maxPlayers) {
-                    ForEach(1 ..< 20) {
-                        Text("\($0)")
-                    }
-                }
-            }
-            .modifier(FormField())
-            NavigationLink(destination: ActivityChooseLocalMap(addressText: $addressText, activityData: $activityData), label: {
-                Text("Choose Location         ")
+                    .padding()
+                SuperTextField(placeholder: Text("   Sport").foregroundColor(.white),
+                               text: $activityData.sport)
+                .modifier(FormField())
+                DatePicker("   Time", selection: $activityData.date, in: Date.now...Date.now.addingTimeInterval(1209600))
+                    .preferredColorScheme(.dark)
                     .bold()
-                    .foregroundColor(.orange)
-                    .background(RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.white)
+                    .background(RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color("TextBlue"))
                         .frame(height: 40))
                     .padding()
-            })
-            Text(addressTextState())
+                SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
+                               text: $activityData.description)
+                .modifier(FormField())
+                HStack {
+                    Text("   Number of Players")
+                    Spacer()
+                    Picker("Number of people", selection: $activityData.maxPlayers) {
+                        ForEach(1 ..< 20) {
+                            Text("\($0)")
+                        }
+                    }
+                }
+                .modifier(FormField())
+                NavigationLink(destination: ActivityChooseLocalMap(addressText: $addressText, activityData: $activityData), label: {
+                    Text("Choose Location         ")
+                        .bold()
+                        .foregroundColor(.orange)
+                        .background(RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(Color("TextBlue"))
+                            .frame(height: 40))
+                        .padding()
+                })
+                Text(addressTextState())
+                    .foregroundColor(.orange)
+            }
+            Spacer()
+            Text("Beta tip: Please use exact address when choosing location")
+                .fontWeight(.light)
                 .foregroundColor(.orange)
             Spacer()
             Button(action: {

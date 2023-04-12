@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91229E64B0600A9EE8F /* CreateUserView.swift */; };
 		D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */; };
 		D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CD29E50AF400FE3074 /* CreateClubView.swift */; };
 		D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D76CF91229E64B0600A9EE8F /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
 		D78373CD29E50AF400FE3074 /* CreateClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubView.swift; sourceTree = "<group>"; };
 		D78D328029D51F0C00DD2F05 /* RecessTestGrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecessTestGrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +254,7 @@
 			children = (
 				D78373CC29E50AD800FE3074 /* Activity */,
 				D78373CD29E50AF400FE3074 /* CreateClubView.swift */,
+				D76CF91229E64B0600A9EE8F /* CreateUserView.swift */,
 			);
 			path = CreationViews;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				D7C5873D29DBD1DA00EC9955 /* ClubListHeaderView.swift in Sources */,
 				D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */,
 				D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */,
+				D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
