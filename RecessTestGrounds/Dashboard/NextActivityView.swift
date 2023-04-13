@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct NextActivityView: View {
+    @EnvironmentObject var lM: LocationManager
+    @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
     
     var body: some View {
-        NavigationLink(destination: ActivityDetailView(activity: $activity), label: {
+        NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
+            .environmentObject(tD), label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 25)
                     .foregroundColor(.white)

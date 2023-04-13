@@ -6,23 +6,24 @@
 //
 
 import SwiftUI
-import MapKit
 
 struct DashboardView: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     
     var body: some View {
-//        NavigationStack {
+        NavigationStack {
             ScrollView(.vertical) {
-                DashboardHeaderView(user: $tD.currentUser, showingMap: .constant(false))
-                VStack(alignment: .leading) {
+                MyProfileHeader(user: $tD.currentUser)
+                VStack() {
                     Text("Nearby Activities")
                         .modifier(SectionHeader())
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach($tD.activities) { $activity in
                                 ActivityListItem(activity: $activity)
+                                    .environmentObject(lM)
+                                    .environmentObject(tD)
                                     .padding(.trailing)
                             }
                         }
@@ -30,18 +31,24 @@ struct DashboardView: View {
                     }
                     Text("Your Next Activity")
                         .modifier(SectionHeader())
-                    NextActivityView(activity: $tD.activities[0])
+                    if tD.activities.count > 0 {
+                        NextActivityView(activity: $tD.activities[0])
+                            .environmentObject(lM)
+                            .environmentObject(tD)
+                    }
                     Text("Scheduled Activities")
                         .modifier(SectionHeader())
                     ForEach($tD.activities) { $activity in
                         ActivityListItem(activity: $activity)
+                            .environmentObject(lM)
+                            .environmentObject(tD)
                             .padding([.leading, .trailing])
                     }
                     .padding(.bottom)
                 }
             }
             .background(Color("LightBlue"))
-//        }
+        }
     }
 }
 

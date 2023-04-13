@@ -52,7 +52,7 @@ struct CreateActivityView: View {
                     }
                 }
                 .modifier(FormField())
-                NavigationLink(destination: ActivityChooseLocalMap(addressText: $addressText, activityData: $activityData), label: {
+                NavigationLink(destination: ActivityChooseLocalMap(addressText: $addressText, activityData: $activityData).environmentObject(lM), label: {
                     Text("Choose Location         ")
                         .bold()
                         .foregroundColor(.orange)

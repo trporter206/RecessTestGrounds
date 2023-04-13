@@ -15,9 +15,13 @@ struct ActivityListView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                ActivityListHeader(searchText: $searchText)
-                VStack(alignment: .leading) {
-                    NavigationLink(destination: CreateActivityView(), label: {
+                Text("Activities")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(Color("TextBlue"))
+                VStack() {
+                    NavigationLink(destination: CreateActivityView().environmentObject(lM)
+                        .environmentObject(tD), label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 50)
                                 .foregroundColor(.orange)
@@ -34,6 +38,8 @@ struct ActivityListView: View {
                         HStack {
                             ForEach($tD.activities) { $activity in
                                 ActivityListItem(activity: $activity)
+                                    .environmentObject(lM)
+                                    .environmentObject(tD)
                                     .padding(.trailing)
                             }
                         }
@@ -42,7 +48,10 @@ struct ActivityListView: View {
                     Text("Activities Nearby")
                         .modifier(SectionHeader())
                     ForEach($tD.activities) {$activity in
-                        ActivityListItem(activity: $activity).padding([.leading, .trailing])
+                        ActivityListItem(activity: $activity)
+                            .environmentObject(lM)
+                            .environmentObject(tD)
+                            .padding([.leading, .trailing])
                     }
                 }
             }

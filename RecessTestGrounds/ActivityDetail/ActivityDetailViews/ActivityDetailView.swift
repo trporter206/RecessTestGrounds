@@ -9,12 +9,15 @@ import SwiftUI
 import CoreLocation
 
 struct ActivityDetailView: View {
+//    @EnvironmentObject var lM: LocationManager
+    @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
     
     var body: some View {
         ScrollView(.vertical) {
             VStack {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
+//                    .environmentObject(lM)
                     .frame(height: 260)
                 HStack {
                     ProfilePicView(user: $activity.creator, height: 90)
@@ -53,6 +56,8 @@ struct ActivityDetailView: View {
                     .foregroundColor(Color("TextBlue"))
                     .padding(.top)
                 ActivityActionButtonView(activity: $activity)
+//                    .environmentObject(lM)
+                    .environmentObject(tD)
             }
             
         }

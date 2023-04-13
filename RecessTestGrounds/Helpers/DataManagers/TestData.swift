@@ -7,16 +7,35 @@
 
 import Foundation
 import SwiftUI
+import FirebaseFirestore
 
 class TestData: ObservableObject {
     @Published var users = usersData
     @Published var clubs = clubsData
-    @Published var activities = activitiesData
+    @Published var activities: [Activity] = []
     @Published var currentUser = usersData[0]
     @Published var loggedIn = false
     
     init() {
-
+        
+    }
+    
+    func getActivities() {
+        activities = []
+        Firestore.firestore().collection("Activities").getDocuments() { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let activity = try document.data(as: Activity.self)
+                        self.activities.append(activity)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        }
     }
 }
 

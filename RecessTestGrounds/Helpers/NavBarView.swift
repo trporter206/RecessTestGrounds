@@ -15,10 +15,14 @@ struct NavBarView: View {
 //        VStack {
             TabView {
                 DashboardView()
+                    .environmentObject(lM)
+                    .environmentObject(tD)
                     .tabItem { Label ("Dashboard", systemImage: "globe")}
-                ClubListView()
-                    .tabItem { Label ("Clubs", systemImage: "person.3.fill")}
+//                ClubListView()
+//                    .tabItem { Label ("Clubs", systemImage: "person.3.fill")}
                 ActivityListView()
+                    .environmentObject(lM)
+                    .environmentObject(tD)
                     .tabItem { Label ("Games", systemImage: "figure.basketball")}
                 MyProfileView(user: $tD.currentUser)
                     .tabItem { Label ("Profile", systemImage: "person.circle")}

@@ -12,13 +12,11 @@ struct ProfilePicView: View {
     var height: Int
     
     var body: some View {
-        NavigationLink(destination: MyProfileView(user: $user), label: {
                 user.getImage()
                     .resizable()
                     .scaledToFill()
                     .frame(width: CGFloat(height), height: CGFloat(height))
                     .clipShape(Circle())
-        })
     }
 }
 

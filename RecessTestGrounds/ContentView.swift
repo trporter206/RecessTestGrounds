@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseAuth
 
 struct ContentView: View {
-    @StateObject var locationManager = LocationManager()
+    @StateObject var lM = LocationManager()
     @StateObject var tD = TestData()
     
     init() {
@@ -22,10 +22,11 @@ struct ContentView: View {
             if tD.loggedIn == false {
                 LoginView()
                     .environmentObject(tD)
+                    .environmentObject(lM)
             } else {
                 NavBarView()
                     .environmentObject(tD)
-                    .environmentObject(locationManager)
+                    .environmentObject(lM)
             }
         }
     }

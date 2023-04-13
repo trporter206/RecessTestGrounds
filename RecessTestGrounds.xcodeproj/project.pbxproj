@@ -22,12 +22,10 @@
 		D78D329E29D53B6E00DD2F05 /* ActivityListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329D29D53B6E00DD2F05 /* ActivityListItem.swift */; };
 		D78D32A029D54AE700DD2F05 /* NextActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329F29D54AE700DD2F05 /* NextActivityView.swift */; };
 		D78D32A429D600A300DD2F05 /* ProfilePicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32A329D600A300DD2F05 /* ProfilePicView.swift */; };
-		D78D32A629D60A9F00DD2F05 /* DashboardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32A529D60A9F00DD2F05 /* DashboardHeaderView.swift */; };
 		D78D32A929D60CB300DD2F05 /* Club.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32A829D60CB300DD2F05 /* Club.swift */; };
 		D78D32AB29D6142100DD2F05 /* ClubListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32AA29D6142100DD2F05 /* ClubListView.swift */; };
 		D78D32AD29D61DD600DD2F05 /* ClubListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32AC29D61DD600DD2F05 /* ClubListItem.swift */; };
 		D78D32B029D6464100DD2F05 /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32AF29D6464100DD2F05 /* ActivityListView.swift */; };
-		D78D32B229D6527200DD2F05 /* ActivityListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32B129D6527200DD2F05 /* ActivityListHeader.swift */; };
 		D78D32B529D6747600DD2F05 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32B429D6747600DD2F05 /* MyProfileView.swift */; };
 		D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32B629D679D200DD2F05 /* MyProfileHeader.swift */; };
 		D7BF82BA29E4A96E0064A7A5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D7BF82B929E4A96E0064A7A5 /* FirebaseAnalytics */; };
@@ -49,7 +47,6 @@
 		D7C5873729DBCE6800EC9955 /* ProfileFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */; };
 		D7C5873929DBCF0700EC9955 /* ProfileFriendRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */; };
 		D7C5873B29DBCF9F00EC9955 /* ProfileAchievementsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */; };
-		D7C5873D29DBD1DA00EC9955 /* ClubListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873C29DBD1DA00EC9955 /* ClubListHeaderView.swift */; };
 		D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */; };
 		D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814CE29D74C0600C7DF7A /* NavBarView.swift */; };
 		D7C814D229D765C900C7DF7A /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814D129D765C800C7DF7A /* ActivityDetailView.swift */; };
@@ -81,12 +78,10 @@
 		D78D329D29D53B6E00DD2F05 /* ActivityListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItem.swift; sourceTree = "<group>"; };
 		D78D329F29D54AE700DD2F05 /* NextActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextActivityView.swift; sourceTree = "<group>"; };
 		D78D32A329D600A300DD2F05 /* ProfilePicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicView.swift; sourceTree = "<group>"; };
-		D78D32A529D60A9F00DD2F05 /* DashboardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHeaderView.swift; sourceTree = "<group>"; };
 		D78D32A829D60CB300DD2F05 /* Club.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Club.swift; sourceTree = "<group>"; };
 		D78D32AA29D6142100DD2F05 /* ClubListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListView.swift; sourceTree = "<group>"; };
 		D78D32AC29D61DD600DD2F05 /* ClubListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListItem.swift; sourceTree = "<group>"; };
 		D78D32AF29D6464100DD2F05 /* ActivityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListView.swift; sourceTree = "<group>"; };
-		D78D32B129D6527200DD2F05 /* ActivityListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListHeader.swift; sourceTree = "<group>"; };
 		D78D32B429D6747600DD2F05 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		D78D32B629D679D200DD2F05 /* MyProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileHeader.swift; sourceTree = "<group>"; };
 		D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateActivityView.swift; sourceTree = "<group>"; };
@@ -104,7 +99,6 @@
 		D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsList.swift; sourceTree = "<group>"; };
 		D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendRequests.swift; sourceTree = "<group>"; };
 		D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAchievementsList.swift; sourceTree = "<group>"; };
-		D7C5873C29DBD1DA00EC9955 /* ClubListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListHeaderView.swift; sourceTree = "<group>"; };
 		D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotation.swift; sourceTree = "<group>"; };
 		D7C814CE29D74C0600C7DF7A /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
 		D7C814D129D765C800C7DF7A /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
@@ -209,7 +203,6 @@
 				D78D329B29D5251100DD2F05 /* DashboardView.swift */,
 				D78D329F29D54AE700DD2F05 /* NextActivityView.swift */,
 				D78D32A329D600A300DD2F05 /* ProfilePicView.swift */,
-				D78D32A529D60A9F00DD2F05 /* DashboardHeaderView.swift */,
 				D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */,
 				D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */,
 			);
@@ -221,7 +214,6 @@
 			children = (
 				D78D32AA29D6142100DD2F05 /* ClubListView.swift */,
 				D78D32AC29D61DD600DD2F05 /* ClubListItem.swift */,
-				D7C5873C29DBD1DA00EC9955 /* ClubListHeaderView.swift */,
 			);
 			path = ClubsList;
 			sourceTree = "<group>";
@@ -231,7 +223,6 @@
 			children = (
 				D78D329D29D53B6E00DD2F05 /* ActivityListItem.swift */,
 				D78D32AF29D6464100DD2F05 /* ActivityListView.swift */,
-				D78D32B129D6527200DD2F05 /* ActivityListHeader.swift */,
 			);
 			path = ActivityList;
 			sourceTree = "<group>";
@@ -421,7 +412,6 @@
 				D78D32B529D6747600DD2F05 /* MyProfileView.swift in Sources */,
 				D78D32A929D60CB300DD2F05 /* Club.swift in Sources */,
 				D78D32AD29D61DD600DD2F05 /* ClubListItem.swift in Sources */,
-				D78D32A629D60A9F00DD2F05 /* DashboardHeaderView.swift in Sources */,
 				D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */,
 				D7C814DB29D8A6C800C7DF7A /* TierView.swift in Sources */,
 				D7C814D829D8A00F00C7DF7A /* AchievementView.swift in Sources */,
@@ -431,7 +421,6 @@
 				D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */,
 				D7C814DE29D9F5A700C7DF7A /* LocationManager.swift in Sources */,
 				D7C5873729DBCE6800EC9955 /* ProfileFriendsList.swift in Sources */,
-				D78D32B229D6527200DD2F05 /* ActivityListHeader.swift in Sources */,
 				D78D32A029D54AE700DD2F05 /* NextActivityView.swift in Sources */,
 				D78D329E29D53B6E00DD2F05 /* ActivityListItem.swift in Sources */,
 				D78D328629D51F0C00DD2F05 /* ContentView.swift in Sources */,
@@ -462,7 +451,6 @@
 				D7C5873029DBCBBE00EC9955 /* ClubMemberListItem.swift in Sources */,
 				D7C5872629DBAC0700EC9955 /* FriendRequest.swift in Sources */,
 				D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */,
-				D7C5873D29DBD1DA00EC9955 /* ClubListHeaderView.swift in Sources */,
 				D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */,
 				D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */,
 				D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */,

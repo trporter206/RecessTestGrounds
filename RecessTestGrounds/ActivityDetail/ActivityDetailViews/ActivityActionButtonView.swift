@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ActivityActionButtonView: View {
     @EnvironmentObject var tD: TestData
+//    @EnvironmentObject var lM: LocationManager
     @Binding var activity: Activity
     
     var body: some View {

@@ -10,12 +10,14 @@ import CoreLocation
 
 struct ActivityListItem: View {
     @EnvironmentObject var lM: LocationManager
+    @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
     
     let dateFormatter = DateFormatter()
     
     var body: some View {
-        NavigationLink(destination: ActivityDetailView(activity: $activity), label: {
+        NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
+            .environmentObject(tD), label: {
             HStack {
                 ProfilePicView(user: $activity.creator, height: 90)
                 VStack(alignment: .leading) {
@@ -28,7 +30,7 @@ struct ActivityListItem: View {
                         Text("\(activity.playerCount)/\(activity.maxPlayers)")
                             .fontWeight(.light)
                         Image(systemName: "person.3.fill")
-                        Text(dateFormatter.string(from: activity.date)).fontWeight(.light)
+                        Text(activity.date, format: .dateTime.day().month()).fontWeight(.light)
                     }
                     .foregroundColor(Color("TextBlue"))
                 }

@@ -14,8 +14,11 @@ struct ClubListView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                ClubListHeaderView(searchText: $searchText)
-                VStack(alignment: .leading) {
+                Text("Clubs")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(Color("TextBlue"))
+                VStack() {
                     NavigationLink(destination: CreateClubView(), label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 50)
@@ -27,10 +30,6 @@ struct ClubListView: View {
                         }
                         .padding()
                     })
-                    Text("Featured Club")
-                        .modifier(SectionHeader())
-                    ClubListItem(club: $tD.clubs[0])
-                        .padding([.leading, .trailing])
                     Text("Locally active clubs")
                         .modifier(SectionHeader())
                     ForEach($tD.clubs) {$club in

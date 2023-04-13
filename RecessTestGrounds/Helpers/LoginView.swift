@@ -13,6 +13,7 @@ import FirebaseAuth
 
 struct LoginView: View {
     @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
     @State var email = ""
     @State var password = ""
     @State var errorMessage = ""
@@ -84,6 +85,6 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView().environmentObject(TestData())
     }
 }
