@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Club: Identifiable {
+struct Club: Identifiable, Codable {
     var id: String
     var creator: User
     var name: String

@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct FriendRequest: Identifiable, Equatable {
-    let id = UUID()
+struct FriendRequest: Identifiable, Equatable, Codable {
+    var id = UUID().uuidString
     var sender: User
     var receiver: User
     var isAccepted: Bool = false

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct User: Identifiable, Equatable {
+struct User: Identifiable, Equatable, Codable {
     
     var id: String
     var name: String
@@ -17,7 +17,7 @@ struct User: Identifiable, Equatable {
     var clubs: [Club]
     var friends: [User]
     var achievements: [String]
-    var profilePic: Image?
+//    var profilePic: Image? = nil
     var points: Int
     var friendRequests: [FriendRequest]
     var numRatings: Int
@@ -32,7 +32,7 @@ struct User: Identifiable, Equatable {
         self.clubs = []
         self.friends = []
         self.achievements = []
-        self.profilePic = Image(systemName: "person")
+//        self.profilePic = nil
         self.points = 0
         self.friendRequests = []
         self.numRatings = 0
@@ -86,10 +86,7 @@ struct User: Identifiable, Equatable {
     }
     
     func getImage() -> Image {
-        guard let image = self.profilePic else {
-            return Image(systemName: "person")
-        }
-        return image
+        return Image(systemName: "person")
     }
     
     func getName() -> String {

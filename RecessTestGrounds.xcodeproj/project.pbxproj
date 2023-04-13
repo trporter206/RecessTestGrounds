@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91229E64B0600A9EE8F /* CreateUserView.swift */; };
+		D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91629E7589100A9EE8F /* LoginView.swift */; };
 		D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */; };
 		D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CD29E50AF400FE3074 /* CreateClubView.swift */; };
 		D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		D76CF91229E64B0600A9EE8F /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
+		D76CF91629E7589100A9EE8F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
 		D78373CD29E50AF400FE3074 /* CreateClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubView.swift; sourceTree = "<group>"; };
 		D78D328029D51F0C00DD2F05 /* RecessTestGrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecessTestGrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,6 +324,7 @@
 				D7C814E729DAB64200C7DF7A /* DataManagers */,
 				D7C814CE29D74C0600C7DF7A /* NavBarView.swift */,
 				D7C814E829DAB69E00C7DF7A /* Modifiers.swift */,
+				D76CF91629E7589100A9EE8F /* LoginView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				D7C5872029DB618500EC9955 /* ActivityReviewPlayerItem.swift in Sources */,
 				D7C5873229DBCD1400EC9955 /* ActivityDetailHeader.swift in Sources */,
 				D7C5872429DB692F00EC9955 /* ActivityActionButtonView.swift in Sources */,
+				D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */,
 				D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,

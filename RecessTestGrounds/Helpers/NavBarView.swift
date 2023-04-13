@@ -12,7 +12,7 @@ struct NavBarView: View {
     @EnvironmentObject var tD: TestData
     
     var body: some View {
-        NavigationStack {
+//        VStack {
             TabView {
                 DashboardView()
                     .tabItem { Label ("Dashboard", systemImage: "globe")}
@@ -26,7 +26,7 @@ struct NavBarView: View {
             .onAppear {
                 lM.checkIfLocationServicesEnabled()
             }
-        }
+//        }
     }
 }
 

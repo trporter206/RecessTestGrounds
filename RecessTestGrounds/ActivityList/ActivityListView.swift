@@ -53,7 +53,8 @@ struct ActivityListView: View {
 
 struct ActivityListView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListView().environmentObject(TestData())
+        ActivityListView()
+            .environmentObject(TestData())
             .environmentObject(LocationManager())
     }
 }

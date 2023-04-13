@@ -13,7 +13,7 @@ struct DashboardView: View {
     @EnvironmentObject var tD: TestData
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ScrollView(.vertical) {
                 DashboardHeaderView(user: $tD.currentUser, showingMap: .constant(false))
                 VStack(alignment: .leading) {
@@ -40,8 +40,8 @@ struct DashboardView: View {
                     .padding(.bottom)
                 }
             }
-        }
-        .background(Color("LightBlue"))
+            .background(Color("LightBlue"))
+//        }
     }
 }
 

@@ -9,42 +9,55 @@ import SwiftUI
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 struct CreateUserView: View {
     @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
     @State var userData = User.Data()
     @State var showingAlert = false
     @State var password = ""
+    @State var errorMessage = ""
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
-            Text("Create New Profile")
+            Text("Profile")
                 .font(.largeTitle)
                 .foregroundColor(Color("TextBlue"))
                 .padding()
             SuperTextField(placeholder: Text("   Name").foregroundColor(.white),
-                         text: $userData.name)
-                .modifier(FormField())
+                           text: $userData.name)
+            .modifier(FormField())
             SuperTextField(placeholder: Text("   Email").foregroundColor(.white),
-                         text: $userData.email)
-                .modifier(FormField())
+                           text: $userData.email)
+            .modifier(FormField())
+            SuperTextField(placeholder: Text("   Password").foregroundColor(.white),
+                           text: $password)
+            .modifier(FormField())
             Spacer()
-            NavigationLink(destination: DashboardView(), label: {
-                Button(action: {
-                    let user = User(data: userData)
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 50)
-                            .foregroundColor(.orange)
-                            .frame(width: 300, height: 60)
-                        Text("Create User")
-                            .foregroundColor(.white)
-                            .bold()
-                    }
-                    .padding()
-                })
+            Text(errorMessage).foregroundColor(.orange)
+            Spacer()
+            Button(action: {
+                let user = User(data: userData)
+                Task {
+                    await signUp(user: user)
+                }
+                tD.loggedIn = true
+                self.presentationMode.wrappedValue.dismiss()
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 50)
+                        .foregroundColor(.white)
+                        .frame(width: 300, height: 60)
+                    Text("Sign Up")
+                        .foregroundColor(.orange)
+                        .bold()
+                }
+                .padding()
             })
         }
+        .background(Color("LightBlue"))
     }
 }
 
@@ -67,6 +80,16 @@ extension CreateUserView {
         ])
         showingAlert = true
         tD.currentUser = user
+    }
+    
+    func signUp(user: User) async {
+        do {
+            let _ = try await Auth.auth().createUser(withEmail: user.emailAddress,
+                                                     password: password)
+            createUser(user: user)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 }
 

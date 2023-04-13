@@ -13,13 +13,10 @@ class TestData: ObservableObject {
     @Published var clubs = clubsData
     @Published var activities = activitiesData
     @Published var currentUser = usersData[0]
+    @Published var loggedIn = false
     
     init() {
-        currentUser.friendRequests.append(FriendRequest(sender: usersData[1], receiver: currentUser))
-        activities[0].addPlayer(users[1])
-        activities[0].addPlayer(users[2])
-        activities[0].addPlayer(users[3])
-        activities[0].addPlayer(users[4])
+
     }
 }
 
@@ -27,12 +24,12 @@ class TestData: ObservableObject {
 
 
 var usersData: [User] = [
-    User(name: "Torri Porter"),
-    User(name: "Alison Parker"),
-    User(name: "Nikki Layson"),
-    User(name: "Indigo Ward"),
-    User(name: "Lauren Verdile"),
-    User(name: "Jackie Smith"),
+    User(name: "Torri Porter", email: "test@email.com"),
+    User(name: "Alison Parker", email: "test@email.com"),
+    User(name: "Nikki Layson", email: "test@email.com"),
+    User(name: "Indigo Ward", email: "test@email.com"),
+    User(name: "Lauren Verdile", email: "test@email.com"),
+    User(name: "Jackie Smith", email: "test@email.com"),
 ]
 
 var activitiesData: [Activity] = [

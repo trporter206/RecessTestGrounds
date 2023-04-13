@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Activity: Identifiable {
+struct Activity: Identifiable, Codable {
     var id: String
-    let points = 50
+    var points: Int
     var sport: String
     var maxPlayers: Int
     var playerCount: Int
@@ -31,6 +31,7 @@ struct Activity: Identifiable {
         self.playerCount = 1
         self.players = [creator]
         self.currentlyActive = false
+        self.points = 50
     }
     
     mutating func addPlayer(_ user: User) {
@@ -106,5 +107,6 @@ extension Activity {
         playerCount = 1
         players = [creator]
         currentlyActive = false
+        points = 50
     }
 }

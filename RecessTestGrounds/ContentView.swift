@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseAuth
 
 struct ContentView: View {
     @StateObject var locationManager = LocationManager()
@@ -17,9 +18,16 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavBarView()
-            .environmentObject(locationManager)
-            .environmentObject(tD)
+        NavigationStack {
+            if tD.loggedIn == false {
+                LoginView()
+                    .environmentObject(tD)
+            } else {
+                NavBarView()
+                    .environmentObject(tD)
+                    .environmentObject(locationManager)
+            }
+        }
     }
 }
 
