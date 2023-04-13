@@ -6,18 +6,21 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ActivityDetailHeader: View {
     @Binding var activity: Activity
+    @State var userInfo: User = usersData[0]
+    
     var body: some View {
         VStack {
             HStack {
-                ProfilePicView(user: $activity.creator, height: 90)
+                ProfilePicView(user: activity.creator, height: 90)
                 VStack {
                     Text(activity.sport)
                         .foregroundColor(Color("TextBlue"))
                         .font(.largeTitle)
-                    Text("Hosted by \(activity.creator.name)")
+                    Text("Hosted by \(userInfo.name)")
                         .font(.subheadline)
                         .foregroundColor(Color("TextBlue"))
                 }
@@ -29,6 +32,26 @@ struct ActivityDetailHeader: View {
                     .padding([.leading, .bottom, .trailing])
             }
             Divider().padding([.leading, .trailing])
+        }
+        .onAppear {
+            getCreatorInfo()
+        }
+    }
+}
+
+extension ActivityDetailHeader {
+    func getCreatorInfo() {
+        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    userInfo = user
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
 }

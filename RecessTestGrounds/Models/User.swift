@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import FirebaseFirestore
 
 struct User: Identifiable, Equatable, Codable {
     

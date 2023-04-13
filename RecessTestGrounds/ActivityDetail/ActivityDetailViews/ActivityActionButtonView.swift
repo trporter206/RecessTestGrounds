@@ -14,7 +14,7 @@ struct ActivityActionButtonView: View {
     
     var body: some View {
         VStack {
-            if tD.currentUser == activity.creator {
+            if tD.currentUser.id == activity.creator {
                 if activity.currentlyActive {
                     NavigationLink(destination: ActivityReviewView(activity: $activity), label: {
                         ZStack {

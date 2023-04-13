@@ -15,8 +15,8 @@ struct ActivityReviewPlayerItem: View {
     
     var body: some View {
         HStack {
-            ProfilePicView(user: $activity.players[playerIndex], height: 60)
-            Text(activity.players[playerIndex].name)
+            ProfilePicView(user: activity.players[playerIndex], height: 60)
+            Text(activity.players[playerIndex])
             Spacer()
             Button(action: {
                 playerReviews[playerIndex] = 1

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct Activity: Identifiable, Codable {
     var id: String
@@ -15,12 +16,12 @@ struct Activity: Identifiable, Codable {
     var playerCount: Int
     var date: Date
     var description: String
-    var creator: User
-    var players: [User]
+    var creator: String
+    var players: [String]
     var coordinates: [Double]
     var currentlyActive: Bool
     
-    init(sport: String, maxPlayers: Int, date: Date, description: String = "", coordinates: [Double], creator: User) {
+    init(sport: String, maxPlayers: Int, date: Date, description: String = "", coordinates: [Double], creator: String) {
         self.id = UUID().uuidString
         self.sport = sport
         self.maxPlayers = maxPlayers
@@ -35,14 +36,14 @@ struct Activity: Identifiable, Codable {
     }
     
     mutating func addPlayer(_ user: User) {
-        if !players.contains(user) {
-            players.append(user)
+        if !players.contains(user.id) {
+            players.append(user.id)
             playerCount += 1
         }
     }
     
     mutating func removePlayer(_ user: User) {
-        if let index = players.firstIndex(of: user) {
+        if let index = players.firstIndex(of: user.id) {
             players.remove(at: index)
             playerCount -= 1
         }
@@ -70,11 +71,45 @@ struct Activity: Identifiable, Codable {
         return self.description
     }
     
-    func getCreator() -> User {
+    func getCreatorID() -> String {
         return self.creator
     }
     
-    func getPlayers() -> [User] {
+    func getCreatorInfo() -> User {
+        var result: [User] = []
+        Firestore.firestore().collection("Users").document(creator).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    result.append(user)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        return result[0]
+    }
+    
+    func getPlayerInfo(id: String) -> User {
+        var result: [User] = []
+        Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    result.append(user)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        return result[0]
+    }
+    
+    func getPlayerIDs() -> [String] {
         return self.players
     }
 }
@@ -103,7 +138,7 @@ extension Activity {
         date = data.date
         description = data.description
         coordinates = data.coordinates
-        creator = manager.currentUser
+        creator = manager.currentUser.id
         playerCount = 1
         players = [creator]
         currentlyActive = false

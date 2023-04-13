@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct NextActivityView: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
+    @State var userInfo: User = usersData[0]
     
     var body: some View {
         NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
@@ -24,8 +26,8 @@ struct NextActivityView: View {
                 VStack (alignment: .leading) {
                     HStack {
                         ZStack(alignment: .bottomTrailing) {
-                            ProfilePicView(user: $activity.creator, height: 90)
-                            Text("\(activity.creator.points)")
+                            ProfilePicView(user: activity.creator, height: 90)
+                            Text("\(userInfo.points)")
                                 .foregroundColor(.orange)
                                 .fontWeight(.heavy)
                                 .padding(4)
@@ -36,7 +38,7 @@ struct NextActivityView: View {
                         .padding([.leading, .trailing])
                         VStack (alignment: .leading) {
                             Text(activity.getSport()).bold().font(.title)
-                            Text("Hosted by \(activity.creator.getName())")
+                            Text("Hosted by \(userInfo.getName())")
                             Divider()
                             HStack {
                                 Spacer()
@@ -47,8 +49,8 @@ struct NextActivityView: View {
                     Text("\(activity.getPlayerCount())/\(activity.getMaxPlayers()) Players").bold().padding([.leading, .top])
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach($activity.players) { $player in
-                                ProfilePicView(user: $player, height: 60)
+                            ForEach(activity.players, id: \.self) { player in
+                                ProfilePicView(user: player, height: 60)
                             }
                         }.padding([.leading, .trailing])
                     }
@@ -57,6 +59,23 @@ struct NextActivityView: View {
             }
             .foregroundColor(Color("TextBlue"))
         })
+    }
+}
+
+extension NextActivityView {
+    func getCreatorInfo() {
+        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    userInfo = user
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 

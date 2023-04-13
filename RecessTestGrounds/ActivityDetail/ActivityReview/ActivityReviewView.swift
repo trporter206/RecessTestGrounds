@@ -43,10 +43,11 @@ struct ActivityReviewView: View {
                 NavigationLink(destination: DashboardView(), label: {
                     Button(action: {
                         for (index, review) in playerReviews.enumerated() {
+                            var user = activity.getPlayerInfo(id: activity.players[index])
                             if review == 1 {
-                                activity.players[index].updateRating(1)
+                                user.updateRating(1)
                             } else if review == 0 {
-                                activity.players[index].updateRating(0)
+                                user.updateRating(0)
                             }
                         }
                         presentationMode.wrappedValue.dismiss()

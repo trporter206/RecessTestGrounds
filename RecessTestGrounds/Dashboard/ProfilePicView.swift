@@ -6,33 +6,49 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ProfilePicView: View {
-    @Binding var user: User
+    var user: String
     var height: Int
     
+    @State var userInfo = usersData[0]
+    
     var body: some View {
-                user.getImage()
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: CGFloat(height), height: CGFloat(height))
-                    .clipShape(Circle())
+        VStack {
+            userInfo
+                .getImage()
+                .resizable()
+                .scaledToFill()
+                .frame(width: CGFloat(height), height: CGFloat(height))
+                .clipShape(Circle())
+        }
+        .onAppear {
+            getUserInfo()
+        }
     }
 }
 
 extension ProfilePicView {
-    @ViewBuilder
-    func userImage(_ user: User,_ height: Int) -> some View {
-        user.getImage()
-            .resizable()
-            .scaledToFill()
-            .frame(width: CGFloat(height), height: CGFloat(height))
-            .clipShape(Circle())
+    func getUserInfo() {
+        var result: [User] = []
+        Firestore.firestore().collection("Users").document(user).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    userInfo = user
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 
 struct ProfilePicView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePicView(user: .constant(usersData[0]), height: 90)
+        ProfilePicView(user: usersData[0].id, height: 90)
     }
 }

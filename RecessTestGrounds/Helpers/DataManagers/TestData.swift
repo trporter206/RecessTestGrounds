@@ -17,7 +17,7 @@ class TestData: ObservableObject {
     @Published var loggedIn = false
     
     init() {
-        
+        getActivities()
     }
     
     func getActivities() {
@@ -29,6 +29,7 @@ class TestData: ObservableObject {
                 for document in querySnapshot!.documents {
                     do {
                         let activity = try document.data(as: Activity.self)
+                        print(activity.id)
                         self.activities.append(activity)
                     } catch {
                         print(error.localizedDescription)
@@ -57,31 +58,31 @@ var activitiesData: [Activity] = [
              date: Date.now,
              description: "Casual game downtown. Come join the crew!",
              coordinates: [45.568978, -122.673523],
-             creator: usersData[0]),
+             creator: usersData[0].id),
     Activity(sport: "Pickleball",
              maxPlayers: 4,
              date: Date.now,
              description: "",
              coordinates: [45.572117, -122.653938],
-             creator: usersData[1]),
+             creator: usersData[1].id),
     Activity(sport: "Soccer",
              maxPlayers: 8,
              date: Date.now,
              description: "",
              coordinates: [45.564605, -122.644914],
-             creator: usersData[2]),
+             creator: usersData[2].id),
     Activity(sport: "Basketball",
              maxPlayers: 4,
              date: Date.now,
              description: "",
              coordinates: [45.559431, -122.671676],
-             creator: usersData[3]),
+             creator: usersData[3].id),
     Activity(sport: "Tennis",
              maxPlayers: 4,
              date: Date.now,
              description: "",
              coordinates: [45.551678, -122.670534],
-             creator: usersData[4])
+             creator: usersData[4].id)
 ]
 
 var clubsData: [Club] = [

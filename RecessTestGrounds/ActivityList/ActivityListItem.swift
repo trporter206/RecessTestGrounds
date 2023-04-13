@@ -19,7 +19,7 @@ struct ActivityListItem: View {
         NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
             .environmentObject(tD), label: {
             HStack {
-                ProfilePicView(user: $activity.creator, height: 90)
+                ProfilePicView(user: activity.creator, height: 90)
                 VStack(alignment: .leading) {
                     Text(activity.sport)
                         .font(.title)

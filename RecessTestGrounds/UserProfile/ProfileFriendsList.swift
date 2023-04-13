@@ -16,9 +16,9 @@ struct ProfileFriendsList: View {
                 .modifier(SectionHeader())
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach($user.friends) { $friend in
+                    ForEach(user.friends) { friend in
                         VStack {
-                            ProfilePicView(user: $friend, height: 90)
+                            ProfilePicView(user: friend.id, height: 90)
                             Text(friend.name)
                         }
                         .padding(.leading)

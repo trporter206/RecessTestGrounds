@@ -7,11 +7,13 @@
 
 import SwiftUI
 import CoreLocation
+import FirebaseFirestore
 
 struct ActivityDetailView: View {
 //    @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
+    @State var userInfo: User = usersData[0]
     
     var body: some View {
         ScrollView(.vertical) {
@@ -20,12 +22,12 @@ struct ActivityDetailView: View {
 //                    .environmentObject(lM)
                     .frame(height: 260)
                 HStack {
-                    ProfilePicView(user: $activity.creator, height: 90)
+                    ProfilePicView(user: activity.creator, height: 90)
                     VStack {
                         Text(activity.sport)
                             .foregroundColor(Color("TextBlue"))
                             .font(.largeTitle)
-                        Text("Hosted by \(activity.creator.name)")
+                        Text("Hosted by \(userInfo.name)")
                             .font(.subheadline)
                             .foregroundColor(Color("TextBlue"))
                     }
@@ -46,7 +48,7 @@ struct ActivityDetailView: View {
                     .foregroundColor(Color("TextBlue"))
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach($activity.players) { player in
+                        ForEach(activity.players, id: \.self) { player in
                             ProfilePicView(user: player, height: 60)
                         }
                     }
@@ -62,6 +64,23 @@ struct ActivityDetailView: View {
             
         }
         .background(Color("LightBlue"))
+    }
+}
+
+extension ActivityDetailView {
+    func getCreatorInfo() {
+        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    userInfo = user
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 

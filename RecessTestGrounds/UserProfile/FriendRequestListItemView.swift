@@ -13,7 +13,7 @@ struct FriendRequestListItemView: View {
     
     var body: some View {
         VStack {
-            ProfilePicView(user: $request.sender, height: 60)
+            ProfilePicView(user: request.sender.id, height: 60)
             HStack {
                 Button(action: {
                     user.acceptRequest(request: request)

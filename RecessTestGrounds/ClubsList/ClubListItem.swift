@@ -13,7 +13,7 @@ struct ClubListItem: View {
     var body: some View {
         NavigationLink(destination: ClubDetailView(club: $club), label: {
             HStack {
-                ProfilePicView(user: $club.creator, height: 90)
+                ProfilePicView(user: club.creator.id, height: 90)
                 VStack(alignment: .leading) {
                     Text(club.name)
                         .font(.title3)
