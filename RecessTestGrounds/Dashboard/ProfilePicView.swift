@@ -31,7 +31,6 @@ struct ProfilePicView: View {
 
 extension ProfilePicView {
     func getUserInfo() {
-        var result: [User] = []
         Firestore.firestore().collection("Users").document(user).getDocument() { documentSnapshot, error in
             if let error = error {
                 print(error.localizedDescription)

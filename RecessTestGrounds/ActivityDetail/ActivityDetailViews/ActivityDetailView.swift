@@ -48,8 +48,11 @@ struct ActivityDetailView: View {
                     .foregroundColor(Color("TextBlue"))
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(activity.players, id: \.self) { player in
-                            ProfilePicView(user: player, height: 60)
+                        ForEach($activity.players, id: \.self) { $player in
+                            VStack {
+                                ProfilePicView(user: $player.wrappedValue, height: 60)
+                            }
+                            
                         }
                     }
                     .padding(.leading)
@@ -60,6 +63,9 @@ struct ActivityDetailView: View {
                 ActivityActionButtonView(activity: $activity)
 //                    .environmentObject(lM)
                     .environmentObject(tD)
+            }
+            .onAppear {
+                getCreatorInfo()
             }
             
         }
