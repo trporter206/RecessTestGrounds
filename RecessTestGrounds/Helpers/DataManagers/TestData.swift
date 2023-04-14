@@ -29,7 +29,7 @@ class TestData: ObservableObject {
                 for document in querySnapshot!.documents {
                     do {
                         let activity = try document.data(as: Activity.self)
-                        print(activity.id)
+                        //if distanceToKilometers(activity: $activity)! < 100000
                         self.activities.append(activity)
                     } catch {
                         print(error.localizedDescription)

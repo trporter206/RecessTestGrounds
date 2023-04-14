@@ -103,20 +103,21 @@ extension CreateActivityView {
     }
     
     func createActivity(activity: Activity) {
-        let id = UUID().uuidString
-        Firestore.firestore().collection("Activities").document(id).setData([
-            "id" : id,
+//        let id = UUID().uuidString
+        Firestore.firestore().collection("Activities").document(activity.id).setData([
+            "id" : activity.id,
             "points" : 50,
             "sport" : activity.sport,
             "maxPlayers" : activity.maxPlayers,
             "playerCount" : 1,
             "date" : activity.date,
             "description" : activity.description,
-            "creator" : tD.currentUser.id,
-            "players" : [tD.currentUser.id],
+            "creator" : activity.creator,
+            "players" : [activity.creator],
             "coordinates" : activity.coordinates,
             "currentlyActive" : false
         ])
+        tD.activities.append(activity)
         showingAlert = true
         self.presentationMode.wrappedValue.dismiss()
     }
