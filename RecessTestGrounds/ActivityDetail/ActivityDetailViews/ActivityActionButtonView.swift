@@ -10,9 +10,9 @@ import FirebaseFirestore
 
 struct ActivityActionButtonView: View {
     @EnvironmentObject var tD: TestData
-//    @EnvironmentObject var lM: LocationManager
     @Binding var activity: Activity
     @State var joined = false
+    @Binding var playerList: [User]
     
     let activityref = Firestore.firestore().collection("Activities")
     
@@ -31,25 +31,38 @@ struct ActivityActionButtonView: View {
                     })
                 }
             } else {
-                if activity.players.contains(tD.currentUser.id) {
+                if joined {
                     Button(action: {
                         removePlayer()
+                        joined = false
                     }, label: {
                         ActivityButton("Leave Activity")
                     })
                 } else {
                     Button(action: {
                         addPlayer()
+                        joined = true
                     }, label: {
                         ActivityButton("Join Activity")
                     })
                 }
             }
         }
+        .onAppear {
+            checkJoined()
+        }
     }
 }
 
 extension ActivityActionButtonView {
+    func checkJoined() {
+        if activity.players.contains(tD.currentUser.id) {
+            joined = true
+        } else {
+            joined = false
+        }
+    }
+    
     func makeActive() {
         activity.currentlyActive = true
         activityref.document(activity.id).updateData([
@@ -59,6 +72,7 @@ extension ActivityActionButtonView {
     
     func addPlayer() {
         activity.addPlayer(tD.currentUser)
+        playerList.append(tD.currentUser)
         activityref.document(activity.id).updateData([
             "players" : FieldValue.arrayUnion([tD.currentUser.id]),
             "playerCount" : FieldValue.increment(Int64(1))
@@ -67,6 +81,7 @@ extension ActivityActionButtonView {
     
     func removePlayer() {
         activity.removePlayer(tD.currentUser)
+        playerList.removeAll(where: {$0.id == tD.currentUser.id})
         activityref.document(activity.id).updateData([
             "players" : FieldValue.arrayRemove([tD.currentUser.id]),
             "playerCount" : FieldValue.increment(Int64(-1))
@@ -89,6 +104,7 @@ extension ActivityActionButtonView {
 
 struct ActivityActionButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityActionButtonView(activity: .constant(TestData().activities[0])).environmentObject(TestData())
+        ActivityActionButtonView(activity: .constant(TestData().activities[0]), playerList: .constant([]))
+            .environmentObject(TestData())
     }
 }

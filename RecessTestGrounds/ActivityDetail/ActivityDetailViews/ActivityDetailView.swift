@@ -10,16 +10,15 @@ import CoreLocation
 import FirebaseFirestore
 
 struct ActivityDetailView: View {
-//    @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
     @State var userInfo: User = usersData[0]
+    @State var playerlist: [User] = []
     
     var body: some View {
         ScrollView(.vertical) {
             VStack {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
-//                    .environmentObject(lM)
                     .frame(height: 260)
                 HStack {
                     ProfilePicView(user: activity.creator, height: 90)
@@ -44,15 +43,12 @@ struct ActivityDetailView: View {
                 } else {
                     Text("This activity has not started yet").padding()
                 }
-                Text("Players (\(activity.playerCount))")
+                Text("Players (\($playerlist.count))")
                     .foregroundColor(Color("TextBlue"))
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach($activity.players, id: \.self) { $player in
-                            VStack {
-                                ProfilePicView(user: $player.wrappedValue, height: 60)
-                            }
-                            
+                        ForEach($playerlist) { $player in
+                            ProfilePicView(user: $player.wrappedValue.id, height: 60)
                         }
                     }
                     .padding(.leading)
@@ -60,12 +56,12 @@ struct ActivityDetailView: View {
                 Text("Date: \(activity.getDate())")
                     .foregroundColor(Color("TextBlue"))
                     .padding(.top)
-                ActivityActionButtonView(activity: $activity)
-//                    .environmentObject(lM)
+                ActivityActionButtonView(activity: $activity, playerList: $playerlist)
                     .environmentObject(tD)
             }
             .onAppear {
                 getCreatorInfo()
+                getPlayerList()
             }
             
         }
@@ -74,6 +70,7 @@ struct ActivityDetailView: View {
 }
 
 extension ActivityDetailView {
+    
     func getCreatorInfo() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {
@@ -84,6 +81,23 @@ extension ActivityDetailView {
                     userInfo = user
                 } catch {
                     print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func getPlayerList() {
+        for id in activity.players {
+            Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    do {
+                        let user = try documentSnapshot!.data(as: User.self)
+                        playerlist.append(user)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }
