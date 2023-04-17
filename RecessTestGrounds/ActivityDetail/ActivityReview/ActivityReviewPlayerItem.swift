@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ActivityReviewPlayerItem: View {
-    @Binding var activity: Activity
+    @Binding var playerList: [User]
     @Binding var playerReviews: [Int]
     @State var ratingChoice = "none"
     var playerIndex: Int
     
     var body: some View {
         HStack {
-            ProfilePicView(user: activity.players[playerIndex], height: 60)
-            Text(activity.players[playerIndex])
+            ProfilePicView(user: playerList[playerIndex].id, height: 60)
+            Text(playerList[playerIndex].name).foregroundColor(Color("TextBlue"))
             Spacer()
             Button(action: {
                 playerReviews[playerIndex] = 1
@@ -44,6 +44,6 @@ struct ActivityReviewPlayerItem: View {
 
 struct ActivityReviewPlayerItem_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityReviewPlayerItem(activity: .constant(TestData().activities[0]), playerReviews: .constant([]), playerIndex: 0)
+        ActivityReviewPlayerItem(playerList: .constant([]), playerReviews: .constant([]), playerIndex: 0)
     }
 }

@@ -66,13 +66,13 @@ extension NextActivityView {
     func getCreatorInfo() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {
-                print(error.localizedDescription)
+                print("Erro getting creator info \(error)")
             } else {
                 do {
                     let user = try documentSnapshot!.data(as: User.self)
                     userInfo = user
                 } catch {
-                    print(error.localizedDescription)
+                    print("Erro decoding creator info \(error)")
                 }
             }
         }

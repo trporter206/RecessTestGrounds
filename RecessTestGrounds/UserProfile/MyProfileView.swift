@@ -32,7 +32,7 @@ struct MyProfileView: View {
                             try Auth.auth().signOut()
                             tD.loggedIn = false
                         } catch {
-                            print(error.localizedDescription)
+                            print("Error signing out: \(error)")
                         }
                     }, label: {
                         ZStack {

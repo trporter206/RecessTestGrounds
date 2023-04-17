@@ -88,6 +88,7 @@ extension CreateUserView {
                                                      password: password)
             createUser(user: user)
         } catch {
+            print("Error in signup: \(error)")
             errorMessage = error.localizedDescription
         }
     }

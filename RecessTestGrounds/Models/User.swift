@@ -42,15 +42,20 @@ struct User: Identifiable, Equatable, Codable {
     }
     
     mutating func addRating(_ num: Int) {
-        self.numRatings += 1
-        if num == 1 {
-            self.positiveRatingCount += 1
+        if num != 2 {
+            self.numRatings += 1
+            if num == 1 {
+                self.positiveRatingCount += 1
+            }
         }
     }
     
-    mutating func updateRating(_ rating: Int) {
+    mutating func updateRating(_ rating: Int) -> Double {
         addRating(rating)
-        self.rating = Double(positiveRatingCount / numRatings)
+        let newRating = Double(positiveRatingCount / numRatings)
+        self.rating = newRating
+        return newRating
+        
     }
     
     mutating func checkTier() {

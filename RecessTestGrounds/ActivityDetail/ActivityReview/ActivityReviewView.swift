@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ActivityReviewView: View {
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
+    @Binding var playerList: [User]
     @State var playerReviews: [Int] = []
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    let usersRef = Firestore.firestore().collection("Users")
     
     var body: some View {
         ScrollView(.vertical) {
@@ -25,49 +30,48 @@ struct ActivityReviewView: View {
                     .background(Color("TextBlue"))
                 Text("Duration: ")
                     .padding()
-//                if activity.creator.id == tD.currentUser.id {
-//                    Text("Winning Team")
-//                    Picker("Select winning team", selection: $winningTeam) {
-//                        Text("Team 1").tag(0)
-//                        Text("Team 2").tag(1)
-//                    }
-//                    .pickerStyle(.segmented)
-//                    .padding([.leading, .trailing])
-//                }
                 Text("Players")
-                ForEach($activity.players.indices) { index in
-                    ActivityReviewPlayerItem(activity: $activity,
+                ForEach($playerList.indices) { index in
+                    ActivityReviewPlayerItem(playerList: $playerList,
                                              playerReviews: $playerReviews,
                                              playerIndex: index)
                 }
-                NavigationLink(destination: DashboardView(), label: {
-                    Button(action: {
-                        for (index, review) in playerReviews.enumerated() {
-                            var user = activity.getPlayerInfo(id: activity.players[index])
-                            if review == 1 {
-                                user.updateRating(1)
-                            } else if review == 0 {
-                                user.updateRating(0)
-                            }
+                Spacer()
+                Button(action: {
+                    //fix bug, getPlayerInfo result list empty
+                    for (index, review) in playerReviews.enumerated() {
+                        if review == 1 {
+                            usersRef.document(playerList[index].id).updateData([
+                                "numRatings" : FieldValue.increment(Int64(1)),
+                                "positiveRatingCount" : FieldValue.increment(Int64(1)),
+                                "rating" : playerList[index].updateRating(review)
+                            ])
+                        } else if review == 0 {
+                            usersRef.document(playerList[index].id).updateData([
+                                "numRatings" : FieldValue.increment(Int64(1)),
+                                "rating" : playerList[index].updateRating(review)
+                            ])
                         }
-                        presentationMode.wrappedValue.dismiss()
-                        tD.activities.removeAll(where: {$0.id == activity.id})
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 50)
-                                .foregroundColor(.orange)
-                                .frame(width: 300, height: 60)
-                            Text("Submit")
-                                .foregroundColor(.white)
-                                .bold()
-                        }
-                        .padding()
-                    })
+                    }
+                    //dont touch, this works fine
+                    dismiss()
+                    presentationMode.wrappedValue.dismiss()
+                    tD.activities.removeAll(where: {$0.id == activity.id})
+                }, label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 50)
+                            .foregroundColor(.orange)
+                            .frame(width: 300, height: 60)
+                        Text("Submit")
+                            .foregroundColor(.white)
+                            .bold()
+                    }
+                    .padding()
                 })
             }
             .background(Color("LightBlue"))
             .onAppear {
-                playerReviews = Array(repeating: 2, count: activity.players.count)
+                playerReviews = Array(repeating: 2, count: playerList.count)
             }
         }
     }
@@ -75,6 +79,7 @@ struct ActivityReviewView: View {
 
 struct ActivityReviewView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityReviewView(activity: .constant(TestData().activities[0])).environmentObject(TestData())
+        ActivityReviewView(activity: .constant(TestData().activities[0]), playerList: .constant([]))
+            .environmentObject(TestData())
     }
 }

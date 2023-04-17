@@ -33,13 +33,13 @@ extension ProfilePicView {
     func getUserInfo() {
         Firestore.firestore().collection("Users").document(user).getDocument() { documentSnapshot, error in
             if let error = error {
-                print(error.localizedDescription)
+                print("Error getting profile pic info \(error)")
             } else {
                 do {
                     let user = try documentSnapshot!.data(as: User.self)
                     userInfo = user
                 } catch {
-                    print(error.localizedDescription)
+                    print("Error decoding profile pic info \(error)")
                 }
             }
         }

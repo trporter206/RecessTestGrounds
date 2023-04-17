@@ -43,13 +43,13 @@ extension ActivityDetailHeader {
     func getCreatorInfo() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {
-                print(error.localizedDescription)
+                print("Error getting creator info: \(error)")
             } else {
                 do {
                     let user = try documentSnapshot!.data(as: User.self)
                     userInfo = user
                 } catch {
-                    print(error.localizedDescription)
+                    print("Error decoding creator info: \(error)")
                 }
             }
         }

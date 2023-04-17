@@ -13,6 +13,7 @@ struct ActivityActionButtonView: View {
     @Binding var activity: Activity
     @State var joined = false
     @Binding var playerList: [User]
+    @Binding var showingReview: Bool
     
     let activityref = Firestore.firestore().collection("Activities")
     
@@ -20,7 +21,9 @@ struct ActivityActionButtonView: View {
         VStack {
             if $tD.currentUser.id == activity.creator {
                 if activity.currentlyActive {
-                    NavigationLink(destination: ActivityReviewView(activity: $activity), label: {
+                    Button(action: {
+                        showingReview.toggle()
+                    }, label: {
                         ActivityButton("End Activity")
                     })
                 } else {
@@ -71,9 +74,9 @@ extension ActivityActionButtonView {
     }
     
     func addPlayer() {
-        activity.addPlayer(tD.currentUser)
-        playerList.append(tD.currentUser)
-        activityref.document(activity.id).updateData([
+        activity.addPlayer(tD.currentUser) //maintain info when leaving view
+        playerList.append(tD.currentUser)  //update view on click
+        activityref.document(activity.id).updateData([ //update database
             "players" : FieldValue.arrayUnion([tD.currentUser.id]),
             "playerCount" : FieldValue.increment(Int64(1))
         ])
@@ -104,7 +107,7 @@ extension ActivityActionButtonView {
 
 struct ActivityActionButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityActionButtonView(activity: .constant(TestData().activities[0]), playerList: .constant([]))
+        ActivityActionButtonView(activity: .constant(TestData().activities[0]), playerList: .constant([]), showingReview: .constant(false))
             .environmentObject(TestData())
     }
 }

@@ -24,15 +24,14 @@ class TestData: ObservableObject {
         activities = []
         Firestore.firestore().collection("Activities").getDocuments() { querySnapshot, err in
             if let err = err {
-                print("Error getting documents: \(err)")
+                print("Error getting activity documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     do {
                         let activity = try document.data(as: Activity.self)
-                        //if distanceToKilometers(activity: $activity)! < 100000
                         self.activities.append(activity)
                     } catch {
-                        print(error.localizedDescription)
+                        print("Error decoding activity documents: \(error)")
                     }
                 }
             }

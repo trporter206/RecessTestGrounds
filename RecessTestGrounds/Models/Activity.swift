@@ -79,13 +79,13 @@ struct Activity: Identifiable, Codable {
         var result: [User] = []
         Firestore.firestore().collection("Users").document(creator).getDocument() { documentSnapshot, error in
             if let error = error {
-                print(error.localizedDescription)
+                print("Error getting creator info \(error)")
             } else {
                 do {
                     let user = try documentSnapshot!.data(as: User.self)
                     result.append(user)
                 } catch {
-                    print(error.localizedDescription)
+                    print("Error decoding creator info \(error)")
                 }
             }
         }
@@ -94,6 +94,7 @@ struct Activity: Identifiable, Codable {
     
     func getPlayerInfo(id: String) -> User {
         var result: [User] = []
+        print("User ID is \(id)")
         Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
             if let error = error {
                 print(error.localizedDescription)

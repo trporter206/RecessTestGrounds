@@ -62,18 +62,19 @@ extension LoginView {
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error != nil {
-                errorMessage = error!.localizedDescription
+                errorMessage = "Error reaching data: \(error!)"
             } else {
                 Firestore.firestore().collection("Users").whereField("emailAddress", isEqualTo: email).getDocuments() { documentSnapshot, error in
                     if let error = error {
-                        errorMessage = error.localizedDescription
+                        errorMessage = "Error getting user info: \(error)"
                     } else {
                         do {
                             for document in documentSnapshot!.documents {
                                 tD.currentUser = try document.data(as: User.self)
+                                print("Current user is \(tD.currentUser.name)")
                             }
                         } catch {
-                            errorMessage = error.localizedDescription
+                            errorMessage = "Error decoding info: \(error)"
                         }
                     }
                 }

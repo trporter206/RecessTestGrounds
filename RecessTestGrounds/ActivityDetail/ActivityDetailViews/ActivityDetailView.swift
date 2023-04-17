@@ -14,6 +14,8 @@ struct ActivityDetailView: View {
     @Binding var activity: Activity
     @State var userInfo: User = usersData[0]
     @State var playerlist: [User] = []
+    @State var showingReviewSheet = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView(.vertical) {
@@ -56,7 +58,7 @@ struct ActivityDetailView: View {
                 Text("Date: \(activity.getDate())")
                     .foregroundColor(Color("TextBlue"))
                     .padding(.top)
-                ActivityActionButtonView(activity: $activity, playerList: $playerlist)
+                ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)
                     .environmentObject(tD)
             }
             .onAppear {
@@ -66,6 +68,9 @@ struct ActivityDetailView: View {
             
         }
         .background(Color("LightBlue"))
+        .sheet(isPresented: $showingReviewSheet, content: {
+            ActivityReviewView(activity: $activity, playerList: $playerlist, presentationMode: _presentationMode)
+        })
     }
 }
 
@@ -74,13 +79,13 @@ extension ActivityDetailView {
     func getCreatorInfo() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {
-                print(error.localizedDescription)
+                print("Error getting creator info: \(error)")
             } else {
                 do {
                     let user = try documentSnapshot!.data(as: User.self)
                     userInfo = user
                 } catch {
-                    print(error.localizedDescription)
+                    print("Error decoding creator info: \(error)")
                 }
             }
         }
@@ -90,13 +95,13 @@ extension ActivityDetailView {
         for id in activity.players {
             Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
                 if let error = error {
-                    print(error.localizedDescription)
+                    print("Error getting player list info: \(error)")
                 } else {
                     do {
                         let user = try documentSnapshot!.data(as: User.self)
                         playerlist.append(user)
                     } catch {
-                        print(error.localizedDescription)
+                        print("Error decoding playerlist info: \(error)")
                     }
                 }
             }
