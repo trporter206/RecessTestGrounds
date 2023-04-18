@@ -60,6 +60,18 @@ struct ActivityDetailView: View {
                     .padding(.top)
                 ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)
                     .environmentObject(tD)
+                if tD.currentUser.id == activity.creator {
+                    Button(action: {
+                        tD.activities.removeAll(where: {$0.id == activity.id})
+                        Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
+                            if let error = error {
+                                print("Error deleting document: \(error)")
+                            }
+                        }
+                    }, label: {
+                        Text("Delete").foregroundColor(.red)
+                    })
+                }
             }
             .onAppear {
                 getCreatorInfo()

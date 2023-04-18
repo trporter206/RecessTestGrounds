@@ -26,7 +26,6 @@ struct MyProfileView: View {
                     ProfileClubsList(user: $user)
                     ProfileFriendsList(user: $user)
                     ProfileFriendRequests(user: $user)
-//                    ProfileAchievementsList()
                     Button(action: {
                         do {
                             try Auth.auth().signOut()

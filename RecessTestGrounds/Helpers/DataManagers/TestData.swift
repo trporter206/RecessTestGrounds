@@ -43,12 +43,7 @@ class TestData: ObservableObject {
 
 
 var usersData: [User] = [
-    User(name: "Torri Porter", email: "test@email.com"),
-    User(name: "Alison Parker", email: "test@email.com"),
-    User(name: "Nikki Layson", email: "test@email.com"),
-    User(name: "Indigo Ward", email: "test@email.com"),
-    User(name: "Lauren Verdile", email: "test@email.com"),
-    User(name: "Jackie Smith", email: "test@email.com"),
+    User(name: "Temp User", email: "test@email.com")
 ]
 
 var activitiesData: [Activity] = [
@@ -57,31 +52,7 @@ var activitiesData: [Activity] = [
              date: Date.now,
              description: "Casual game downtown. Come join the crew!",
              coordinates: [45.568978, -122.673523],
-             creator: usersData[0].id),
-    Activity(sport: "Pickleball",
-             maxPlayers: 4,
-             date: Date.now,
-             description: "",
-             coordinates: [45.572117, -122.653938],
-             creator: usersData[1].id),
-    Activity(sport: "Soccer",
-             maxPlayers: 8,
-             date: Date.now,
-             description: "",
-             coordinates: [45.564605, -122.644914],
-             creator: usersData[2].id),
-    Activity(sport: "Basketball",
-             maxPlayers: 4,
-             date: Date.now,
-             description: "",
-             coordinates: [45.559431, -122.671676],
-             creator: usersData[3].id),
-    Activity(sport: "Tennis",
-             maxPlayers: 4,
-             date: Date.now,
-             description: "",
-             coordinates: [45.551678, -122.670534],
-             creator: usersData[4].id)
+             creator: usersData[0].id)
 ]
 
 var clubsData: [Club] = [
@@ -92,39 +63,7 @@ var clubsData: [Club] = [
          members: usersData,
          numActivities: 12,
          type: "Paid",
-         description: "For Portlanders who are serious weekend warriors looking to improve their game"),
-    Club(id: UUID().uuidString,
-         creator: usersData[1],
-         name: "Pickle Rick Lovers United Club",
-         sport: "Pickleball",
-         members: usersData,
-         numActivities: 15,
-         type: "Competitive",
-         description: "description"),
-    Club(id: UUID().uuidString,
-         creator: usersData[2],
-         name: "Slammin Soccer",
-         sport: "Soccer",
-         members: usersData,
-         numActivities: 8,
-         type: "Open",
-         description: "description"),
-    Club(id: UUID().uuidString,
-         creator: usersData[3],
-         name: "Ultimate Newbies",
-         sport: "Ultimate Frisbee",
-         members: usersData,
-         numActivities: 20,
-         type: "Competitive",
-         description: "description"),
-    Club(id: UUID().uuidString,
-         creator: usersData[4],
-         name: "Vigorous Volley",
-         sport: "Volleyball",
-         members: usersData,
-         numActivities: 13,
-         type: "Competitive",
-         description: "description"),
+         description: "For Portlanders who are serious weekend warriors looking to improve their game")
 ]
 
 var myAchievements: [String] = [

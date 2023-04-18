@@ -38,24 +38,28 @@ struct ActivityReviewView: View {
                 }
                 Spacer()
                 Button(action: {
-                    //fix bug, getPlayerInfo result list empty
                     for (index, review) in playerReviews.enumerated() {
+                        let rating = playerList[index].updateRating(review)
                         if review == 1 {
                             usersRef.document(playerList[index].id).updateData([
                                 "numRatings" : FieldValue.increment(Int64(1)),
                                 "positiveRatingCount" : FieldValue.increment(Int64(1)),
-                                "rating" : playerList[index].updateRating(review)
+                                "rating" : rating
                             ])
                         } else if review == 0 {
                             usersRef.document(playerList[index].id).updateData([
                                 "numRatings" : FieldValue.increment(Int64(1)),
-                                "rating" : playerList[index].updateRating(review)
+                                "rating" : rating
                             ])
                         }
                     }
-                    //dont touch, this works fine
                     dismiss()
                     presentationMode.wrappedValue.dismiss()
+                    Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
+                        if let error = error {
+                            print("Error deleting document: \(error)")
+                        }
+                    }
                     tD.activities.removeAll(where: {$0.id == activity.id})
                 }, label: {
                     ZStack {

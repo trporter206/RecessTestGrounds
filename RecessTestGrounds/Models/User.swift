@@ -22,7 +22,7 @@ struct User: Identifiable, Equatable, Codable {
     var points: Int
     var friendRequests: [FriendRequest]
     var numRatings: Int
-    var rating: Double
+    var rating: String
     var emailAddress: String
     
     init(name: String, email: String) {
@@ -37,7 +37,7 @@ struct User: Identifiable, Equatable, Codable {
         self.points = 0
         self.friendRequests = []
         self.numRatings = 0
-        self.rating = 0.0
+        self.rating = "0.0"
         self.emailAddress = email
     }
     
@@ -50,11 +50,12 @@ struct User: Identifiable, Equatable, Codable {
         }
     }
     
-    mutating func updateRating(_ rating: Int) -> Double {
+    mutating func updateRating(_ rating: Int) -> String {
         addRating(rating)
-        let newRating = Double(positiveRatingCount / numRatings)
-        self.rating = newRating
-        return newRating
+        let newRating = Double( Double(positiveRatingCount) / Double(numRatings) ) * 100
+        print(newRating)
+        self.rating = String(newRating)
+        return String(newRating)
         
     }
     
@@ -140,6 +141,6 @@ extension User {
         points = 0
         friendRequests = []
         numRatings = 0
-        rating = 0.0
+        rating = "0.0"
     }
 }

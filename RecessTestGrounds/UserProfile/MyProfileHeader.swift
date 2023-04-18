@@ -29,7 +29,7 @@ struct MyProfileHeader: View {
                             Text("Tier \(user.getTier())")
                                 .padding(.trailing)
                             Image(systemName: "hand.thumbsup")
-                            Text("\(user.rating)%")
+                            Text(String(user.rating.prefix(2)) + "%")
                                 .padding(.trailing)
                             Text("\(user.points)")
                                 .fontWeight(.heavy)
