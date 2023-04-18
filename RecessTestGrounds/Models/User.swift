@@ -53,15 +53,19 @@ struct User: Identifiable, Equatable, Codable {
     mutating func updateRating(_ rating: Int) -> String {
         addRating(rating)
         let newRating = Double( Double(positiveRatingCount) / Double(numRatings) ) * 100
-        print(newRating)
         self.rating = String(newRating)
         return String(newRating)
-        
+    }
+    
+    mutating func addPoints(_ points: Int) {
+        self.points += points
+        self.checkTier()
+        Firestore.firestore().collection("Users").document(self.id).updateData(["points" : self.points])
     }
     
     mutating func checkTier() {
-        switch points {
-        case let p where p > 750:
+        switch self.points {
+        case let p where p > 800:
             self.tier = 1
         case let p where p > 500:
             self.tier = 2
@@ -72,6 +76,7 @@ struct User: Identifiable, Equatable, Codable {
         default:
             self.tier = 5
         }
+        Firestore.firestore().collection("Users").document(self.id).updateData(["tier" : self.tier])
     }
     
     mutating func acceptRequest(request: FriendRequest) {
@@ -85,11 +90,6 @@ struct User: Identifiable, Equatable, Codable {
     mutating func rejectRequest(request: FriendRequest) {
         guard let index = friendRequests.firstIndex(of: request) else { return }
         friendRequests.remove(at: index)
-    }
-    
-    mutating func addPoints(_ points: Int) {
-        self.points += points
-        self.checkTier()
     }
     
     func getImage() -> Image {
