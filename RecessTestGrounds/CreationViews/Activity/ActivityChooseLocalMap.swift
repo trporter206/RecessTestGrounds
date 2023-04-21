@@ -10,107 +10,78 @@ import UIKit
 import MapKit
 import SwiftUI
 
-struct Address: Codable {
-    let data: [Datum]
-}
+struct CustomMapView: UIViewRepresentable {
+    @Binding var selectedCoordinate: CLLocationCoordinate2D
 
-struct Datum: Codable {
-    let latitude, longitude: Double
-    let name: String?
-}
-
-struct Location: Identifiable {
-    let id = UUID()
-    let name: String
-    let coordinate: CLLocationCoordinate2D
-}
-
-class MapAPI: ObservableObject {
-    private let BASE_URL = "http://api.positionstack.com/v1/forward"
-    private let API_KEY = "922a90ddb10834dbc5ffdd489763dc80"
-    
-    @Published var region: MKCoordinateRegion
-    @Published var coordinates: [Double] = Array<Double>()
-    @Published var locations: [Location] = []
-    
-    init() {
-        let coords = CLLocationCoordinate2D(latitude: 45.572496, longitude: -122.671807)
-        self.region = MKCoordinateRegion(center: coords,
-                                         span: MKCoordinateSpan(latitudeDelta: 0.07, longitudeDelta: 0.07))
-        self.locations.insert(Location(name: "pin", coordinate: coords), at: 0)
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
     }
-    
-    func getLocation(address: String, delta: Double) {
-        let pAddress = address.replacingOccurrences(of: " ", with: "%20")
-        let url_string = "\(BASE_URL)?access_key=\(API_KEY)&query=\(pAddress)"
-        guard let url = URL(string: url_string) else {
-            print("Invalid URL")
-            return
+
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        mapView.showsUserLocation = true
+        let longPressRecognizer = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleLongPress(gestureRecognizer:)))
+            mapView.addGestureRecognizer(longPressRecognizer)
+        return mapView
+    }
+
+    func updateUIView(_ view: MKMapView, context: Context) {
+    }
+
+    class Coordinator: NSObject, MKMapViewDelegate {
+        var parent: CustomMapView
+
+        init(_ parent: CustomMapView) {
+            self.parent = parent
         }
-        URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else {
-                print(error!.localizedDescription)
-                return
-            }
-            guard let newCoordinates = try? JSONDecoder().decode(Address.self, from: data) else { return }
-            if newCoordinates.data.isEmpty {
-                print("Could not find address")
-                return
-            }
-            DispatchQueue.main.async {
-                let details = newCoordinates.data[0]
-                let lat = details.latitude
-                let lon = details.longitude
-                let name = details.name
-                
-                self.coordinates = [lat, lon]
-                self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat, longitude: lon),
-                                                 span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta))
-                
-                let newLocation = Location(name: name ?? "Pin", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-                self.locations.removeAll()
-                self.locations.insert(newLocation, at: 0)
+
+        @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+            if gestureRecognizer.state == .began {
+                let touchPoint = gestureRecognizer.location(in: gestureRecognizer.view)
+                let coordinate = (gestureRecognizer.view as? MKMapView)?.convert(touchPoint, toCoordinateFrom: gestureRecognizer.view)
+
+                if let coord = coordinate, let mapView = gestureRecognizer.view as? MKMapView {
+                    parent.selectedCoordinate = coord
+
+                    // Remove previous annotations
+                    let currentAnnotations = mapView.annotations.filter { !($0 is MKUserLocation) }
+                    mapView.removeAnnotations(currentAnnotations)
+
+                    // Add a new annotation for the selected coordinate
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = coord
+                    mapView.addAnnotation(annotation)
+                }
             }
         }
-        .resume()
     }
+
 }
 
 struct ActivityChooseLocalMap: View {
     @EnvironmentObject var lM: LocationManager
-    @StateObject private var mapAPI = MapAPI()
-    @Binding var addressText: String
-    @State private var coords = [0.0,0.0]
+    @State private var coords = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     @Binding var activityData: Activity.Data
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $mapAPI.region, showsUserLocation: true, annotationItems: mapAPI.locations) { location in
-                MapMarker(coordinate: location.coordinate)
-            }
+            CustomMapView(selectedCoordinate: $coords)
             .ignoresSafeArea()
             VStack {
-                TextField("Enter Location", text: $addressText)
-                    .textFieldStyle(.roundedBorder)
-                    .padding()
-                
-                Button("Find Location") {
-                    mapAPI.getLocation(address: addressText, delta: 0.5)
-                }
                 Spacer()
-                Button("Save") {
-                    activityData.coordinates = mapAPI.coordinates
+                Button(action: {
+                    activityData.coordinates = [coords.latitude, coords.longitude]
                     self.presentationMode.wrappedValue.dismiss()
-                }
+                }, label: {
+                    Text("Save")
+                })
             }
-        }
-        .onAppear {
-            mapAPI.region = MKCoordinateRegion(center: lM.locationManager!.location!.coordinate,
-                                               span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         }
     }
 }
+
 
 
 

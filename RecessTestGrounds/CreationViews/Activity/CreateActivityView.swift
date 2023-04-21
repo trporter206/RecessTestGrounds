@@ -17,6 +17,7 @@ struct CreateActivityView: View {
     @State var activityData = Activity.Data()
     @State private var showingAlert = false
     @State var addressText = ""
+    @State var errorMessage = ""
     @Environment(\.presentationMode) var presentationMode
     
     @State var coords = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -52,7 +53,7 @@ struct CreateActivityView: View {
                     }
                 }
                 .modifier(FormField())
-                NavigationLink(destination: ActivityChooseLocalMap(addressText: $addressText, activityData: $activityData).environmentObject(lM), label: {
+                NavigationLink(destination: ActivityChooseLocalMap(activityData: $activityData).environmentObject(lM), label: {
                     Text("Choose Location         ")
                         .bold()
                         .foregroundColor(.orange)
@@ -61,17 +62,24 @@ struct CreateActivityView: View {
                             .frame(height: 40))
                         .padding()
                 })
-                Text(addressTextState())
-                    .foregroundColor(.orange)
+//                Text("\(activityData.coordinates)")
+//                    .foregroundColor(.orange)
             }
             Spacer()
             Text("Beta tip: Please use exact address when choosing location")
                 .fontWeight(.light)
                 .foregroundColor(.orange)
             Spacer()
+            Text(errorMessage)
+                .bold()
+                .foregroundColor(.orange)
             Button(action: {
-                let activity = Activity(data: activityData, manager: tD)
-                createActivity(activity: activity)
+                if inputsAreValid() {
+                    let activity = Activity(data: activityData, manager: tD)
+                    createActivity(activity: activity)
+                } else {
+                    errorMessage = "Make sure all fields are filled"
+                }
             }, label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 50)
@@ -95,6 +103,23 @@ struct CreateActivityView: View {
 }
 
 extension CreateActivityView {
+    func inputsAreValid() -> Bool {
+        if activityData.sport == "" {
+            print("Empty Sport")
+            return false
+        } else if (activityData.maxPlayers == 0) {
+            print("0 players")
+            return false
+        } else if (activityData.description == "") {
+            print("Empty desc")
+            return false
+        } else if activityData.coordinates == [0.0, 0.0] {
+            print("Bad coords")
+            return false
+        }
+        return true
+    }
+    
     func addressTextState() -> String {
         if addressText == "" {
             return "Address will show here"
@@ -126,7 +151,9 @@ extension CreateActivityView {
 struct CreateActivityView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateActivityView().environmentObject(TestData()).environmentObject(LocationManager())
+            CreateActivityView()
+                .environmentObject(TestData())
+                .environmentObject(LocationManager())
         }
     }
 }

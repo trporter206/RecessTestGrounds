@@ -77,7 +77,7 @@ struct CreateUserView: View {
                 .foregroundColor(.orange)
             Spacer()
             Button(action: {
-                if isValidEmail(userData.email) {
+                if isValidEmail(userData.email) && noBlankFields() {
                     let user = User(data: userData)
                     Task {
                         await signUp(user: user)
@@ -104,6 +104,13 @@ struct CreateUserView: View {
 }
 
 extension CreateUserView {
+    func noBlankFields() -> Bool {
+        if userData.name != "" && password != "" && chosenAvatar != "" {
+            return true
+        }
+        return false
+    }
+    
     func isValidEmail(_ email: String) -> Bool {
         let emailRegexPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
@@ -113,7 +120,6 @@ extension CreateUserView {
             return regex.firstMatch(in: email, options: [], range: range) != nil
         } catch {
             print(error)
-            errorMessage = "Incorrect email format"
             return false
         }
     }
