@@ -18,7 +18,10 @@ struct CreateUserView: View {
     @State var showingAlert = false
     @State var password = ""
     @State var errorMessage = ""
+    @State var chosenAvatar = ""
     @Environment(\.presentationMode) var presentationMode
+    
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     
     var body: some View {
         VStack {
@@ -35,16 +38,55 @@ struct CreateUserView: View {
             SuperTextField(placeholder: Text("   Password").foregroundColor(.white),
                            text: $password)
             .modifier(FormField())
+            Text("Choose an Avatar")
+                .modifier(SectionHeader())
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(0...avatarStrings.count-1, id: \.self) { index in
+                    if chosenAvatar == avatarStrings[index] {
+                        Button(action: {
+                            chosenAvatar = avatarStrings[index]
+                        }, label: {
+                            ZStack(alignment: .center) {
+                                Image(avatarStrings[index])
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: CGFloat(90), height: CGFloat(90))
+                                    .clipShape(Circle())
+                            }
+                        })
+                    } else {
+                        Button(action: {
+                            chosenAvatar = avatarStrings[index]
+                        }, label: {
+                            ZStack(alignment: .center) {
+                                Image(avatarStrings[index])
+                                    .resizable()
+                                    .scaledToFill()
+                                    .opacity(0.5)
+                                    .frame(width: CGFloat(90), height: CGFloat(90))
+                                    .clipShape(Circle())
+                            }
+                        })
+                    }
+                }
+            }
+            .padding()
             Spacer()
-            Text(errorMessage).foregroundColor(.orange)
+            Text(errorMessage)
+                .bold()
+                .foregroundColor(.orange)
             Spacer()
             Button(action: {
-                let user = User(data: userData)
-                Task {
-                    await signUp(user: user)
+                if isValidEmail(userData.email) {
+                    let user = User(data: userData)
+                    Task {
+                        await signUp(user: user)
+                    }
+                    tD.loggedIn = true
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    errorMessage = "Make sure email format is correct and all fields are filled"
                 }
-                tD.loggedIn = true
-                self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 50)
@@ -62,6 +104,20 @@ struct CreateUserView: View {
 }
 
 extension CreateUserView {
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegexPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: emailRegexPattern)
+            let range = NSRange(location: 0, length: email.utf16.count)
+            return regex.firstMatch(in: email, options: [], range: range) != nil
+        } catch {
+            print(error)
+            errorMessage = "Incorrect email format"
+            return false
+        }
+    }
+    
     func createUser(user: User) {
         let id = UUID().uuidString
         Firestore.firestore().collection("Users").document(id).setData([
@@ -73,6 +129,7 @@ extension CreateUserView {
             "friends" : user.friends,
             "achievements" : user.achievements,
             "points" : user.points,
+            "profilePicString" : chosenAvatar,
             "friendRequests" : user.friendRequests,
             "numRatings" : user.numRatings,
             "rating" : user.rating,

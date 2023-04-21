@@ -52,6 +52,7 @@ struct TierView: View {
                     .modifier(TierText())
             }.padding(.bottom)
         }
+        .background(Color("LightBlue"))
         .padding()
     }
 }

@@ -19,42 +19,43 @@ struct ActivityReviewView: View {
     let usersRef = Firestore.firestore().collection("Users")
     
     var body: some View {
-        ScrollView(.vertical) {
-            VStack {
-                Text("Activity Review")
-                    .bold()
-                    .font(.system(size: 36))
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color("TextBlue"))
-                Text("Duration: ")
-                    .padding()
-                Text("Players")
-                ForEach($playerList.filter({$0.id != tD.currentUser.id}).indices) { index in
-                    ActivityReviewPlayerItem(playerList: $playerList,
-                                             playerReviews: $playerReviews,
-                                             playerIndex: index)
-                }
-                Spacer()
-                Button(action: {
-                    closeOutActivity()
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 50)
-                            .foregroundColor(.orange)
-                            .frame(width: 300, height: 60)
-                        Text("Submit")
-                            .foregroundColor(.white)
-                            .bold()
+        VStack {
+            Text("Activity Review")
+                .bold()
+                .font(.system(size: 36))
+                .frame(maxWidth: .infinity)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color("TextBlue"))
+            Text("Players")
+            ScrollView(.vertical) {
+                VStack {
+                    ForEach($playerList.filter({$0.id != tD.currentUser.id}).indices) { index in
+                        ActivityReviewPlayerItem(playerList: $playerList,
+                                                 playerReviews: $playerReviews,
+                                                 playerIndex: index)
                     }
-                    .padding()
-                })
+                }
             }
-            .background(Color("LightBlue"))
-            .onAppear {
-                playerReviews = Array(repeating: 2, count: playerList.count-1)
-            }
+            Spacer()
+            Button(action: {
+                closeOutActivity()
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 50)
+                        .foregroundColor(.orange)
+                        .frame(width: 300, height: 60)
+                    Text("Submit")
+                        .foregroundColor(.white)
+                        .bold()
+                }
+                .padding()
+            })
+            
+        }
+        .background(Color("LightBlue"))
+        .onAppear {
+            playerReviews = Array(repeating: 2, count: playerList.count-1)
         }
     }
 }

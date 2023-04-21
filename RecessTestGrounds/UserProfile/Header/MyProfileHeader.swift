@@ -24,18 +24,22 @@ struct MyProfileHeader: View {
                             .padding(.trailing)
                             .font(.system(size: 25))
                     }
-                    NavigationLink(destination: TierView(), label: {
-                        HStack {
+                    HStack {
+                        NavigationLink(destination: TierView(), label: {
                             Text("Tier \(user.getTier())")
                                 .padding(.trailing)
+                        })
+                        NavigationLink(destination: RatingView(), label: {
                             Image(systemName: "hand.thumbsup")
                             Text(String(user.rating.prefix(2)) + "%")
                                 .padding(.trailing)
+                        })
+                        NavigationLink(destination: PointsView(), label: {
                             Text("\(user.points)")
                                 .fontWeight(.heavy)
                                 .foregroundColor(.orange)
-                        }
-                    })
+                        })
+                    }
                     Rectangle()
                         .frame(height: 10)
                         .padding([.trailing])

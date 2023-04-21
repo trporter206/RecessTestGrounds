@@ -17,9 +17,9 @@ struct ProfileAchievementsList: View {
             })
             ScrollView(.horizontal){
                 HStack {
-                    ForEach(myAchievements, id:\.self) { achievement in
-                        Image(achievement)
-                    }
+//                    ForEach(myAchievements, id:\.self) { achievement in
+//                        Image(achievement)
+//                    }
                 }
             }
         }

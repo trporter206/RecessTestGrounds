@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */; };
 		D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91229E64B0600A9EE8F /* CreateUserView.swift */; };
 		D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91629E7589100A9EE8F /* LoginView.swift */; };
 		D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */; };
@@ -28,6 +29,8 @@
 		D78D32B029D6464100DD2F05 /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32AF29D6464100DD2F05 /* ActivityListView.swift */; };
 		D78D32B529D6747600DD2F05 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32B429D6747600DD2F05 /* MyProfileView.swift */; };
 		D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32B629D679D200DD2F05 /* MyProfileHeader.swift */; };
+		D7B9CAD429EF28D90085BD72 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B9CAD329EF28D90085BD72 /* RatingView.swift */; };
+		D7B9CAD629EF2A120085BD72 /* PointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B9CAD529EF2A120085BD72 /* PointsView.swift */; };
 		D7BF82BA29E4A96E0064A7A5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D7BF82B929E4A96E0064A7A5 /* FirebaseAnalytics */; };
 		D7BF82BC29E4A96E0064A7A5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D7BF82BB29E4A96E0064A7A5 /* FirebaseAuth */; };
 		D7BF82BE29E4A96E0064A7A5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D7BF82BD29E4A96E0064A7A5 /* FirebaseFirestore */; };
@@ -62,6 +65,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		D76CF91229E64B0600A9EE8F /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		D76CF91629E7589100A9EE8F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 		D78D32AF29D6464100DD2F05 /* ActivityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListView.swift; sourceTree = "<group>"; };
 		D78D32B429D6747600DD2F05 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		D78D32B629D679D200DD2F05 /* MyProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileHeader.swift; sourceTree = "<group>"; };
+		D7B9CAD329EF28D90085BD72 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		D7B9CAD529EF2A120085BD72 /* PointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsView.swift; sourceTree = "<group>"; };
 		D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateActivityView.swift; sourceTree = "<group>"; };
 		D7BF82C629E4B31D0064A7A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7C5871D29DB591700EC9955 /* ActivityReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityReviewView.swift; sourceTree = "<group>"; };
@@ -161,7 +167,6 @@
 				D7BF82C129E4AB620064A7A5 /* CreationViews */,
 				D7C814DF29D9F5F200C7DF7A /* Helpers */,
 				D7C814DC29D9F49E00C7DF7A /* Info.plist */,
-				D7C814D929D8A6B800C7DF7A /* Tiers */,
 				D7C814D629D89FF300C7DF7A /* Achievements */,
 				D7C814D329D7A20000C7DF7A /* ClubDetail */,
 				D7C814D029D765B700C7DF7A /* ActivityDetail */,
@@ -230,16 +235,35 @@
 		D78D32B329D657C200DD2F05 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				D7B9CAD229EF28A10085BD72 /* Header */,
+				D7B9CAD129EF287A0085BD72 /* ProfileListVIews */,
 				D78D32B429D6747600DD2F05 /* MyProfileView.swift */,
-				D78D32B629D679D200DD2F05 /* MyProfileHeader.swift */,
 				D7C814E229DA21FE00C7DF7A /* CameraView.swift */,
-				D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */,
-				D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */,
-				D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */,
-				D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */,
-				D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		D7B9CAD129EF287A0085BD72 /* ProfileListVIews */ = {
+			isa = PBXGroup;
+			children = (
+				D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */,
+				D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */,
+				D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */,
+				D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */,
+				D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */,
+			);
+			path = ProfileListVIews;
+			sourceTree = "<group>";
+		};
+		D7B9CAD229EF28A10085BD72 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				D7C814D929D8A6B800C7DF7A /* Tiers */,
+				D78D32B629D679D200DD2F05 /* MyProfileHeader.swift */,
+				D7B9CAD329EF28D90085BD72 /* RatingView.swift */,
+				D7B9CAD529EF2A120085BD72 /* PointsView.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		D7BF82C129E4AB620064A7A5 /* CreationViews */ = {
@@ -316,6 +340,7 @@
 				D7C814CE29D74C0600C7DF7A /* NavBarView.swift */,
 				D7C814E829DAB69E00C7DF7A /* Modifiers.swift */,
 				D76CF91629E7589100A9EE8F /* LoginView.swift */,
+				D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -416,6 +441,8 @@
 				D7C814DB29D8A6C800C7DF7A /* TierView.swift in Sources */,
 				D7C814D829D8A00F00C7DF7A /* AchievementView.swift in Sources */,
 				D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */,
+				D7B9CAD429EF28D90085BD72 /* RatingView.swift in Sources */,
+				D7B9CAD629EF2A120085BD72 /* PointsView.swift in Sources */,
 				D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */,
 				D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */,
 				D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */,
@@ -441,6 +468,7 @@
 				D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,
+				D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */,
 				D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */,
 				D7C814D529D7A21600C7DF7A /* ClubDetailView.swift in Sources */,
 				D7C814D229D765C900C7DF7A /* ActivityDetailView.swift in Sources */,

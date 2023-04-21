@@ -20,12 +20,27 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
+            Text("Recess")
+                .foregroundColor(Color("TextBlue"))
+                .font(.largeTitle)
+                .bold()
+                .padding(.top)
+            Text("It's game time")
+                .foregroundColor(Color("TextBlue"))
+                .font(.title3)
+                .padding(.bottom)
             SuperTextField(placeholder: Text("   Email").foregroundColor(.white),
                            text: $email)
             .modifier(FormField())
-            SuperTextField(placeholder: Text("   Password").foregroundColor(.white),
+            SuperPassCodeField(placeholder: Text("   Password").foregroundColor(.white),
                            text: $password)
             .modifier(FormField())
+            NavigationLink(destination: ForgotPasswordView(), label: {
+                Text("Forgot Password")
+                    .foregroundColor(Color("TextBlue"))
+                    .font(.subheadline)
+                    .underline()
+            })
             Spacer()
             Text(errorMessage).foregroundColor(.orange)
             Spacer()

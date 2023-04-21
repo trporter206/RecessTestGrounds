@@ -87,6 +87,19 @@ struct SuperTextField: View {
     }
 }
 
+struct SuperPassCodeField: View {
+    var placeholder: Text
+    @Binding var text: String
+    var commit: ()->() = { }
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            if text.isEmpty { placeholder }
+            SecureField("", text: $text, onCommit: commit)
+        }
+    }
+}
+
 struct CreateClubView_Previews: PreviewProvider {
     static var previews: some View {
         CreateClubView()

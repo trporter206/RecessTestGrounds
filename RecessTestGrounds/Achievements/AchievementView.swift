@@ -22,9 +22,9 @@ struct AchievementView: View {
                 .multilineTextAlignment(.center)
             Divider().padding([.leading, .trailing,.bottom])
             LazyVGrid(columns: gridItemLayout) {
-                ForEach(allAchievements, id:\.self) { achievement in
-                    AchievementListItem(achievement: achievement)
-                }
+//                ForEach(allAchievements, id:\.self) { achievement in
+//                    AchievementListItem(achievement: achievement)
+//                }
             }
         }
         .background(Color("LightBlue"))

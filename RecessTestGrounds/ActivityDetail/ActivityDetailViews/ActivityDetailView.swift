@@ -41,7 +41,10 @@ struct ActivityDetailView: View {
                 }
                 Divider().padding([.leading, .trailing])
                 if activity.currentlyActive {
-                    Text("Currently Active").padding()
+                    Text("Currently Active")
+                        .foregroundColor(Color("TextBlue"))
+                        .bold()
+                        .padding()
                 } else {
                     Text("This activity has not started yet").padding()
                 }
@@ -55,7 +58,7 @@ struct ActivityDetailView: View {
                     }
                     .padding(.leading)
                 }
-                Text("Date: \(activity.getDate())")
+                Text("Date: \(activity.getDate().formatted())")
                     .foregroundColor(Color("TextBlue"))
                     .padding(.top)
                 ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)

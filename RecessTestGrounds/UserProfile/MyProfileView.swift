@@ -8,6 +8,8 @@
 import SwiftUI
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+//import FirebaseStorage
 
 struct MyProfileView: View {
     @EnvironmentObject var tD: TestData
@@ -15,39 +17,37 @@ struct MyProfileView: View {
     @State private var image = Image(systemName: "camera")
     
     var body: some View {
-//        NavigationStack {
-            ScrollView(.vertical) {
-                VStack(alignment: .leading) {
-                    MyProfileHeader(user: $user)
-//                    CameraView(onCapture: { capturedImage in
-//                        user.profilePic = Image(uiImage: capturedImage)
-//                    })
+        ScrollView(.vertical) {
+            VStack(alignment: .leading) {
+                MyProfileHeader(user: $user)
+                //CameraView(onCapture: { capturedImage in
+                //  user.profilePic = Image(uiImage: capturedImage)
+                //})
+                //.padding()
+                ProfileClubsList(user: $user)
+                ProfileFriendsList(user: $user)
+                ProfileFriendRequests(user: $user)
+                Button(action: {
+                    do {
+                        try Auth.auth().signOut()
+                        tD.loggedIn = false
+                    } catch {
+                        print("Error signing out: \(error)")
+                    }
+                }, label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 50)
+                            .foregroundColor(.orange)
+                            .frame(width: 300, height: 60)
+                        Text("Log Out")
+                            .foregroundColor(.white)
+                            .bold()
+                    }
                     .padding()
-                    ProfileClubsList(user: $user)
-                    ProfileFriendsList(user: $user)
-                    ProfileFriendRequests(user: $user)
-                    Button(action: {
-                        do {
-                            try Auth.auth().signOut()
-                            tD.loggedIn = false
-                        } catch {
-                            print("Error signing out: \(error)")
-                        }
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 50)
-                                .foregroundColor(.orange)
-                                .frame(width: 300, height: 60)
-                            Text("Log Out")
-                                .foregroundColor(.white)
-                                .bold()
-                        }
-                        .padding()
-                    })
-                }
+                })
             }
-            .background(Color("LightBlue"))
-//        }
+        }
+        .background(Color("LightBlue"))
     }
 }
 

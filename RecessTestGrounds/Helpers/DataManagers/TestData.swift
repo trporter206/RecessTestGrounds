@@ -16,20 +16,27 @@ class TestData: ObservableObject {
     @Published var currentUser = usersData[0]
     @Published var loggedIn = false
     
+    let activitiesRef = Firestore.firestore().collection("Activities")
+    
     init() {
         getActivities()
     }
     
     func getActivities() {
         activities = []
-        Firestore.firestore().collection("Activities").getDocuments() { querySnapshot, err in
+        activitiesRef.getDocuments() { querySnapshot, err in
             if let err = err {
                 print("Error getting activity documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     do {
                         let activity = try document.data(as: Activity.self)
-                        self.activities.append(activity)
+                        //delete activity if it is older than 24 hours, else add to list
+                        if Date.now.timeIntervalSince(activity.date) > 86400 {
+                            self.activitiesRef.document(activity.id).delete()
+                        } else {
+                            self.activities.append(activity)
+                        }
                     } catch {
                         print("Error decoding activity documents: \(error)")
                     }
@@ -43,7 +50,7 @@ class TestData: ObservableObject {
 
 
 var usersData: [User] = [
-    User(name: "Temp User", email: "test@email.com")
+    User(name: "Temp User", email: "test@email.com", avatar: "3d_avatar_1")
 ]
 
 var activitiesData: [Activity] = [
@@ -66,28 +73,11 @@ var clubsData: [Club] = [
          description: "For Portlanders who are serious weekend warriors looking to improve their game")
 ]
 
-var myAchievements: [String] = [
-    "Gold 1",
-    "Gold",
-    "GoldEmpty",
-    "Medal1",
-    "Star",
-]
-var allAchievements: [String] = [
-    "2 color ribbon",
-    "Black ribbon",
-    "Blue ribbon",
-    "Empty-1",
-    "Empty",
-    "Gold 1",
-    "Gold 2",
-    "Gold",
-    "GoldEmpty",
-    "Green ribbon",
-    "Medal1",
-    "Orange ribbon",
-    "Silver",
-    "Star",
-    "Star1",
-    "Violet ribbon"
+var avatarStrings: [String] = [
+    "3d_avatar_1",
+    "3d_avatar_3",
+    "3d_avatar_18",
+    "3d_avatar_21",
+    "3d_avatar_29",
+    "3d_avatar_30",
 ]

@@ -18,14 +18,14 @@ struct User: Identifiable, Equatable, Codable {
     var clubs: [Club]
     var friends: [User]
     var achievements: [String]
-//    var profilePic: Image? = nil
+    var profilePicString: String
     var points: Int
     var friendRequests: [FriendRequest]
     var numRatings: Int
     var rating: String
     var emailAddress: String
     
-    init(name: String, email: String) {
+    init(name: String, email: String, avatar: String) {
         self.id = UUID().uuidString
         self.name = name
         self.tier = 5
@@ -33,7 +33,7 @@ struct User: Identifiable, Equatable, Codable {
         self.clubs = []
         self.friends = []
         self.achievements = []
-//        self.profilePic = nil
+        self.profilePicString = avatar
         self.points = 0
         self.friendRequests = []
         self.numRatings = 0
@@ -93,7 +93,7 @@ struct User: Identifiable, Equatable, Codable {
     }
     
     func getImage() -> Image {
-        return Image(systemName: "person")
+        return Image(self.profilePicString)
     }
     
     func getName() -> String {
@@ -121,11 +121,13 @@ extension User {
     struct Data {
         var name: String = ""
         var email: String = ""
+        var profilePicString: String = ""
     }
     
     var data: Data {
         Data(name: name,
-             email: emailAddress)
+             email: emailAddress,
+             profilePicString: profilePicString)
     }
     
     //profile pic???
@@ -133,6 +135,7 @@ extension User {
         id = UUID().uuidString
         name = data.name
         emailAddress = data.email
+        profilePicString = data.profilePicString
         tier = 5
         positiveRatingCount = 0
         clubs = []
