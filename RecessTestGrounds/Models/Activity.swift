@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct Activity: Identifiable, Codable {
     var id: String
@@ -48,70 +49,26 @@ struct Activity: Identifiable, Codable {
             playerCount -= 1
         }
     }
-    
-    //GETTERS==============================
-    
-    func getSport() -> String {
-        return self.sport
-    }
-    
-    func getMaxPlayers() -> Int {
-        return self.maxPlayers
-    }
-    
-    func getPlayerCount() -> Int {
-        return self.playerCount
-    }
-    
-    func getDate() -> Date {
-        return self.date
-    }
-    
-    func getDescription() -> String {
-        return self.description
-    }
-    
-    func getCreatorID() -> String {
-        return self.creator
-    }
-    
-    func getCreatorInfo() -> User {
-        var result: [User] = []
-        Firestore.firestore().collection("Users").document(creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Error getting creator info \(error)")
-            } else {
-                do {
-                    let user = try documentSnapshot!.data(as: User.self)
-                    result.append(user)
-                } catch {
-                    print("Error decoding creator info \(error)")
-                }
-            }
-        }
-        return result[0]
-    }
-    
-    func getPlayerInfo(id: String) -> User {
-        var result: [User] = []
-        print("User ID is \(id)")
+}
+
+protocol FirestoreServiceProtocol {
+    func getUserInfo(id: String, completion: @escaping (Result<User, Error>) -> Void)
+}
+
+class FirestoreService: FirestoreServiceProtocol {
+    func getUserInfo(id: String, completion: @escaping (Result<User, Error>) -> Void) {
         Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
             if let error = error {
-                print(error.localizedDescription)
+                completion(.failure(error))
             } else {
                 do {
                     let user = try documentSnapshot!.data(as: User.self)
-                    result.append(user)
+                    completion(.success(user))
                 } catch {
-                    print(error.localizedDescription)
+                    completion(.failure(error))
                 }
             }
         }
-        return result[0]
-    }
-    
-    func getPlayerIDs() -> [String] {
-        return self.players
     }
 }
 

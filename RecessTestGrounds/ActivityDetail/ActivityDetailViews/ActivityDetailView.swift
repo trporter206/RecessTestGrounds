@@ -58,7 +58,7 @@ struct ActivityDetailView: View {
                     }
                     .padding(.leading)
                 }
-                Text("Date: \(activity.getDate().formatted())")
+                Text("Date: \(activity.date.formatted())")
                     .foregroundColor(Color("TextBlue"))
                     .padding(.top)
                 ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)

@@ -37,7 +37,7 @@ struct NextActivityView: View {
                         }
                         .padding([.leading, .trailing])
                         VStack (alignment: .leading) {
-                            Text(activity.getSport()).bold().font(.title)
+                            Text(activity.sport).bold().font(.title)
                             Text("Hosted by \(userInfo.getName())")
                             Divider()
                             HStack {
@@ -46,7 +46,7 @@ struct NextActivityView: View {
                             }
                         }.padding(.trailing)
                     }
-                    Text("\(activity.getPlayerCount())/\(activity.getMaxPlayers()) Players").bold().padding([.leading, .top])
+                    Text("\(activity.playerCount)/\(activity.maxPlayers) Players").bold().padding([.leading, .top])
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(activity.players, id: \.self) { player in
@@ -54,7 +54,7 @@ struct NextActivityView: View {
                             }
                         }.padding([.leading, .trailing])
                     }
-                    Text(activity.getDescription()).padding()
+                    Text(activity.description).padding()
                 }.padding()
             }
             .foregroundColor(Color("TextBlue"))
