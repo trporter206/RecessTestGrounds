@@ -11,6 +11,7 @@ import CoreLocation
 struct DashboardView: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
+    @State var showingMap = false
     
     var body: some View {
         NavigationStack {
@@ -18,40 +19,51 @@ struct DashboardView: View {
                 MyProfileHeader(user: $tD.currentUser)
                 VStack() {
                     //players do not contain currentuserID
-                    Text("Nearby Activities")
-                        .modifier(SectionHeader())
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach($tD.activities) { $activity in
-                                if !$activity.wrappedValue.players.contains(tD.currentUser.id) {
-                                    ActivityListItem(activity: $activity)
-                                        .environmentObject(lM)
-                                        .environmentObject(tD)
-                                        .padding(.trailing)
+                    Button(action: {
+                        showingMap.toggle()
+                    }, label: {
+                        Text("Show Map")
+                            .foregroundColor({showingMap ? Color.red : Color.green}())
+                    })
+                    if showingMap {
+                        DashboardMapView()
+                            .frame(height: 260)
+                    } else {
+                        Text("Nearby Activities")
+                            .modifier(SectionHeader())
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach($tD.activities) { $activity in
+                                    if !$activity.wrappedValue.players.contains(tD.currentUser.id) {
+                                        ActivityListItem(activity: $activity)
+                                            .environmentObject(lM)
+                                            .environmentObject(tD)
+                                            .padding(.trailing)
+                                    }
                                 }
                             }
+                            .padding()
                         }
-                        .padding()
-                    }
-                    //index 0 for activities containing currentuser ID, sorted by date
-                    Text("Your Next Activity")
-                        .modifier(SectionHeader())
-                    if scheduled().count > 0 {
-                        NextActivityView(activity: scheduled()[0])
-                            .environmentObject(lM)
-                            .environmentObject(tD)
-                    }
-                    Text("Scheduled Activities")
-                        .modifier(SectionHeader())
-                    ForEach(scheduled().dropFirst()) { $activity in
-                        if $activity.wrappedValue.players.contains(tD.currentUser.id) {
-                            ActivityListItem(activity: $activity)
+                        //index 0 for activities containing currentuser ID, sorted by date
+                        Text("Your Next Activity")
+                            .modifier(SectionHeader())
+                        if scheduled().count > 0 {
+                            NextActivityView(activity: scheduled()[0])
                                 .environmentObject(lM)
                                 .environmentObject(tD)
-                                .padding([.leading, .trailing])
                         }
+                        Text("Scheduled Activities")
+                            .modifier(SectionHeader())
+                        ForEach(scheduled().dropFirst()) { $activity in
+                            if $activity.wrappedValue.players.contains(tD.currentUser.id) {
+                                ActivityListItem(activity: $activity)
+                                    .environmentObject(lM)
+                                    .environmentObject(tD)
+                                    .padding([.leading, .trailing])
+                            }
+                        }
+                        .padding(.bottom)
                     }
-                    .padding(.bottom)
                 }
             }
             .background(Color("LightBlue"))

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import MapKit
 
 struct Activity: Identifiable, Codable {
     var id: String
