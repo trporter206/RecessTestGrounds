@@ -18,7 +18,6 @@ struct DashboardView: View {
             ScrollView(.vertical) {
                 MyProfileHeader(user: $tD.currentUser)
                 VStack() {
-                    //players do not contain currentuserID
                     Button(action: {
                         showingMap.toggle()
                     }, label: {
@@ -27,7 +26,7 @@ struct DashboardView: View {
                     })
                     if showingMap {
                         DashboardMapView()
-                            .frame(height: 260)
+                            .frame(height: 500)
                     } else {
                         Text("Nearby Activities")
                             .modifier(SectionHeader())
@@ -44,7 +43,6 @@ struct DashboardView: View {
                             }
                             .padding()
                         }
-                        //index 0 for activities containing currentuser ID, sorted by date
                         Text("Your Next Activity")
                             .modifier(SectionHeader())
                         if scheduled().count > 0 {

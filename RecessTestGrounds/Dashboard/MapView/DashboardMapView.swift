@@ -8,25 +8,120 @@
 import SwiftUI
 import MapKit
 
-struct DashboardMapView: View {
+//struct DashboardMapView: View {
+//    @EnvironmentObject var lM: LocationManager
+//    @EnvironmentObject var tD: TestData
+//
+//    @State private var region = MKCoordinateRegion(
+//        center: CLLocationCoordinate2D(latitude: 49.267155, longitude: -123.116873),
+//        span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
+//    )
+//
+//    var body: some View {
+//        Map(coordinateRegion: $region, annotationItems: $tD.activities) { $activity in
+//            MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: activity.coordinates[0], longitude: activity.coordinates[1])) {
+//                NavigationLink(destination: ActivityDetailView(activity: $activity), label: {
+//                    ActivityAnnotationView(activity: activity)
+//                })
+//            }
+//        }
+//        .onAppear {
+//            if lM.locationManager?.location != nil {
+//                let coords = lM.locationManager!.location?.coordinate
+//                region = MKCoordinateRegion(
+//                    center: CLLocationCoordinate2D(latitude: coords!.latitude, longitude: coords!.longitude),
+//                    span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
+//            }
+//        }
+//    }
+//}
+//
+//struct DashboardMapView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DashboardMapView()
+//            .environmentObject(TestData())
+//    }
+//}
+
+class DashboardMapCoordinator: NSObject, MKMapViewDelegate {
+    var dashboardMapView: DashboardMapView
+
+    init(_ dashboardMapView: DashboardMapView) {
+        self.dashboardMapView = dashboardMapView
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let activityAnnotation = annotation as? ActivityAnnotation {
+            let identifier = "ActivityAnnotationView"
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            
+            let customView = ActivityAnnotationView(activity: activityAnnotation.activity)
+            
+            let hostingController = UIHostingController(rootView: customView)
+            hostingController.view.backgroundColor = .clear
+            hostingController.view.frame = CGRect(origin: .zero, size: customView.frameSize)
+            
+            annotationView.addSubview(hostingController.view)
+            annotationView.frame = hostingController.view.frame
+            annotationView.clusteringIdentifier = "activity"
+            
+            return annotationView
+        } else if let cluster = annotation as? MKClusterAnnotation {
+            let identifier = "Cluster"
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView.displayPriority = .defaultHigh
+            annotationView.clusteringIdentifier = "activity"
+            annotationView.glyphText = "\(cluster.memberAnnotations.count)"
+            annotationView.markerTintColor = UIColor(named: "TextBlue")
+            return annotationView
+        }
+        
+        return nil
+    }
+}
+
+
+
+struct DashboardMapView: UIViewRepresentable {
+    @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
-    
+
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 45.568978, longitude: -122.673523),
+        center: CLLocationCoordinate2D(latitude: 49.267155, longitude: -123.116873),
         span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
     )
 
-    var body: some View {
-        VStack {
-            Text("\(activitiesData.count) Activities")
-            Map(coordinateRegion: $region, annotationItems: tD.activities) { activity in
-                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: activity.coordinates[0], longitude: activity.coordinates[1])) {
-                    ActivityAnnotationView(activity: activity)
-                }
-            }
+    func makeCoordinator() -> DashboardMapCoordinator {
+        DashboardMapCoordinator(self)
+    }
+
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        mapView.showsUserLocation = true
+
+        // Set the initial region to user's location if available
+        if let userLocation = lM.locationManager?.location?.coordinate {
+            region = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
+                span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+            )
         }
+
+        return mapView
+    }
+
+    func updateUIView(_ view: MKMapView, context: Context) {
+        view.setRegion(region, animated: true)
+
+        let existingAnnotations = view.annotations
+        view.removeAnnotations(existingAnnotations)
+
+        let newAnnotations = tD.activities.map { ActivityAnnotation(activity: $0) }
+        view.addAnnotations(newAnnotations)
     }
 }
+
 
 struct DashboardMapView_Previews: PreviewProvider {
     static var previews: some View {
