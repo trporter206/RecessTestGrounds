@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import FirebaseFirestore
 
 struct ActivityAnnotationView: View {
     var activity: Activity
@@ -22,19 +23,18 @@ struct ActivityAnnotationView: View {
     
     var body: some View {
             VStack {
-                ZStack {
-                    Circle()
+                ProfilePicView(user: activity.creator, height: 35)
+                VStack {
+                    Text(activity.sport)
+                        .font(.subheadline)
                         .foregroundColor(.white)
-                        .frame(height: 35)
-                    getIcon(activity.sport)
-                    
+                    Text("\(activity.date.formatted(.dateTime.day().month()))")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
                 }
-                Text(activity.sport)
-                    .font(.subheadline)
-                    .foregroundColor(.white)
-                    .padding(5)
-                    .background(Color("TextBlue"))
-                    .cornerRadius(5)
+                .padding(8)
+                .background(Color("TextBlue"))
+                .cornerRadius(5)
             }
             .frame(width: frameSize.width, height: frameSize.height)
         }
@@ -50,6 +50,23 @@ extension ActivityAnnotationView {
             Image(systemName: "figure.run").foregroundColor(Color("TextBlue"))
         }
         
+    }
+    
+    func getCreatorIcon() -> some View {
+        var imageString = ""
+        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print("Error getting creator info: \(error)")
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    imageString = user.profilePicString
+                } catch {
+                    print("Error decoding creator info: \(error)")
+                }
+            }
+        }
+        return Image(systemName: imageString)
     }
 }
 

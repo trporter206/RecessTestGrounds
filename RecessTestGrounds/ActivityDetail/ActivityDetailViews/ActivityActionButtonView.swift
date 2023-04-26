@@ -90,19 +90,6 @@ extension ActivityActionButtonView {
             "playerCount" : FieldValue.increment(Int64(-1))
         ])
     }
-    
-    @ViewBuilder
-    func ActivityButton(_ text: String) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 50)
-                .foregroundColor(.orange)
-                .frame(width: 300, height: 60)
-            Text(text)
-                .foregroundColor(.white)
-                .bold()
-        }
-        .padding()
-    }
 }
 
 struct ActivityActionButtonView_Previews: PreviewProvider {

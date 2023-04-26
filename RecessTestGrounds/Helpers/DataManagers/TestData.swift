@@ -81,3 +81,14 @@ var avatarStrings: [String] = [
     "3d_avatar_29",
     "3d_avatar_30",
 ]
+
+var sportOptions: [String] = [
+    "Basketball",
+    "Soccer",
+    "Volleyball",
+    "Spikeball",
+    "Football",
+    "Baseball",
+    "Tennis",
+    "Rugby"
+]

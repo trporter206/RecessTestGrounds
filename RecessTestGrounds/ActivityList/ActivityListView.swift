@@ -20,6 +20,7 @@ struct ActivityListView: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(Color("TextBlue"))
+                    .padding()
                 VStack() {
                     NavigationLink(destination: CreateActivityView().environmentObject(lM)
                         .environmentObject(tD), label: {

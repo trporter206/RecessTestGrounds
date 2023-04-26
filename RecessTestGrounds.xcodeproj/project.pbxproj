@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D7116BFF29F8482F00017DFC /* ActivityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */; };
-		D71DB74C29F6E1320030338D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
-		D71DB74F29F6E5770030338D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
+		D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116C0029F872AB00017DFC /* PlayerProfile.swift */; };
+		D7116C0529F8990500017DFC /* ActivityFormFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116C0429F8990500017DFC /* ActivityFormFields.swift */; };
 		D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */; };
-		D74DA36F29F3363600E1C282 /* RecessTestGroundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74DA36E29F3363600E1C282 /* RecessTestGroundsTests.swift */; };
-		D74DA37529F3364700E1C282 /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74DA36629F335DB00E1C282 /* ActivityTests.swift */; };
+		D742A2F529F97EA100CFAF8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
 		D74DA37629F3371500E1C282 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329429D5216600DD2F05 /* Activity.swift */; };
 		D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91229E64B0600A9EE8F /* CreateUserView.swift */; };
 		D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91629E7589100A9EE8F /* LoginView.swift */; };
@@ -81,10 +80,10 @@
 
 /* Begin PBXFileReference section */
 		D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationView.swift; sourceTree = "<group>"; };
+		D7116C0029F872AB00017DFC /* PlayerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfile.swift; sourceTree = "<group>"; };
+		D7116C0429F8990500017DFC /* ActivityFormFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormFields.swift; sourceTree = "<group>"; };
 		D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
-		D74DA36629F335DB00E1C282 /* ActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTests.swift; sourceTree = "<group>"; };
 		D74DA36C29F3363600E1C282 /* RecessTestGroundsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecessTestGroundsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D74DA36E29F3363600E1C282 /* RecessTestGroundsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecessTestGroundsTests.swift; sourceTree = "<group>"; };
 		D76CF91229E64B0600A9EE8F /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		D76CF91629E7589100A9EE8F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
@@ -164,19 +163,11 @@
 		D7116BFB29F8464300017DFC /* MapView */ = {
 			isa = PBXGroup;
 			children = (
+				D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */,
 				D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */,
 				D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */,
 			);
 			path = MapView;
-			sourceTree = "<group>";
-		};
-		D74DA36D29F3363600E1C282 /* RecessTestGroundsTests */ = {
-			isa = PBXGroup;
-			children = (
-				D74DA36629F335DB00E1C282 /* ActivityTests.swift */,
-				D74DA36E29F3363600E1C282 /* RecessTestGroundsTests.swift */,
-			);
-			path = RecessTestGroundsTests;
 			sourceTree = "<group>";
 		};
 		D78373CC29E50AD800FE3074 /* Activity */ = {
@@ -184,6 +175,7 @@
 			children = (
 				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
 				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
+				D7116C0429F8990500017DFC /* ActivityFormFields.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -192,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				D78D328229D51F0C00DD2F05 /* RecessTestGrounds */,
-				D74DA36D29F3363600E1C282 /* RecessTestGroundsTests */,
 				D78D328129D51F0C00DD2F05 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -210,9 +201,12 @@
 			isa = PBXGroup;
 			children = (
 				D7BF82C629E4B31D0064A7A5 /* GoogleService-Info.plist */,
+				D7C814DC29D9F49E00C7DF7A /* Info.plist */,
+				D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */,
+				D78D328529D51F0C00DD2F05 /* ContentView.swift */,
+				D78D328729D51F0D00DD2F05 /* Assets.xcassets */,
 				D7BF82C129E4AB620064A7A5 /* CreationViews */,
 				D7C814DF29D9F5F200C7DF7A /* Helpers */,
-				D7C814DC29D9F49E00C7DF7A /* Info.plist */,
 				D7C814D629D89FF300C7DF7A /* Achievements */,
 				D7C814D329D7A20000C7DF7A /* ClubDetail */,
 				D7C814D029D765B700C7DF7A /* ActivityDetail */,
@@ -221,9 +215,6 @@
 				D78D32A729D60C8500DD2F05 /* ClubsList */,
 				D78D329629D5227F00DD2F05 /* Dashboard */,
 				D78D329129D51F7400DD2F05 /* Models */,
-				D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */,
-				D78D328529D51F0C00DD2F05 /* ContentView.swift */,
-				D78D328729D51F0D00DD2F05 /* Assets.xcassets */,
 				D78D328929D51F0D00DD2F05 /* Preview Content */,
 			);
 			path = RecessTestGrounds;
@@ -255,7 +246,6 @@
 				D78D329B29D5251100DD2F05 /* DashboardView.swift */,
 				D78D329F29D54AE700DD2F05 /* NextActivityView.swift */,
 				D78D32A329D600A300DD2F05 /* ProfilePicView.swift */,
-				D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -285,6 +275,7 @@
 				D7B9CAD129EF287A0085BD72 /* ProfileListVIews */,
 				D78D32B429D6747600DD2F05 /* MyProfileView.swift */,
 				D7C814E229DA21FE00C7DF7A /* CameraView.swift */,
+				D7116C0029F872AB00017DFC /* PlayerProfile.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -490,7 +481,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D71DB74F29F6E5770030338D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +489,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D78D328B29D51F0D00DD2F05 /* Preview Assets.xcassets in Resources */,
-				D71DB74C29F6E1320030338D /* Assets.xcassets in Resources */,
+				D742A2F529F97EA100CFAF8A /* Assets.xcassets in Resources */,
 				D7BF82C729E4B31D0064A7A5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,8 +502,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D74DA37629F3371500E1C282 /* Activity.swift in Sources */,
-				D74DA37529F3364700E1C282 /* ActivityTests.swift in Sources */,
-				D74DA36F29F3363600E1C282 /* RecessTestGroundsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +519,7 @@
 				D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */,
 				D7B9CAD429EF28D90085BD72 /* RatingView.swift in Sources */,
 				D7B9CAD629EF2A120085BD72 /* PointsView.swift in Sources */,
+				D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */,
 				D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */,
 				D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */,
 				D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */,
@@ -553,6 +542,7 @@
 				D7C5873229DBCD1400EC9955 /* ActivityDetailHeader.swift in Sources */,
 				D7C5872429DB692F00EC9955 /* ActivityActionButtonView.swift in Sources */,
 				D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */,
+				D7116C0529F8990500017DFC /* ActivityFormFields.swift in Sources */,
 				D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,

@@ -42,7 +42,7 @@ struct NextActivityView: View {
                             Divider()
                             HStack {
                                 Spacer()
-                                Text("Mar 7, 2:30pm").fontWeight(.light)
+                                Text(activity.date.formatted()).fontWeight(.light)
                             }
                         }.padding(.trailing)
                     }
@@ -59,6 +59,9 @@ struct NextActivityView: View {
             }
             .foregroundColor(Color("TextBlue"))
         })
+        .onAppear {
+            getCreatorInfo()
+        }
     }
 }
 
@@ -82,5 +85,7 @@ extension NextActivityView {
 struct NextActivityView_Previews: PreviewProvider {
     static var previews: some View {
         NextActivityView(activity: .constant(activitiesData[0]))
+            .environmentObject(LocationManager())
+            .environmentObject(TestData())
     }
 }

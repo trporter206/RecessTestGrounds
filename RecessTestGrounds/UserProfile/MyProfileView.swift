@@ -14,7 +14,7 @@ import FirebaseFirestore
 struct MyProfileView: View {
     @EnvironmentObject var tD: TestData
     @Binding var user: User
-    @State private var image = Image(systemName: "camera")
+//    @State private var image = Image(systemName: "camera")
     
     var body: some View {
         ScrollView(.vertical) {

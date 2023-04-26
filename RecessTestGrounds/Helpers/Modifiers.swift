@@ -38,7 +38,7 @@ struct SectionHeader: ViewModifier {
             .font(.title3)
             .bold()
             .foregroundColor(Color("TextBlue"))
-            .padding()
+            .padding([[.top, .horizontal]])
     }
 }
 
@@ -52,4 +52,17 @@ struct FormField: ViewModifier {
                 .frame(height: 30))
             .padding()
     }
+}
+
+@ViewBuilder
+func ActivityButton(_ text: String) -> some View {
+    ZStack {
+        RoundedRectangle(cornerRadius: 50)
+            .foregroundColor(.orange)
+            .frame(width: 300, height: 60)
+        Text(text)
+            .foregroundColor(.white)
+            .bold()
+    }
+    .padding()
 }
