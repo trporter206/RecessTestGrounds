@@ -34,6 +34,21 @@ struct ActivityListView: View {
                         }
                         .padding()
                     })
+                    Text("Activities Starting Soon")
+                        .modifier(SectionHeader())
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach($tD.activities.filter({isDateWithinNext24Hours($0.date.wrappedValue)})) { $activity in
+                                if !$activity.wrappedValue.players.contains(tD.currentUser.id) {
+                                    ActivityListItem(activity: $activity)
+                                        .environmentObject(lM)
+                                        .environmentObject(tD)
+                                        .padding(.trailing)
+                                }
+                            }
+                        }
+                        .padding()
+                    }
                     Text("Looking for 1 more")
                         .modifier(SectionHeader())
                     ScrollView(.horizontal) {
@@ -65,6 +80,21 @@ struct ActivityListView: View {
 }
 
 extension ActivityListView {
+    func isDateWithinNext24Hours(_ date: Date) -> Bool {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        // Add 24 hours to the current date
+        if let date24HoursLater = calendar.date(byAdding: .hour, value: 24, to: currentDate) {
+            // Check if the given date is between the current date and the date 24 hours later
+            if date >= currentDate && date <= date24HoursLater {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     func distanceToKilometers(activity: Binding<Activity>) -> Double {
         let distance = lM.locationManager?.location?
             .distance(from:

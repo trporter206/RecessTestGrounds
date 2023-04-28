@@ -19,6 +19,7 @@ struct RatingView: View {
                 .padding(.top)
                 .multilineTextAlignment(.center)
             Divider().padding([.leading, .trailing,.bottom])
+            Spacer()
         }
         .background(Color("LightBlue"))
     }

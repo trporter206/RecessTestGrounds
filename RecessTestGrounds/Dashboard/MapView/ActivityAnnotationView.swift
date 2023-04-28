@@ -22,22 +22,22 @@ struct ActivityAnnotationView: View {
     }
     
     var body: some View {
+        VStack {
+            ProfilePicView(user: activity.creator, height: 35)
             VStack {
-                ProfilePicView(user: activity.creator, height: 35)
-                VStack {
-                    Text(activity.sport)
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                    Text("\(activity.date.formatted(.dateTime.day().month()))")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                }
-                .padding(8)
-                .background(Color("TextBlue"))
-                .cornerRadius(5)
+                Text(activity.sport)
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                Text("\(activity.date.formatted(.dateTime.day().month()))")
+                    .font(.subheadline)
+                    .foregroundColor(.white)
             }
-            .frame(width: frameSize.width, height: frameSize.height)
+            .padding(8)
+            .background(Color("TextBlue"))
+            .cornerRadius(5)
         }
+        .frame(width: frameSize.width, height: frameSize.height)
+    }
 }
 
 extension ActivityAnnotationView {

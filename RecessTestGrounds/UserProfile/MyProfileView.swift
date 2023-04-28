@@ -25,8 +25,17 @@ struct MyProfileView: View {
                 //})
                 //.padding()
                 ProfileClubsList(user: $user)
+                Text("Coming Soon!")
+                    .foregroundColor(Color("TextBlue"))
+                    .padding(.horizontal)
                 ProfileFriendsList(user: $user)
+                Text("Coming Soon!")
+                    .foregroundColor(Color("TextBlue"))
+                    .padding(.horizontal)
                 ProfileFriendRequests(user: $user)
+                Text("Coming Soon!")
+                    .foregroundColor(Color("TextBlue"))
+                    .padding(.horizontal)
                 Button(action: {
                     do {
                         try Auth.auth().signOut()

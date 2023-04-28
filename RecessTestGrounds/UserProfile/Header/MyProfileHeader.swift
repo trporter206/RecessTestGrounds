@@ -20,9 +20,6 @@ struct MyProfileHeader: View {
                             .font(.largeTitle)
                             .bold()
                         Spacer()
-                        Image(systemName: "gearshape")
-                            .padding(.trailing)
-                            .font(.system(size: 25))
                     }
                     HStack {
                         NavigationLink(destination: TierView(), label: {
@@ -40,14 +37,11 @@ struct MyProfileHeader: View {
                                 .foregroundColor(.orange)
                         })
                     }
-                    Rectangle()
-                        .frame(height: 10)
-                        .padding([.trailing])
                 }
             }
             .padding(.bottom)
         }
-        .padding([.top], 60)
+        .padding([.top], 50)
         .background(Color("TextBlue"))
         .foregroundColor(.white)
     }

@@ -30,30 +30,14 @@ struct DashboardView: View {
                     } else {
                         if scheduled().count > 0 {
                             Text("Your Next Activity")
+                                .modifier(SectionHeader())
                             NextActivityView(activity: scheduled()[0])
                                 .environmentObject(lM)
                                 .environmentObject(tD)
                         } else {
                             Text("No Activities Scheduled")
                         }
-                        Text("Activities Starting Soon")
-                            .modifier(SectionHeader())
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach($tD.activities.filter({isDateWithinNext24Hours($0.date.wrappedValue)})) { $activity in
-                                    if !$activity.wrappedValue.players.contains(tD.currentUser.id) {
-                                        ActivityListItem(activity: $activity)
-                                            .environmentObject(lM)
-                                            .environmentObject(tD)
-                                            .padding(.trailing)
-                                    }
-                                }
-                            }
-                            .padding()
-                        }
-                            .modifier(SectionHeader())
-                        
-                        Text("Other Scheduled Activities: \(scheduled().dropFirst().count)")
+                        Text("Your Scheduled Activities: \(scheduled().dropFirst().count)")
                             .modifier(SectionHeader())
                         ForEach(scheduled().dropFirst()) { $activity in
                             if $activity.wrappedValue.players.contains(tD.currentUser.id) {
@@ -73,20 +57,6 @@ struct DashboardView: View {
 }
 
 extension DashboardView {
-    func isDateWithinNext24Hours(_ date: Date) -> Bool {
-        let currentDate = Date()
-        let calendar = Calendar.current
-        
-        // Add 24 hours to the current date
-        if let date24HoursLater = calendar.date(byAdding: .hour, value: 24, to: currentDate) {
-            // Check if the given date is between the current date and the date 24 hours later
-            if date >= currentDate && date <= date24HoursLater {
-                return true
-            }
-        }
-        
-        return false
-    }
     
     func scheduled() -> [Binding<Activity>] {
         var results: [Binding<Activity>] = []
