@@ -57,13 +57,15 @@ struct CreateClubView: View {
 extension CreateClubView {
     func createClub(club: Club) {
         let id = UUID().uuidString
+        let members: [User]  = []
+        let upcomingActivities: [Activity] = []
         Firestore.firestore().collection("Clubs").document(id).setData([
             "id" : id,
             "creator" : tD.currentUser.id,
             "name" : club.name,
             "sport" : club.sport,
-            "members" : [],
-            "upcomingActivities" : [],
+            "members" : members,
+            "upcomingActivities" : upcomingActivities,
             "numActivities" : 0,
             "type" : club.type,
             "description" : club.description,

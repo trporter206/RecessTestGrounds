@@ -8,41 +8,6 @@
 import SwiftUI
 import MapKit
 
-//struct DashboardMapView: View {
-//    @EnvironmentObject var lM: LocationManager
-//    @EnvironmentObject var tD: TestData
-//
-//    @State private var region = MKCoordinateRegion(
-//        center: CLLocationCoordinate2D(latitude: 49.267155, longitude: -123.116873),
-//        span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
-//    )
-//
-//    var body: some View {
-//        Map(coordinateRegion: $region, annotationItems: $tD.activities) { $activity in
-//            MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: activity.coordinates[0], longitude: activity.coordinates[1])) {
-//                NavigationLink(destination: ActivityDetailView(activity: $activity), label: {
-//                    ActivityAnnotationView(activity: activity)
-//                })
-//            }
-//        }
-//        .onAppear {
-//            if lM.locationManager?.location != nil {
-//                let coords = lM.locationManager!.location?.coordinate
-//                region = MKCoordinateRegion(
-//                    center: CLLocationCoordinate2D(latitude: coords!.latitude, longitude: coords!.longitude),
-//                    span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2))
-//            }
-//        }
-//    }
-//}
-//
-//struct DashboardMapView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DashboardMapView()
-//            .environmentObject(TestData())
-//    }
-//}
-
 class DashboardMapCoordinator: NSObject, MKMapViewDelegate {
     var dashboardMapView: DashboardMapView
 
