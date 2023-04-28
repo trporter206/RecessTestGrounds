@@ -15,7 +15,7 @@ struct ActivityReviewPlayerItem: View {
     
     var body: some View {
         HStack {
-            ProfilePicView(user: playerList[playerIndex].id, height: 60)
+            ProfilePicView(profileString: playerList[playerIndex].profilePicString, height: 60)
             Text(playerList[playerIndex].name).foregroundColor(Color("TextBlue"))
             Spacer()
             Button(action: {

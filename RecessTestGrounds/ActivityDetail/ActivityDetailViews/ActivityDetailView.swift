@@ -23,7 +23,7 @@ struct ActivityDetailView: View {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
                 HStack {
-                    ProfilePicView(user: activity.creator, height: 90)
+                    ProfilePicView(profileString: userInfo.profilePicString, height: 90)
                     VStack {
                         Text(activity.sport)
                             .foregroundColor(Color("TextBlue"))
@@ -53,7 +53,7 @@ struct ActivityDetailView: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach($playerlist) { $player in
-                            ProfilePicView(user: $player.wrappedValue.id, height: 60)
+                            ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
                         }
                     }
                     .padding(.leading)

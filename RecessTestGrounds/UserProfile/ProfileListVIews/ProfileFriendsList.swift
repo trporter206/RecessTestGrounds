@@ -18,7 +18,7 @@ struct ProfileFriendsList: View {
                 HStack {
                     ForEach(user.friends) { friend in
                         VStack {
-                            ProfilePicView(user: friend.id, height: 90)
+                            ProfilePicView(profileString: friend.profilePicString, height: 90)
                             Text(friend.name)
                         }
                         .padding(.leading)

@@ -7,11 +7,13 @@
 
 import SwiftUI
 import CoreLocation
+import FirebaseFirestore
 
 struct ActivityListItem: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
+    @State var userInfo = usersData[0]
     
     let dateFormatter = DateFormatter()
     
@@ -19,7 +21,7 @@ struct ActivityListItem: View {
         NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
             .environmentObject(tD), label: {
             HStack {
-                ProfilePicView(user: activity.creator, height: 90)
+                ProfilePicView(profileString: userInfo.profilePicString, height: 90)
                 VStack(alignment: .leading) {
                     Text(activity.sport)
                         .font(.title)
@@ -51,6 +53,21 @@ struct ActivityListItem: View {
 }
 
 extension ActivityListItem {
+    func getCreatorInfo() {
+        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print("Error getting creator info: \(error)")
+            } else {
+                do {
+                    let user = try documentSnapshot!.data(as: User.self)
+                    userInfo = user
+                } catch {
+                    print("Error decoding creator info: \(error)")
+                }
+            }
+        }
+    }
+    
     func convertDistanceToDouble(_ distance: CLLocationDistance) -> Double {
         let distanceInMeters = distance.rounded()
         let distanceInKilometers = distanceInMeters / 1000

@@ -13,6 +13,7 @@ struct NextActivityView: View {
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
     @State var userInfo: User = usersData[0]
+    @State var profileStrings: [String] = []
     
     var body: some View {
         NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
@@ -26,7 +27,7 @@ struct NextActivityView: View {
                 VStack (alignment: .leading) {
                     HStack {
                         ZStack(alignment: .bottomTrailing) {
-                            ProfilePicView(user: activity.creator, height: 90)
+                            ProfilePicView(profileString: userInfo.profilePicString, height: 90)
                             Text("\(userInfo.points)")
                                 .foregroundColor(.orange)
                                 .fontWeight(.heavy)
@@ -49,8 +50,8 @@ struct NextActivityView: View {
                     Text("\(activity.playerCount)/\(activity.maxPlayers) Players").bold().padding([.leading, .top])
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach(activity.players, id: \.self) { player in
-                                ProfilePicView(user: player, height: 60)
+                            ForEach(profileStrings, id: \.self) { str in
+                                ProfilePicView(profileString: str, height: 60)
                             }
                         }.padding([.leading, .trailing])
                     }
@@ -61,11 +62,31 @@ struct NextActivityView: View {
         })
         .onAppear {
             getCreatorInfo()
+            getProfileStrings()
         }
     }
 }
 
 extension NextActivityView {
+    func getProfileStrings() {
+        profileStrings = []
+        for player in activity.players {
+            Firestore.firestore().collection("Users").document(player).getDocument() { documentSnapshot, error in
+                if let error = error {
+                    print("Erro getting creator info \(error)")
+                } else {
+                    do {
+                        let user = try documentSnapshot!.data(as: User.self)
+                        profileStrings.append(user.profilePicString)
+                    } catch {
+                        print("Erro decoding creator info \(error)")
+                    }
+                }
+            }
+        }
+    }
+
+    
     func getCreatorInfo() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {

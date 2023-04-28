@@ -12,7 +12,7 @@ struct MyProfileHeader: View {
     var body: some View {
         VStack {
             HStack {
-                ProfilePicView(user: user.id, height: 90)
+                ProfilePicView(profileString: user.profilePicString, height: 90)
                     .padding([.leading])
                 VStack(alignment: .leading) {
                     HStack {

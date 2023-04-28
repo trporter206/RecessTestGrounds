@@ -125,9 +125,8 @@ extension CreateUserView {
     }
     
     func createUser(user: User) {
-        let id = UUID().uuidString
-        Firestore.firestore().collection("Users").document(id).setData([
-            "id" : id,
+        Firestore.firestore().collection("Users").document(user.id).setData([
+            "id" : user.id,
             "name" : user.name,
             "tier" : user.tier,
             "positiveRatingCount" : user.positiveRatingCount,

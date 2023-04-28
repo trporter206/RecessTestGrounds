@@ -15,7 +15,7 @@ struct ActivityDetailHeader: View {
     var body: some View {
         VStack {
             HStack {
-                ProfilePicView(user: activity.creator, height: 90)
+                ProfilePicView(profileString: userInfo.profilePicString, height: 90)
                 VStack {
                     Text(activity.sport)
                         .foregroundColor(Color("TextBlue"))

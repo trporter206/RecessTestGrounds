@@ -12,7 +12,7 @@ struct ClubMemberListItem: View {
     
     var body: some View {
         VStack {
-            ProfilePicView(user: member.id, height: 90)
+            ProfilePicView(profileString: member.profilePicString, height: 90)
             Text(member.name.split(separator: " ")[0])
         }
     }

@@ -18,7 +18,7 @@ struct ProfileFriendRequests: View {
                 HStack {
                     ForEach($user.friendRequests) { $request in
                         VStack {
-                            ProfilePicView(user: request.sender.id, height: 60)
+                            ProfilePicView(profileString: request.sender.profilePicString, height: 60)
                             Button("Accept") {
                                 user.acceptRequest(request: request)
                             }

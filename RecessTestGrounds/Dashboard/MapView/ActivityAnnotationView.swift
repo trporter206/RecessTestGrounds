@@ -14,6 +14,7 @@ struct ActivityAnnotationView: View {
     dynamic var coordinate: CLLocationCoordinate2D
     var title: String
     var frameSize: CGSize = CGSize(width: 100, height: 60)
+    @State var imageString = ""
     
     init(activity: Activity) {
         self.activity = activity
@@ -23,7 +24,7 @@ struct ActivityAnnotationView: View {
     
     var body: some View {
         VStack {
-            ProfilePicView(user: activity.creator, height: 35)
+            ProfilePicView(profileString: imageString, height: 35)
             VStack {
                 Text(activity.sport)
                     .font(.subheadline)
@@ -52,8 +53,7 @@ extension ActivityAnnotationView {
         
     }
     
-    func getCreatorIcon() -> some View {
-        var imageString = ""
+    func getCreatorIcon() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {
                 print("Error getting creator info: \(error)")
@@ -66,7 +66,6 @@ extension ActivityAnnotationView {
                 }
             }
         }
-        return Image(systemName: imageString)
     }
 }
 
