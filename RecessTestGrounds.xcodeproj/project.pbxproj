@@ -423,6 +423,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				D71B80A629FF0A7600E9BC4F /* PBXTargetDependency */,
+				D71B80A429FF0A6E00E9BC4F /* PBXTargetDependency */,
+				D71B80A229FF0A6800E9BC4F /* PBXTargetDependency */,
 			);
 			name = RecessTestGrounds;
 			packageProductDependencies = (
@@ -566,6 +569,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D71B80A229FF0A6800E9BC4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D71B80A129FF0A6800E9BC4F /* FirebaseFirestoreSwift */;
+		};
+		D71B80A429FF0A6E00E9BC4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D71B80A329FF0A6E00E9BC4F /* FirebaseAuth */;
+		};
+		D71B80A629FF0A7600E9BC4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D71B80A529FF0A7600E9BC4F /* FirebaseFirestore */;
+		};
 		D74DA37129F3363600E1C282 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D78D327F29D51F0C00DD2F05 /* RecessTestGrounds */;
@@ -846,6 +861,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D71B80A129FF0A6800E9BC4F /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		D71B80A329FF0A6E00E9BC4F /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D71B80A529FF0A7600E9BC4F /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		D7BF82B929E4A96E0064A7A5 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
