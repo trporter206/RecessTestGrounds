@@ -16,7 +16,7 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                MyProfileHeader(user: $tD.currentUser)
+                MyProfileHeader(user: tD.currentUser)
                 VStack() {
                     Button(action: {
                         showingMap.toggle()

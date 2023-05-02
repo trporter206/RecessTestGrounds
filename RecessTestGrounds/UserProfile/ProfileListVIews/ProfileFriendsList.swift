@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ProfileFriendsList: View {
-    @Binding var user: User
+    var user: User
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Your Friends")
+            Text("Friends List")
                 .modifier(SectionHeader())
             ScrollView(.horizontal) {
                 HStack {
@@ -31,6 +31,6 @@ struct ProfileFriendsList: View {
 
 struct ProfileFriendsList_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileFriendsList(user: .constant(usersData[0]))
+        ProfileFriendsList(user: usersData[0])
     }
 }

@@ -12,11 +12,12 @@ struct PlayerProfile: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading) {
-                MyProfileHeader(user: $player)
-                ProfileClubsList(user: $player)
-                ProfileFriendsList(user: $player)
+                MyProfileHeader(user: player)
+//                ProfileClubsList(user: $player)
+                ProfileFriendsList(user: player)
             }
         }
+        .background(Color("LightBlue"))
     }
 }
 

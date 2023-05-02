@@ -23,20 +23,22 @@ struct ActivityAnnotationView: View {
     }
     
     var body: some View {
-        VStack {
-            ProfilePicView(profileString: imageString, height: 35)
+        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity), label: {
             VStack {
-                Text(activity.sport)
-                    .font(.subheadline)
-                    .foregroundColor(.white)
-                Text("\(activity.date.formatted(.dateTime.day().month()))")
-                    .font(.subheadline)
-                    .foregroundColor(.white)
+                ProfilePicView(profileString: imageString, height: 35)
+                VStack {
+                    Text(activity.sport)
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                    Text("\(activity.date.formatted(.dateTime.day().month()))")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                }
+                .padding(8)
+                .background(Color("TextBlue"))
+                .cornerRadius(5)
             }
-            .padding(8)
-            .background(Color("TextBlue"))
-            .cornerRadius(5)
-        }
+        })
         .frame(width: frameSize.width, height: frameSize.height)
         .onAppear {
             getCreatorIcon()

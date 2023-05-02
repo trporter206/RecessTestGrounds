@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyProfileHeader: View {
-    @Binding var user: User
+    var user: User
     var body: some View {
         VStack {
             HStack {
@@ -49,6 +49,6 @@ struct MyProfileHeader: View {
 
 struct MyProfileHeader_Previews: PreviewProvider {
     static var previews: some View {
-        MyProfileHeader(user: .constant(usersData[0]))
+        MyProfileHeader(user: usersData[0])
     }
 }

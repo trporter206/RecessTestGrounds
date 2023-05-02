@@ -19,7 +19,7 @@ struct MyProfileView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading) {
-                MyProfileHeader(user: $user)
+                MyProfileHeader(user: user)
                 //CameraView(onCapture: { capturedImage in
                 //  user.profilePic = Image(uiImage: capturedImage)
                 //})
@@ -28,7 +28,7 @@ struct MyProfileView: View {
                 Text("Coming Soon!")
                     .foregroundColor(Color("TextBlue"))
                     .padding(.horizontal)
-                ProfileFriendsList(user: $user)
+                ProfileFriendsList(user: user)
                 Text("Coming Soon!")
                     .foregroundColor(Color("TextBlue"))
                     .padding(.horizontal)

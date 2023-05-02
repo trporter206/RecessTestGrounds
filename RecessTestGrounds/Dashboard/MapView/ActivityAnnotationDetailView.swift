@@ -1,20 +1,18 @@
 //
-//  ActivityDetailView.swift
+//  ActivityAnnotationDetailView.swift
 //  RecessTestGrounds
 //
-//  Created by Torri Ray Porter Jr on 2023-03-31.
+//  Created by Torri Ray Porter Jr on 2023-05-02.
 //
 
 import SwiftUI
 import CoreLocation
 import FirebaseFirestore
 
-struct ActivityDetailView: View {
-    @EnvironmentObject var tD: TestData
-    @Binding var activity: Activity
+struct ActivityAnnotationDetailView: View {
+    var activity: Activity
     @State var userInfo: User = usersData[0]
     @State var playerlist: [User] = []
-    @State var showingReviewSheet = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -63,36 +61,23 @@ struct ActivityDetailView: View {
                 Text("Date: \(activity.date.formatted())")
                     .foregroundColor(Color("TextBlue"))
                     .padding(.top)
-                ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)
-                    .environmentObject(tD)
-                if tD.currentUser.id == activity.creator {
-                    Button(action: {
-                        Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
-                            if let error = error {
-                                print("Error deleting document: \(error)")
-                            }
-                        }
-                        tD.activities.removeAll(where: {$0.id == activity.id})
-                    }, label: {
-                        Text("Delete").foregroundColor(.red)
-                    })
-                }
+                Spacer()
+                Text("View on Dashboard or Activities List to join")
+                    .font(.footnote)
+                    .bold()
+                    .foregroundColor(.orange)
+                    .padding()
             }
-            .onAppear {
-                getCreatorInfo()
-                getPlayerList()
-            }
-            
         }
         .background(Color("LightBlue"))
-        .sheet(isPresented: $showingReviewSheet, content: {
-            ActivityReviewView(activity: $activity, playerList: $playerlist, presentationMode: _presentationMode)
-        })
+        .onAppear {
+            getCreatorInfo()
+            getPlayerList()
+        }
     }
 }
 
-extension ActivityDetailView {
-    
+extension ActivityAnnotationDetailView {
     func getCreatorInfo() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {
@@ -127,9 +112,8 @@ extension ActivityDetailView {
     }
 }
 
-struct ActivityDetailView_Previews: PreviewProvider {
+struct ActivityAnnotationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityDetailView(activity: .constant(activitiesData[0]))
-            .environmentObject(TestData())
+        ActivityAnnotationDetailView(activity: activitiesData[0])
     }
 }

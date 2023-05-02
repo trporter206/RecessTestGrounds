@@ -47,6 +47,7 @@ struct ActivityListItem: View {
                 .shadow(radius: 1))
         })
         .onAppear {
+            getCreatorInfo()
             dateFormatter.dateFormat = "M/d, h:mma"
         }
     }
