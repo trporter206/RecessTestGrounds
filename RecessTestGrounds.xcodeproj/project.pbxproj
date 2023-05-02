@@ -65,6 +65,7 @@
 		D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E229DA21FE00C7DF7A /* CameraView.swift */; };
 		D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */; };
 		D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E829DAB69E00C7DF7A /* Modifiers.swift */; };
+		D7D070692A016E3800EE01E4 /* CreateUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D070682A016E3800EE01E4 /* CreateUserFields.swift */; };
 		D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +136,7 @@
 		D7C814E229DA21FE00C7DF7A /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMapView.swift; sourceTree = "<group>"; };
 		D7C814E829DAB69E00C7DF7A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		D7D070682A016E3800EE01E4 /* CreateUserFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserFields.swift; sourceTree = "<group>"; };
 		D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestListItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -306,9 +308,9 @@
 		D7BF82C129E4AB620064A7A5 /* CreationViews */ = {
 			isa = PBXGroup;
 			children = (
+				D7D070672A016DF600EE01E4 /* User */,
 				D78373CC29E50AD800FE3074 /* Activity */,
 				D78373CD29E50AF400FE3074 /* CreateClubView.swift */,
-				D76CF91229E64B0600A9EE8F /* CreateUserView.swift */,
 			);
 			path = CreationViews;
 			sourceTree = "<group>";
@@ -389,6 +391,15 @@
 				D7C814DD29D9F5A700C7DF7A /* LocationManager.swift */,
 			);
 			path = DataManagers;
+			sourceTree = "<group>";
+		};
+		D7D070672A016DF600EE01E4 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				D76CF91229E64B0600A9EE8F /* CreateUserView.swift */,
+				D7D070682A016E3800EE01E4 /* CreateUserFields.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -527,6 +538,7 @@
 				D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */,
 				D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */,
 				D7C814DE29D9F5A700C7DF7A /* LocationManager.swift in Sources */,
+				D7D070692A016E3800EE01E4 /* CreateUserFields.swift in Sources */,
 				D7C5873729DBCE6800EC9955 /* ProfileFriendsList.swift in Sources */,
 				D78D32A029D54AE700DD2F05 /* NextActivityView.swift in Sources */,
 				D78D329E29D53B6E00DD2F05 /* ActivityListItem.swift in Sources */,
@@ -754,7 +766,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"RecessTestGrounds/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZZ637J6T2;
 				ENABLE_PREVIEWS = YES;
@@ -789,7 +801,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"RecessTestGrounds/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZZ637J6T2;
 				ENABLE_PREVIEWS = YES;

@@ -28,48 +28,12 @@ struct CreateUserView: View {
             Text("Profile")
                 .font(.largeTitle)
                 .foregroundColor(Color("TextBlue"))
-                .padding()
-            SuperTextField(placeholder: Text("   Name").foregroundColor(.white),
-                           text: $userData.name)
-            .modifier(FormField())
-            SuperTextField(placeholder: Text("   Email").foregroundColor(.white),
-                           text: $userData.email)
-            .modifier(FormField())
-            SuperTextField(placeholder: Text("   Password").foregroundColor(.white),
-                           text: $password)
-            .modifier(FormField())
-            Text("Choose an Avatar")
-                .modifier(SectionHeader())
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(0...avatarStrings.count-1, id: \.self) { index in
-                    if chosenAvatar == avatarStrings[index] {
-                        Button(action: {
-                            chosenAvatar = avatarStrings[index]
-                        }, label: {
-                            ZStack(alignment: .center) {
-                                Image(avatarStrings[index])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: CGFloat(90), height: CGFloat(90))
-                                    .clipShape(Circle())
-                            }
-                        })
-                    } else {
-                        Button(action: {
-                            chosenAvatar = avatarStrings[index]
-                        }, label: {
-                            ZStack(alignment: .center) {
-                                Image(avatarStrings[index])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .opacity(0.5)
-                                    .frame(width: CGFloat(90), height: CGFloat(90))
-                                    .clipShape(Circle())
-                            }
-                        })
-                    }
-                }
-            }
+                .padding([.top, .horizontal])
+            Text("Enter details to create yor player profile")
+                .font(.title2)
+                .foregroundColor(Color("TextBlue"))
+                .padding(.bottom)
+            CreateUserFields(userData: $userData, password: $password, chosenAvatar: $chosenAvatar)
             .padding()
             Spacer()
             Text(errorMessage)
@@ -78,7 +42,8 @@ struct CreateUserView: View {
             Spacer()
             Button(action: {
                 if isValidEmail(userData.email) && noBlankFields() {
-                    let user = User(data: userData)
+                    var user = User(data: userData)
+                    user.profilePicString = chosenAvatar
                     Task {
                         await signUp(user: user)
                     }

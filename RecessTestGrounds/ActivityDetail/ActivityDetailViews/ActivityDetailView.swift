@@ -65,12 +65,12 @@ struct ActivityDetailView: View {
                     .environmentObject(tD)
                 if tD.currentUser.id == activity.creator {
                     Button(action: {
-                        tD.activities.removeAll(where: {$0.id == activity.id})
                         Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
                             if let error = error {
                                 print("Error deleting document: \(error)")
                             }
                         }
+                        tD.activities.removeAll(where: {$0.id == activity.id})
                     }, label: {
                         Text("Delete").foregroundColor(.red)
                     })

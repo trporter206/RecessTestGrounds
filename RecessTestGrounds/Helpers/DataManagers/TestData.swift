@@ -83,12 +83,12 @@ var avatarStrings: [String] = [
 ]
 
 var sportOptions: [String] = [
-    "Basketball",
-    "Soccer",
-    "Volleyball",
-    "Spikeball",
-    "Football",
     "Baseball",
+    "Basketball",
+    "Football",
+    "Rugby",
+    "Soccer",
+    "Spikeball",
     "Tennis",
-    "Rugby"
+    "Volleyball",
 ]

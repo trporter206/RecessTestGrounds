@@ -38,20 +38,13 @@ struct ActivityAnnotationView: View {
             .cornerRadius(5)
         }
         .frame(width: frameSize.width, height: frameSize.height)
+        .onAppear {
+            getCreatorIcon()
+        }
     }
 }
 
 extension ActivityAnnotationView {
-    @ViewBuilder
-    func getIcon(_ sport: String) -> some View {
-        switch sport {
-        case "Basketball": Image(systemName: "figure.basketball").foregroundColor(Color("TextBlue"))
-        case "Soccer": Image(systemName: "figure.soccer").foregroundColor(Color("TextBlue"))
-        default:
-            Image(systemName: "figure.run").foregroundColor(Color("TextBlue"))
-        }
-        
-    }
     
     func getCreatorIcon() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
