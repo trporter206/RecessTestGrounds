@@ -14,6 +14,7 @@ struct ActivityListItem: View {
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
     @State var userInfo: User? = nil
+    @State private var activityId: String = ""
     
     let dateFormatter = DateFormatter()
     
@@ -24,7 +25,12 @@ struct ActivityListItem: View {
                 if let user = userInfo {
                     ProfilePicView(profileString: user.profilePicString, height: 90)
                 } else {
-                    EmptyView()
+                    Image(systemName: getSportIcon(activity.sport))
+                        .resizable()
+                        .foregroundColor(Color("TextBlue"))
+                        .scaledToFit()
+                        .frame(width: CGFloat(90), height: CGFloat(90))
+                        .clipShape(Circle())
                 }
                 VStack(alignment: .leading) {
                     Text(activity.sport)
@@ -58,8 +64,31 @@ struct ActivityListItem: View {
 }
 
 extension ActivityListItem {
+    func getSportIcon(_ sport: String) -> String {
+        switch activity.sport {
+        case "Baseball":
+            return "figure.baseball"
+        case "Basketball":
+            return "figure.basketball"
+        case "Football":
+            return "figure.american.football"
+        case "Rugby":
+            return "figure.rugby"
+        case "Soccer":
+            return "figure.soccer"
+        case "Spikeball":
+            return "figure.run"
+        case "Tennis":
+            return "figure.tennis"
+        case "Volleyball":
+            return "figure.volleyball"
+        default:
+            return "figure.run"
+        }
+    }
+    
     func getCreatorInfo() {
-        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
+        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activityId }) else {
             return
         }
 

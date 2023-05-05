@@ -105,9 +105,14 @@ extension CreateActivityView {
                 "coordinates" : activity.coordinates,
                 "currentlyActive" : false
             ])
+            tD.activities.append(activity)
         } else {
             let coords = [lM.locationManager!.location!.coordinate.latitude,
                           lM.locationManager!.location!.coordinate.longitude]
+            activityData.coordinates = coords
+            var updatedActivity = Activity(data: activityData, manager: tD)
+            updatedActivity.id = activity.id
+            updatedActivity.currentlyActive = true
             Firestore.firestore().collection("Activities").document(activity.id).setData([
                 "id" : activity.id,
                 "points" : 50,
@@ -121,8 +126,8 @@ extension CreateActivityView {
                 "coordinates" : coords,
                 "currentlyActive" : true
             ])
+            tD.activities.append(updatedActivity)
         }
-        tD.activities.append(activity)
         showingAlert = true
         self.presentationMode.wrappedValue.dismiss()
     }

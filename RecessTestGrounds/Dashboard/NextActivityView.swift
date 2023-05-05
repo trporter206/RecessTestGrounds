@@ -73,8 +73,11 @@ struct NextActivityView: View {
 
 extension NextActivityView {
     func getProfileStrings() {
+        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
+            return
+        }
         profileStrings = []
-        for player in activity.players {
+        for player in tD.activities[activityIndex].players {
             Firestore.firestore().collection("Users").document(player).getDocument() { documentSnapshot, error in
                 if let error = error {
                     print("Erro getting creator info \(error)")
