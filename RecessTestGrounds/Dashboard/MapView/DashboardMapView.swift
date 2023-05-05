@@ -20,7 +20,7 @@ class DashboardMapCoordinator: NSObject, MKMapViewDelegate {
             let identifier = "ActivityAnnotationView"
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             
-            let customView = ActivityAnnotationView(activity: activityAnnotation.activity)
+            let customView = ActivityAnnotationView(activity: activityAnnotation.activity, tD: activityAnnotation.tD)
             
             let hostingController = UIHostingController(rootView: customView)
             hostingController.view.backgroundColor = .clear
@@ -82,7 +82,7 @@ struct DashboardMapView: UIViewRepresentable {
         let existingAnnotations = view.annotations
         view.removeAnnotations(existingAnnotations)
 
-        let newAnnotations = tD.activities.map { ActivityAnnotation(activity: $0) }
+        let newAnnotations = tD.activities.map { ActivityAnnotation(activity: $0, tD: tD) }
         view.addAnnotations(newAnnotations)
     }
 }

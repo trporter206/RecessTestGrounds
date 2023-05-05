@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 struct ActivityAnnotationDetailView: View {
     var activity: Activity
+    var tD: TestData
     @State var userInfo: User = usersData[0]
     @State var playerlist: [User] = []
     @Environment(\.presentationMode) var presentationMode
@@ -21,7 +22,7 @@ struct ActivityAnnotationDetailView: View {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
                 HStack {
-                    NavigationLink(destination: PlayerProfile(player: $userInfo), label: {
+                    NavigationLink(destination: PlayerProfile(tD: tD, player: $userInfo), label: {
                         ProfilePicView(profileString: userInfo.profilePicString, height: 90)
                     })
                     VStack {
@@ -114,6 +115,6 @@ extension ActivityAnnotationDetailView {
 
 struct ActivityAnnotationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityAnnotationDetailView(activity: activitiesData[0])
+        ActivityAnnotationDetailView(activity: activitiesData[0], tD: TestData())
     }
 }

@@ -11,19 +11,21 @@ import FirebaseFirestore
 
 struct ActivityAnnotationView: View {
     var activity: Activity
+    var tD: TestData
     dynamic var coordinate: CLLocationCoordinate2D
     var title: String
     var frameSize: CGSize = CGSize(width: 100, height: 60)
     @State var imageString = ""
     
-    init(activity: Activity) {
+    init(activity: Activity, tD: TestData) {
         self.activity = activity
         self.coordinate = CLLocationCoordinate2D(latitude: activity.coordinates[0], longitude: activity.coordinates[1])
         self.title = activity.sport
+        self.tD = tD
     }
     
     var body: some View {
-        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity), label: {
+        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD), label: {
             VStack {
                 ProfilePicView(profileString: imageString, height: 35)
                 VStack {
@@ -66,6 +68,6 @@ extension ActivityAnnotationView {
 
 struct ActivityAnnotationView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityAnnotationView(activity: activitiesData[0])
+        ActivityAnnotationView(activity: activitiesData[0], tD: TestData())
     }
 }

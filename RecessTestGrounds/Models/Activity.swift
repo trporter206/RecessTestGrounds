@@ -76,7 +76,7 @@ class FirestoreService: FirestoreServiceProtocol {
 extension Activity {
     struct Data {
         var sport: String = sportOptions[0]
-        var maxPlayers: Int = 0
+        var maxPlayers: Int = 1
         var date: Date = Date.now
         var description: String = ""
         var coordinates: [Double] = [0.0, 0.0]

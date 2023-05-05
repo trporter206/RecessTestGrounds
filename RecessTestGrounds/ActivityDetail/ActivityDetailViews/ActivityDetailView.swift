@@ -15,6 +15,7 @@ struct ActivityDetailView: View {
     @State var userInfo: User = usersData[0]
     @State var playerlist: [User] = []
     @State var showingReviewSheet = false
+    @State var showingAlert = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -23,7 +24,7 @@ struct ActivityDetailView: View {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
                 HStack {
-                    NavigationLink(destination: PlayerProfile(player: $userInfo), label: {
+                    NavigationLink(destination: PlayerProfile(tD: tD, player: $userInfo), label: {
                         ProfilePicView(profileString: userInfo.profilePicString, height: 90)
                     })
                     VStack {
@@ -72,10 +73,18 @@ struct ActivityDetailView: View {
                                 print("Error deleting document: \(error)")
                             }
                         }
-                        tD.activities.removeAll(where: {$0.id == activity.id})
+                        if let indexToRemove = tD.activities.firstIndex(where: {$0.id == activity.id}) {
+                            tD.activities.remove(at: indexToRemove)
+                        }
+                        showingAlert = true
+                        presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Delete").foregroundColor(.red)
                     })
+                    .alert("Activity Deleted", isPresented: $showingAlert) {
+                        Button("OK", role: .cancel){}
+                    }
+                
                 }
             }
             .onAppear {

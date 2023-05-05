@@ -16,7 +16,7 @@ struct User: Identifiable, Equatable, Codable {
     var tier: Int
     var positiveRatingCount: Int
     var clubs: [Club]
-    var friends: [User]
+    var friends: [String]
     var achievements: [String]
     var profilePicString: String
     var points: Int
@@ -82,7 +82,7 @@ struct User: Identifiable, Equatable, Codable {
     mutating func acceptRequest(request: FriendRequest) {
         guard let index = friendRequests.firstIndex(of: request) else { return }
         friendRequests[index].isAccepted = true
-        friends.append(request.sender)
+        friends.append(request.sender.id)
         //TODO: add reciever to senders friend list as well
         friendRequests.remove(at: index)
     }

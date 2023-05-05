@@ -12,7 +12,7 @@ struct NextActivityView: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
-    @State var userInfo: User = usersData[0]
+    @State var userInfo: User? = nil
     @State var profileStrings: [String] = []
     
     var body: some View {
@@ -27,25 +27,29 @@ struct NextActivityView: View {
                 VStack (alignment: .leading) {
                     HStack {
                         ZStack(alignment: .bottomTrailing) {
-                            ProfilePicView(profileString: userInfo.profilePicString, height: 90)
-                            Text("\(userInfo.points)")
-                                .foregroundColor(.orange)
-                                .fontWeight(.heavy)
-                                .padding(4)
-                                .background(RoundedRectangle(cornerRadius: 50)
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 1))
+                            if let user = userInfo {
+                                ProfilePicView(profileString: user.profilePicString, height: 90)
+                                Text("\(user.points)")
+                                    .foregroundColor(.orange)
+                                    .fontWeight(.heavy)
+                                    .padding(4)
+                                    .background(RoundedRectangle(cornerRadius: 50)
+                                        .foregroundColor(.white)
+                                        .shadow(radius: 1))
+                                VStack (alignment: .leading) {
+                                    Text(activity.sport).bold().font(.title)
+                                    Text("Hosted by \(user.getName())")
+                                    Divider()
+                                    HStack {
+                                        Spacer()
+                                        Text(activity.date.formatted()).fontWeight(.light)
+                                    }
+                                }.padding(.trailing)
+                            } else {
+                                EmptyView()
+                            }
                         }
                         .padding([.leading, .trailing])
-                        VStack (alignment: .leading) {
-                            Text(activity.sport).bold().font(.title)
-                            Text("Hosted by \(userInfo.getName())")
-                            Divider()
-                            HStack {
-                                Spacer()
-                                Text(activity.date.formatted()).fontWeight(.light)
-                            }
-                        }.padding(.trailing)
                     }
                     Text("\(activity.playerCount)/\(activity.maxPlayers) Players").bold().padding([.leading, .top])
                     ScrollView(.horizontal) {
@@ -88,7 +92,11 @@ extension NextActivityView {
 
     
     func getCreatorInfo() {
-        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
+            return
+        }
+        
+        Firestore.firestore().collection("Users").document(tD.activities[activityIndex].creator).getDocument() { documentSnapshot, error in
             if let error = error {
                 print("Erro getting creator info \(error)")
             } else {

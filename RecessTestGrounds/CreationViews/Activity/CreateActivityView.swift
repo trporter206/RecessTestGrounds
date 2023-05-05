@@ -15,6 +15,7 @@ struct CreateActivityView: View {
     @EnvironmentObject var tD: TestData
     @EnvironmentObject var lM: LocationManager
     @State var activityData = Activity.Data()
+    @State var activityType = "Now"
     @State private var showingAlert = false
     @State var addressText = ""
     @State var errorMessage = ""
@@ -24,7 +25,15 @@ struct CreateActivityView: View {
     
     var body: some View {
         VStack {
-            ActivityFormFields(activityData: $activityData)
+            Picker("Start Now or Later", selection: $activityType) {
+                Text("Now").tag("Now")
+                Text("Later").tag("Later")
+            }.pickerStyle(.segmented)
+            if activityType == "Now" {
+                ActivityNowFormFields(activityData: $activityData)
+            } else {
+                ActivityFormFields(activityData: $activityData)
+            }
             Spacer()
             Text(errorMessage)
                 .bold()
@@ -45,7 +54,9 @@ struct CreateActivityView: View {
         }
         .background(Color("LightBlue"))
         .onAppear {
-            coords = CLLocationCoordinate2D(latitude: activityData.coordinates[0], longitude: activityData.coordinates[1])
+            guard let lat = lM.locationManager?.location?.coordinate.latitude else { return }
+            let lon = lM.locationManager!.location!.coordinate.longitude
+            coords = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         }
     }
 }
@@ -61,9 +72,13 @@ extension CreateActivityView {
         } else if (activityData.description == "") {
             print("Empty desc")
             return false
-        } else if activityData.coordinates == [0.0, 0.0] {
-            print("Bad coords")
-            return false
+        }
+        
+        if activityType == "Later" {
+            if activityData.coordinates == [0.0, 0.0] {
+                print("Bad coords")
+                return false
+            }
         }
         return true
     }
@@ -76,20 +91,37 @@ extension CreateActivityView {
     }
     
     func createActivity(activity: Activity) {
-//        let id = UUID().uuidString
-        Firestore.firestore().collection("Activities").document(activity.id).setData([
-            "id" : activity.id,
-            "points" : 50,
-            "sport" : activity.sport,
-            "maxPlayers" : activity.maxPlayers,
-            "playerCount" : 1,
-            "date" : activity.date,
-            "description" : activity.description,
-            "creator" : activity.creator,
-            "players" : [activity.creator],
-            "coordinates" : activity.coordinates,
-            "currentlyActive" : false
-        ])
+        if activityType == "Later" {
+            Firestore.firestore().collection("Activities").document(activity.id).setData([
+                "id" : activity.id,
+                "points" : 50,
+                "sport" : activity.sport,
+                "maxPlayers" : activity.maxPlayers,
+                "playerCount" : 1,
+                "date" : activity.date,
+                "description" : activity.description,
+                "creator" : activity.creator,
+                "players" : [activity.creator],
+                "coordinates" : activity.coordinates,
+                "currentlyActive" : false
+            ])
+        } else {
+            let coords = [lM.locationManager!.location!.coordinate.latitude,
+                          lM.locationManager!.location!.coordinate.longitude]
+            Firestore.firestore().collection("Activities").document(activity.id).setData([
+                "id" : activity.id,
+                "points" : 50,
+                "sport" : activity.sport,
+                "maxPlayers" : activity.maxPlayers,
+                "playerCount" : 1,
+                "date" : Date.now,
+                "description" : activity.description,
+                "creator" : activity.creator,
+                "players" : [activity.creator],
+                "coordinates" : coords,
+                "currentlyActive" : true
+            ])
+        }
         tD.activities.append(activity)
         showingAlert = true
         self.presentationMode.wrappedValue.dismiss()

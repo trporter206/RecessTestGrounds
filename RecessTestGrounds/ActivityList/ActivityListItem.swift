@@ -13,7 +13,7 @@ struct ActivityListItem: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
-    @State var userInfo = usersData[0]
+    @State var userInfo: User? = nil
     
     let dateFormatter = DateFormatter()
     
@@ -21,7 +21,11 @@ struct ActivityListItem: View {
         NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
             .environmentObject(tD), label: {
             HStack {
-                ProfilePicView(profileString: userInfo.profilePicString, height: 90)
+                if let user = userInfo {
+                    ProfilePicView(profileString: user.profilePicString, height: 90)
+                } else {
+                    EmptyView()
+                }
                 VStack(alignment: .leading) {
                     Text(activity.sport)
                         .font(.title)
@@ -55,13 +59,18 @@ struct ActivityListItem: View {
 
 extension ActivityListItem {
     func getCreatorInfo() {
-        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
+            return
+        }
+
+        Firestore.firestore().collection("Users").document(tD.activities[activityIndex].creator).getDocument() { documentSnapshot, error in
             if let error = error {
                 print("Error getting creator info: \(error)")
             } else {
                 do {
-                    let user = try documentSnapshot!.data(as: User.self)
-                    userInfo = user
+                    if let user = try documentSnapshot?.data(as: User.self) {
+                        userInfo = user
+                    }
                 } catch {
                     print("Error decoding creator info: \(error)")
                 }
