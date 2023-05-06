@@ -119,10 +119,10 @@ extension ActivityListView {
     
 }
 
-struct ActivityListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivityListView()
-            .environmentObject(TestData())
-            .environmentObject(LocationManager())
-    }
-}
+//struct ActivityListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActivityListView()
+//            .environmentObject(TestData())
+//            .environmentObject(LocationManager())
+//    }
+//}

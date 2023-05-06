@@ -36,20 +36,22 @@ struct NextActivityView: View {
                                     .background(RoundedRectangle(cornerRadius: 50)
                                         .foregroundColor(.white)
                                         .shadow(radius: 1))
-                                VStack (alignment: .leading) {
-                                    Text(activity.sport).bold().font(.title)
-                                    Text("Hosted by \(user.getName())")
-                                    Divider()
-                                    HStack {
-                                        Spacer()
-                                        Text(activity.date.formatted()).fontWeight(.light)
-                                    }
-                                }.padding(.trailing)
                             } else {
                                 EmptyView()
                             }
                         }
                         .padding([.leading, .trailing])
+                        VStack (alignment: .leading) {
+                            Text(activity.sport).bold().font(.title)
+                            if let name = userInfo?.getName() {
+                                Text("Hosted by \(name)")
+                            }
+                            Divider()
+                            HStack {
+                                Spacer()
+                                Text(activity.date.formatted()).fontWeight(.light)
+                            }
+                        }.padding(.trailing)
                     }
                     Text("\(activity.playerCount)/\(activity.maxPlayers) Players").bold().padding([.leading, .top])
                     ScrollView(.horizontal) {
@@ -114,10 +116,10 @@ extension NextActivityView {
     }
 }
 
-struct NextActivityView_Previews: PreviewProvider {
-    static var previews: some View {
-        NextActivityView(activity: .constant(activitiesData[0]))
-            .environmentObject(LocationManager())
-            .environmentObject(TestData())
-    }
-}
+//struct NextActivityView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NextActivityView(activity: .constant(activitiesData[0]))
+//            .environmentObject(LocationManager())
+//            .environmentObject(TestData())
+//    }
+//}
