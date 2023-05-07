@@ -12,36 +12,46 @@ struct MyProfileHeader: View {
     var body: some View {
         VStack {
             HStack {
-                ProfilePicView(profileString: user.profilePicString, height: 90)
-                    .padding([.leading])
+                Spacer()
+                ZStack(alignment: .bottomTrailing) {
+                    ProfilePicView(profileString: user.profilePicString, height: 100)
+                    NavigationLink(destination: PointsView(), label: {
+                        Text("\(user.points)")
+                            .foregroundColor(.orange)
+                            .fontWeight(.heavy)
+                            .padding(4)
+                            .background(RoundedRectangle(cornerRadius: 50)
+                                .foregroundColor(.white)
+                                .shadow(radius: 1))
+                    })
+                }
+                Spacer()
                 VStack(alignment: .leading) {
-                    HStack {
-                        Text(user.name)
-                            .font(.largeTitle)
-                            .bold()
-                        Spacer()
-                    }
+                    Text(user.name)
+                        .font(.largeTitle)
+                        .bold()
                     HStack {
                         NavigationLink(destination: TierView(), label: {
-                            Text("Tier \(user.getTier())")
-                                .padding(.trailing)
+                            HStack {
+                                Text("Tier")
+                                    .bold()
+                                Text("\(user.getTier())")
+                                    .foregroundColor(.orange)
+                                    .bold()
+                            }
                         })
                         NavigationLink(destination: RatingView(), label: {
-                            Image(systemName: "hand.thumbsup")
+                            Image(systemName: "hand.thumbsup").bold()
                             Text(String(user.rating.prefix(2)) + "%")
-                                .padding(.trailing)
-                        })
-                        NavigationLink(destination: PointsView(), label: {
-                            Text("\(user.points)")
-                                .fontWeight(.heavy)
                                 .foregroundColor(.orange)
+                                .bold()
                         })
                     }
                 }
+                Spacer()
             }
-            .padding(.bottom)
+            .padding()
         }
-        .padding([.top], 50)
         .background(Color("TextBlue"))
         .foregroundColor(.white)
     }

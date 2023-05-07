@@ -18,8 +18,12 @@ class TestData: ObservableObject {
     
     let activitiesRef = Firestore.firestore().collection("Activities")
     
-    init() {
-        getActivities()
+    static let previewTestData = TestData(skipFetching: true)
+    
+    init(skipFetching: Bool = false) {
+        if !skipFetching {
+            getActivities()
+        }
     }
     
     func getActivities() {

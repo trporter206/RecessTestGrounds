@@ -9,13 +9,19 @@ import SwiftUI
 import FirebaseCore
 import FirebaseAuth
 
+func configureFirebase() {
+    guard FirebaseApp.app() == nil else { return }
+    FirebaseApp.configure()
+}
+
 struct ContentView: View {
     @StateObject var lM = LocationManager()
     @StateObject var tD = TestData()
     
     init() {
-        FirebaseApp.configure()
+        configureFirebase()
     }
+    
     
     var body: some View {
         NavigationStack {

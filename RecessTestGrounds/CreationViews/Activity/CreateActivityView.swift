@@ -133,12 +133,12 @@ extension CreateActivityView {
     }
 }
 
-struct CreateActivityView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            CreateActivityView()
-                .environmentObject(TestData())
-                .environmentObject(LocationManager())
-        }
-    }
-}
+//struct CreateActivityView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            CreateActivityView()
+//                .environmentObject(TestData())
+//                .environmentObject(LocationManager())
+//        }
+//    }
+//}

@@ -27,6 +27,7 @@ struct ActivityListItem: View {
                 } else {
                     Image(systemName: getSportIcon(activity.sport))
                         .resizable()
+                        .padding()
                         .foregroundColor(Color("TextBlue"))
                         .scaledToFit()
                         .frame(width: CGFloat(90), height: CGFloat(90))
@@ -114,10 +115,11 @@ extension ActivityListItem {
     }
 
     func removeTrailingZeros(_ value: Double) -> String {
-        let stringValue = String(format: "%.2f", value)
-        return stringValue.trimmingCharacters(in: ["0"])
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
     }
-
     func distanceToKilometers() -> String? {
         let distance = lM.locationManager?.location?
             .distance(from:
@@ -132,9 +134,10 @@ extension ActivityListItem {
     }
 }
 
-struct ScheduledActivityView_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivityListItem(activity: .constant(activitiesData[0]))
-            .environmentObject(LocationManager())
-    }
-}
+//struct ScheduledActivityView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActivityListItem(activity: .constant(activitiesData[0]))
+//            .environmentObject(LocationManager())
+//            .environmentObject(TestData())
+//    }
+//}

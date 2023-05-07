@@ -65,12 +65,15 @@ struct ActivityListView: View {
                     Text("Activities Nearby")
                         .modifier(SectionHeader())
                     //sort by distance
-                    ForEach($tD.activities.sorted(by: {distanceToKilometers(activity: $0) <
-                                                       distanceToKilometers(activity: $1)})) {$activity in
-                        ActivityListItem(activity: $activity)
-                            .environmentObject(lM)
-                            .environmentObject(tD)
-                            .padding([.leading, .trailing])
+                    ForEach($tD.activities.sorted(by: {distanceToMeters(activity: $0) <
+                                                       distanceToMeters(activity: $1)}))
+                    {$activity in
+                        if distanceToMeters(activity: $activity) <= 100000 {
+                            ActivityListItem(activity: $activity)
+                                .environmentObject(lM)
+                                .environmentObject(tD)
+                                .padding([.leading, .trailing])
+                        }
                     }
                 }
             }
@@ -95,7 +98,7 @@ extension ActivityListView {
         return false
     }
     
-    func distanceToKilometers(activity: Binding<Activity>) -> Double {
+    func distanceToMeters(activity: Binding<Activity>) -> Double {
         let distance = lM.locationManager?.location?
             .distance(from:
                         CLLocation(latitude: activity.wrappedValue.coordinates[0],

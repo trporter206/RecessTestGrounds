@@ -14,7 +14,7 @@ struct ActivityAnnotationView: View {
     var tD: TestData
     dynamic var coordinate: CLLocationCoordinate2D
     var title: String
-    var frameSize: CGSize = CGSize(width: 100, height: 60)
+    var frameSize: CGSize = CGSize(width: 200, height: 50)
     @State var imageString = ""
     
     init(activity: Activity, tD: TestData) {
@@ -25,21 +25,43 @@ struct ActivityAnnotationView: View {
     }
     
     var body: some View {
+//        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD), label: {
+//            VStack {
+//                ProfilePicView(profileString: imageString, height: 35)
+//                VStack {
+//                    Text(activity.sport)
+//                        .font(.subheadline)
+//                        .foregroundColor(.white)
+//                    Text("\(activity.date.formatted(.dateTime.day().month()))")
+//                        .font(.subheadline)
+//                        .foregroundColor(.white)
+//                }
+//                .padding(8)
+//                .background(Color("TextBlue"))
+//                .cornerRadius(5)
+//            }
+//        })
         NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD), label: {
-            VStack {
-                ProfilePicView(profileString: imageString, height: 35)
-                VStack {
+            HStack {
+                ProfilePicView(profileString: imageString, height: 50)
+                VStack(alignment: .leading) {
                     Text(activity.sport)
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                    Text("\(activity.date.formatted(.dateTime.day().month()))")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .foregroundColor(Color("TextBlue"))
+                    HStack {
+                        Text("\(activity.playerCount)")
+                            .font(.caption)
+                        Image(systemName: "person.3.fill").bold()
+                        Text(activity.date, format: .dateTime.day().month())
+                            .font(.caption)
+                    }
+                    .padding(.trailing)
+                    .foregroundColor(Color("TextBlue"))
                 }
-                .padding(8)
-                .background(Color("TextBlue"))
-                .cornerRadius(5)
             }
+            .background(RoundedRectangle(cornerRadius: 50)
+                .foregroundColor(.white)
+                .shadow(radius: 1))
         })
         .frame(width: frameSize.width, height: frameSize.height)
         .onAppear {
