@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 struct ActivityDetailView: View {
     @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
     @Binding var activity: Activity
     @State var userInfo: User = usersData[0]
     @State var playerlist: [User] = []
@@ -66,6 +67,7 @@ struct ActivityDetailView: View {
                     .padding(.top)
                 ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)
                     .environmentObject(tD)
+                    .environmentObject(lM)
                 if tD.currentUser.id == activity.creator {
                     Button(action: {
                         Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
@@ -136,9 +138,9 @@ extension ActivityDetailView {
     }
 }
 
-struct ActivityDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivityDetailView(activity: .constant(activitiesData[0]))
-            .environmentObject(TestData())
-    }
-}
+//struct ActivityDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActivityDetailView(activity: .constant(activitiesData[0]))
+//            .environmentObject(TestData())
+//    }
+//}

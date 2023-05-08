@@ -25,22 +25,6 @@ struct ActivityAnnotationView: View {
     }
     
     var body: some View {
-//        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD), label: {
-//            VStack {
-//                ProfilePicView(profileString: imageString, height: 35)
-//                VStack {
-//                    Text(activity.sport)
-//                        .font(.subheadline)
-//                        .foregroundColor(.white)
-//                    Text("\(activity.date.formatted(.dateTime.day().month()))")
-//                        .font(.subheadline)
-//                        .foregroundColor(.white)
-//                }
-//                .padding(8)
-//                .background(Color("TextBlue"))
-//                .cornerRadius(5)
-//            }
-//        })
         NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD), label: {
             HStack {
                 ProfilePicView(profileString: imageString, height: 50)
@@ -88,8 +72,8 @@ extension ActivityAnnotationView {
     }
 }
 
-struct ActivityAnnotationView_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivityAnnotationView(activity: activitiesData[0], tD: TestData())
-    }
-}
+//struct ActivityAnnotationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActivityAnnotationView(activity: activitiesData[0], tD: TestData())
+//    }
+//}

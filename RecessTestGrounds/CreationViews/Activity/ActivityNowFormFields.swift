@@ -11,29 +11,35 @@ struct ActivityNowFormFields: View {
     @Binding var activityData: Activity.Data
     
     var body: some View {
-        HStack {
-            Text("   Sport")
-            Spacer()
-            Picker("Sport", selection: $activityData.sport) {
-                ForEach(sportOptions, id: \.self) {
-                    Text($0)
+        VStack {
+            HStack {
+                Text("   Sport")
+                Spacer()
+                Picker("Sport", selection: $activityData.sport) {
+                    ForEach(sportOptions, id: \.self) {
+                        Text($0)
+                    }
                 }
             }
-        }
-        .modifier(FormField())
-        HStack {
-            Text("   Number of Players")
-            Spacer()
-            Picker("Number of people", selection: $activityData.maxPlayers) {
-                ForEach(1 ..< 20) {
-                    Text("\($0)")
+            .modifier(FormField())
+            HStack {
+                Text("   Number of Players")
+                Spacer()
+                Picker("Number of people", selection: $activityData.maxPlayers) {
+                    ForEach(1 ..< 20) {
+                        Text("\($0)")
+                    }
                 }
             }
+            .modifier(FormField())
+            SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
+                           text: $activityData.description)
+            .modifier(FormField())
+            Text("The activity will start automatically at your current location")
+                .foregroundColor(.orange)
+                .bold()
+                .padding()
         }
-        .modifier(FormField())
-        SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
-                       text: $activityData.description)
-        .modifier(FormField())
     }
 }
 

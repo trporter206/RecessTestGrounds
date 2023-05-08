@@ -7,9 +7,11 @@
 
 import SwiftUI
 import FirebaseFirestore
+import CoreLocation
 
 struct ActivityActionButtonView: View {
     @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
     @Binding var activity: Activity
     @State var joined = false
     @Binding var playerList: [User]
@@ -27,11 +29,18 @@ struct ActivityActionButtonView: View {
                         ActivityButton("End Activity")
                     })
                 } else {
-                    Button(action: {
-                        activity.currentlyActive = true
-                    }, label: {
-                        ActivityButton("Start Activity")
-                    })
+                    if distanceToMeters(activity: $activity) > 100 {
+                        Text("You must be within 100 meters of your activity to start")
+                            .bold()
+                            .foregroundColor(.orange)
+                            .padding()
+                    } else {
+                        Button(action: {
+                            activity.currentlyActive = true
+                        }, label: {
+                            ActivityButton("Start Activity")
+                        })
+                    }
                 }
             } else {
                 if joined {
@@ -58,6 +67,18 @@ struct ActivityActionButtonView: View {
 }
 
 extension ActivityActionButtonView {
+    
+    func distanceToMeters(activity: Binding<Activity>) -> Double {
+        let distance = lM.locationManager?.location?
+            .distance(from:
+                        CLLocation(latitude: activity.wrappedValue.coordinates[0],
+                                   longitude: activity.wrappedValue.coordinates[1]))
+        guard distance != nil else {
+            return 0.0
+        }
+        return distance!
+    }
+    
     func checkJoined() {
         if activity.players.contains(tD.currentUser.id) {
             joined = true
@@ -92,9 +113,9 @@ extension ActivityActionButtonView {
     }
 }
 
-struct ActivityActionButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivityActionButtonView(activity: .constant(TestData().activities[0]), playerList: .constant([]), showingReview: .constant(false))
-            .environmentObject(TestData())
-    }
-}
+//struct ActivityActionButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActivityActionButtonView(activity: .constant(TestData().activities[0]), playerList: .constant([]), showingReview: .constant(false))
+//            .environmentObject(TestData())
+//    }
+//}
