@@ -20,6 +20,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             if CLLocationManager.locationServicesEnabled() {
                 self.locationManager = CLLocationManager()
                 self.locationManager!.delegate = self
+                self.checkLocationAuthorization()
             } else {
                 print("Turn on location services")
             }
@@ -37,6 +38,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         case .denied:
             print("location services set to denied")
         case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
             if let center = locationManager.location?.coordinate {
                 region = MKCoordinateRegion(center: center,
                                             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
