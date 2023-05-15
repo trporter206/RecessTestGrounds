@@ -791,8 +791,8 @@
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera to take profile photos";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app uses your current location";
-				INFOPLIST_KEY_NSLocationUsageDescription = "This app uses your current location";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location is used to create and find nearby activities";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Your location is used to create and find nearby activities";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your current location";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app accesses the camera roll to choose cover photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -830,8 +830,8 @@
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera to take profile photos";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app uses your current location";
-				INFOPLIST_KEY_NSLocationUsageDescription = "This app uses your current location";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location is used to create and find nearby activities";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Your location is used to create and find nearby activities";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your current location";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app accesses the camera roll to choose cover photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
