@@ -6,6 +6,8 @@
 	<string></string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
+	<key>CFBundleSignature</key>
+	<string></string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSMinimumSystemVersion</key>
