@@ -25,6 +25,7 @@ struct CreateActivityView: View {
     
     var body: some View {
         VStack {
+            HeaderText(title: "Create New Activity")
             Picker("Start Now or Later", selection: $activityType) {
                 Text("Now").tag("Now")
                 Text("Later").tag("Later")
@@ -58,6 +59,16 @@ struct CreateActivityView: View {
             let lon = lM.locationManager!.location!.coordinate.longitude
             coords = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         }
+    }
+}
+
+struct HeaderText: View {
+    let title: String
+    var body: some View {
+        Text(title)
+            .font(.largeTitle)
+            .foregroundColor(Color("TextBlue"))
+            .padding()
     }
 }
 

@@ -36,9 +36,7 @@ struct CreateUserView: View {
             CreateUserFields(userData: $userData, password: $password, chosenAvatar: $chosenAvatar)
             .padding()
             Spacer()
-            Text(errorMessage)
-                .bold()
-                .foregroundColor(.orange)
+            ErrorMessageText(errorMessage: $errorMessage)
             Spacer()
             Button(action: {
                 if isValidEmail(userData.email) && noBlankFields() {

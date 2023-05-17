@@ -12,26 +12,8 @@ struct ActivityNowFormFields: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("   Sport")
-                Spacer()
-                Picker("Sport", selection: $activityData.sport) {
-                    ForEach(sportOptions, id: \.self) {
-                        Text($0)
-                    }
-                }
-            }
-            .modifier(FormField())
-            HStack {
-                Text("   Number of Players")
-                Spacer()
-                Picker("Number of people", selection: $activityData.maxPlayers) {
-                    ForEach(1 ..< 20) {
-                        Text("\($0)")
-                    }
-                }
-            }
-            .modifier(FormField())
+            FieldPickerSport(title: "Sport", selection: $activityData.sport, options: sportOptions)
+            FieldPickerPlayers(title: "Players wanted", selection: $activityData.maxPlayers, options: Array(1..<20).map(String.init))
             SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
                            text: $activityData.description)
             .modifier(FormField())
