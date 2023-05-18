@@ -13,6 +13,7 @@ import MapKit
 struct Activity: Identifiable, Codable {
     var id: String
     var points: Int
+    var title: String
     var sport: String
     var playerCount: Int
     var date: Date
@@ -22,8 +23,9 @@ struct Activity: Identifiable, Codable {
     var coordinates: [Double]
     var currentlyActive: Bool
     
-    init(sport: String, date: Date, description: String = "", coordinates: [Double], creator: String) {
+    init(title: String, sport: String, date: Date, description: String = "", coordinates: [Double], creator: String) {
         self.id = UUID().uuidString
+        self.title = title
         self.sport = sport
         self.date = date
         self.description = description
@@ -73,6 +75,7 @@ class FirestoreService: FirestoreServiceProtocol {
 
 extension Activity {
     struct Data {
+        var title: String = ""
         var sport: String = sportOptions[0]
         var date: Date = Date.now
         var description: String = ""
@@ -80,14 +83,17 @@ extension Activity {
     }
     
     var data: Data {
-        Data(sport: sport,
-        date: date,
-        description: description,
-        coordinates: coordinates)
+        Data(
+            title: title,
+            sport: sport,
+            date: date,
+            description: description,
+            coordinates: coordinates)
     }
     
     init(data: Data, manager: TestData) {
         id = UUID().uuidString
+        title = data.title
         sport = data.sport
         date = data.date
         description = data.description

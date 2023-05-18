@@ -90,9 +90,6 @@ struct CreateActivityButton: View {
         if activityData.sport == "" {
             print("Empty Sport")
             return false
-        } else if (activityData.description == "") {
-            print("Empty desc")
-            return false
         }
         
         if activityType == "Later" {
@@ -108,6 +105,7 @@ struct CreateActivityButton: View {
         if activityType == "Later" {
             Firestore.firestore().collection("Activities").document(activity.id).setData([
                 "id" : activity.id,
+                "title" : activity.title,
                 "points" : 50,
                 "sport" : activity.sport,
                 "playerCount" : 1,
@@ -128,6 +126,7 @@ struct CreateActivityButton: View {
             updatedActivity.currentlyActive = true
             Firestore.firestore().collection("Activities").document(activity.id).setData([
                 "id" : activity.id,
+                "title" : activity.title,
                 "points" : 50,
                 "sport" : activity.sport,
                 "playerCount" : 1,

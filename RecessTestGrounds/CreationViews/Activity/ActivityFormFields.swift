@@ -13,9 +13,11 @@ struct ActivityFormFields: View {
     
     var body: some View {
         VStack {
+            SuperTextField(placeholder: Text("   Title (optional)"), text: $activityData.title)
+                .modifier(FormField())
             FieldPickerSport(title: "Sport", selection: $activityData.sport, options: sportOptions)
             DatePickerField(title: "Time", selection: $activityData.date)
-            SuperTextField(placeholder: Text("   Description"), text: $activityData.description)
+            SuperTextField(placeholder: Text("   Description (optional)"), text: $activityData.description)
                 .modifier(FormField())
             ChooseLocationLink(activityData: $activityData)
         }

@@ -58,15 +58,19 @@ struct PlayerProfileLink: View {
             NavigationLink(destination: PlayerProfile(tD: tD, player: $userInfo), label: {
                 ProfilePicView(profileString: userInfo.profilePicString, height: 90)
             })
-            VStack {
-                Text(activity.sport)
-                    .foregroundColor(Color("TextBlue"))
-                    .font(.largeTitle)
+            VStack(alignment: .leading) {
+                if activity.title != "" {
+                    Text(activity.title).bold().font(.title)
+                    Text(activity.sport).fontWeight(.light)
+                } else {
+                    Text(activity.sport).bold().font(.title)
+                }
                 Text("Hosted by \(userInfo.name)")
                     .font(.subheadline)
-                    .foregroundColor(Color("TextBlue"))
             }
+            .foregroundColor(Color("TextBlue"))
         }
+        .padding(.bottom)
     }
 }
 

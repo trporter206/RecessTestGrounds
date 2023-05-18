@@ -35,7 +35,7 @@ struct NextActivityView: View {
                             }
                         }
                         .padding([.leading, .trailing])
-                        NextActivityHeaderInfo(activity: activity)
+                        NextActivityHeaderInfo(activity: activity, userInfo: userInfo)
                     }
                     NextActivityPlayerList(activity: activity, profileStrings: profileStrings)
                     Text(activity.description).padding()
@@ -56,7 +56,14 @@ struct NextActivityHeaderInfo: View {
     
     var body: some View {
         VStack (alignment: .leading) {
-            Text(activity.sport).bold().font(.title)
+            if activity.title != "" {
+                VStack(alignment: .leading) {
+                    Text(activity.title).bold().font(.title)
+                    Text(activity.sport).fontWeight(.light)
+                }.padding(.bottom)
+            } else {
+                Text(activity.sport).bold().font(.title)
+            }
             if let name = userInfo?.getName() {
                 Text("Hosted by \(name)")
             }

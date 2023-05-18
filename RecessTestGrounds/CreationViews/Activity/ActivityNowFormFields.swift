@@ -12,8 +12,10 @@ struct ActivityNowFormFields: View {
     
     var body: some View {
         VStack {
+            SuperTextField(placeholder: Text("   Title (optional)"), text: $activityData.title)
+                .modifier(FormField())
             FieldPickerSport(title: "Sport", selection: $activityData.sport, options: sportOptions)
-            SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
+            SuperTextField(placeholder: Text("   Description (optional)").foregroundColor(.white),
                            text: $activityData.description)
             .modifier(FormField())
             Text("The activity will start automatically at your current location")

@@ -48,12 +48,21 @@ struct ActivityListItemHeader: View {
     let activity: Activity
     
     var body: some View {
-        Text(activity.sport)
-            .font(.title2)
-            .lineLimit(1)
-            .foregroundColor(Color("TextBlue"))
-            .bold()
-            .padding(.trailing)
+        if activity.title != "" {
+            Text(activity.title)
+                .font(.title2)
+                .lineLimit(1)
+                .foregroundColor(Color("TextBlue"))
+                .bold()
+//                .padding(.trailing)
+        } else {
+            Text(activity.sport)
+                .font(.title2)
+                .lineLimit(1)
+                .foregroundColor(Color("TextBlue"))
+                .bold()
+                .padding(.trailing)
+        }
     }
 }
 

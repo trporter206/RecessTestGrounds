@@ -58,7 +58,8 @@ var usersData: [User] = [
 ]
 
 var activitiesData: [Activity] = [
-    Activity(sport: "Basketball",
+    Activity(title: "Blacktop basketball",
+             sport: "Basketball",
              date: Date.now,
              description: "Casual game downtown. Come join the crew!",
              coordinates: [45.568978, -122.673523],
