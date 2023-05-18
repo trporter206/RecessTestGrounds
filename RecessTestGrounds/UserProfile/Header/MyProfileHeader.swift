@@ -15,15 +15,7 @@ struct MyProfileHeader: View {
                 Spacer()
                 ZStack(alignment: .bottomTrailing) {
                     ProfilePicView(profileString: user.profilePicString, height: 100)
-                    NavigationLink(destination: PointsView(), label: {
-                        Text("\(user.points)")
-                            .foregroundColor(.orange)
-                            .fontWeight(.heavy)
-                            .padding(4)
-                            .background(RoundedRectangle(cornerRadius: 50)
-                                .foregroundColor(.white)
-                                .shadow(radius: 1))
-                    })
+                    ProfilePointsLink(user: user)
                 }
                 Spacer()
                 VStack(alignment: .leading) {
@@ -31,21 +23,8 @@ struct MyProfileHeader: View {
                         .font(.largeTitle)
                         .bold()
                     HStack {
-                        NavigationLink(destination: TierView(), label: {
-                            HStack {
-                                Text("Tier")
-                                    .bold()
-                                Text("\(user.getTier())")
-                                    .foregroundColor(.orange)
-                                    .bold()
-                            }
-                        })
-                        NavigationLink(destination: RatingView(), label: {
-                            Image(systemName: "hand.thumbsup").bold()
-                            Text(String(user.rating.prefix(2)) + "%")
-                                .foregroundColor(.orange)
-                                .bold()
-                        })
+                        ProfileTierLink(user: user)
+                        ProfileRatingLink(user: user)
                     }
                 }
                 Spacer()
@@ -54,6 +33,51 @@ struct MyProfileHeader: View {
         }
         .background(Color("TextBlue"))
         .foregroundColor(.white)
+    }
+}
+
+struct ProfileRatingLink: View {
+    let user: User
+    
+    var body: some View {
+        NavigationLink(destination: RatingView(), label: {
+            Image(systemName: "hand.thumbsup").bold()
+            Text(String(user.rating.prefix(2)) + "%")
+                .foregroundColor(.orange)
+                .bold()
+        })
+    }
+}
+
+struct ProfileTierLink: View {
+    let user: User
+    
+    var body: some View {
+        NavigationLink(destination: TierView(), label: {
+            HStack {
+                Text("Tier")
+                    .bold()
+                Text("\(user.getTier())")
+                    .foregroundColor(.orange)
+                    .bold()
+            }
+        })
+    }
+}
+
+struct ProfilePointsLink: View {
+    let user: User
+    
+    var body: some View {
+        NavigationLink(destination: PointsView(), label: {
+            Text("\(user.points)")
+                .foregroundColor(.orange)
+                .fontWeight(.heavy)
+                .padding(4)
+                .background(RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.white)
+                    .shadow(radius: 1))
+        })
     }
 }
 

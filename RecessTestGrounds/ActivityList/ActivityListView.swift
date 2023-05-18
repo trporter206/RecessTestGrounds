@@ -22,59 +22,15 @@ struct ActivityListView: View {
                     .foregroundColor(Color("TextBlue"))
                     .padding()
                 VStack() {
-                    NavigationLink(destination: CreateActivityView().environmentObject(lM)
-                        .environmentObject(tD), label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 50)
-                                .foregroundColor(.orange)
-                                .frame(width: 300, height: 60)
-                            Text("Create Activity")
-                                .foregroundColor(.white)
-                                .bold()
-                        }
-                        .padding()
-                    })
-                    Text("Activities Starting Soon")
-                        .modifier(SectionHeader())
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach($tD.activities.filter({isDateWithinNext24Hours($0.date.wrappedValue)})) { $activity in
-                                if !$activity.wrappedValue.players.contains(tD.currentUser.id) {
-                                    ActivityListItem(activity: $activity)
-                                        .environmentObject(lM)
-                                        .environmentObject(tD)
-                                        .padding(.trailing)
-                                }
-                            }
-                        }
-                        .padding()
-                    }
-                    Text("Looking for 1 more")
-                        .modifier(SectionHeader())
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(needsOneMore()) { $activity in
-                                ActivityListItem(activity: $activity)
-                                    .environmentObject(lM)
-                                    .environmentObject(tD)
-                                    .padding(.trailing)
-                            }
-                        }
-                        .padding()
-                    }
-                    Text("Activities Nearby")
-                        .modifier(SectionHeader())
-                    //sort by distance
-                    ForEach($tD.activities.sorted(by: {distanceToMeters(activity: $0) <
-                                                       distanceToMeters(activity: $1)}))
-                    {$activity in
-                        if distanceToMeters(activity: $activity) <= 100000 {
-                            ActivityListItem(activity: $activity)
-                                .environmentObject(lM)
-                                .environmentObject(tD)
-                                .padding([.leading, .trailing])
-                        }
-                    }
+                    CreateActivityLinkView()
+                        .environmentObject(tD)
+                        .environmentObject(lM)
+                    ActivitiesStartngSoonListView()
+                        .environmentObject(tD)
+                        .environmentObject(lM)
+                    ActivitiesNearbyListView()
+                        .environmentObject(tD)
+                        .environmentObject(lM)
                 }
             }
             .background(Color("LightBlue"))
@@ -82,7 +38,48 @@ struct ActivityListView: View {
     }
 }
 
-extension ActivityListView {
+struct CreateActivityLinkView: View {
+    @EnvironmentObject var lM: LocationManager
+    @EnvironmentObject var tD: TestData
+    
+    var body: some View {
+        NavigationLink(destination: CreateActivityView().environmentObject(lM)
+            .environmentObject(tD), label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.orange)
+                    .frame(width: 300, height: 60)
+                Text("Create Activity")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+            .padding()
+        })
+    }
+}
+
+struct ActivitiesStartngSoonListView: View {
+    @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
+    
+    var body: some View {
+        Text("Activities Starting Soon")
+            .modifier(SectionHeader())
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach($tD.activities.filter({isDateWithinNext24Hours($0.date.wrappedValue)})) { $activity in
+                    if !$activity.wrappedValue.players.contains(tD.currentUser.id) {
+                        ActivityListItem(activity: $activity)
+                            .environmentObject(lM)
+                            .environmentObject(tD)
+                            .padding(.trailing)
+                    }
+                }
+            }
+            .padding()
+        }
+    }
+    
     func isDateWithinNext24Hours(_ date: Date) -> Bool {
         let currentDate = Date()
         let calendar = Calendar.current
@@ -94,8 +91,28 @@ extension ActivityListView {
                 return true
             }
         }
-        
         return false
+    }
+}
+
+struct ActivitiesNearbyListView: View {
+    @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
+    
+    var body: some View {
+        Text("Activities Nearby")
+            .modifier(SectionHeader())
+        //sort by distance
+        ForEach($tD.activities.sorted(by: {distanceToMeters(activity: $0) <
+                                           distanceToMeters(activity: $1)}))
+        {$activity in
+            if distanceToMeters(activity: $activity) <= 100000 {
+                ActivityListItem(activity: $activity)
+                    .environmentObject(lM)
+                    .environmentObject(tD)
+                    .padding([.leading, .trailing])
+            }
+        }
     }
     
     func distanceToMeters(activity: Binding<Activity>) -> Double {
@@ -108,18 +125,6 @@ extension ActivityListView {
         }
         return distance!
     }
-    
-    func needsOneMore() -> [Binding<Activity>] {
-        var results : [Binding<Activity>] = []
-        for activity in $tD.activities {
-            if activity.wrappedValue.players.count == activity.wrappedValue.maxPlayers - 1 {
-                results.append(activity)
-            }
-        }
-        return results
-    }
-    
-    
 }
 
 //struct ActivityListView_Previews: PreviewProvider {

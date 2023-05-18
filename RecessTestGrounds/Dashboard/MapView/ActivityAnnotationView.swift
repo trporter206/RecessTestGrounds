@@ -29,16 +29,8 @@ struct ActivityAnnotationView: View {
             HStack {
                 ProfilePicView(profileString: imageString, height: 50)
                 VStack(alignment: .leading) {
-                    Text(activity.sport)
-                        .lineLimit(1)
-                        .foregroundColor(Color("TextBlue"))
-                    HStack {
-                        Text("\(activity.playerCount)")
-                            .font(.caption)
-                        Image(systemName: "person.3.fill").bold()
-                        Text(activity.date, format: .dateTime.day().month())
-                            .font(.caption)
-                    }
+                    ActivityListItemHeader(activity: activity)
+                    ActivityListItemInfo(activity: activity)
                     .padding(.trailing)
                     .foregroundColor(Color("TextBlue"))
                 }

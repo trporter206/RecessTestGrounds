@@ -36,22 +36,11 @@ struct CreateActivityView: View {
                 ActivityFormFields(activityData: $activityData)
             }
             Spacer()
-            Text(errorMessage)
-                .bold()
-                .foregroundColor(.orange)
-            Button(action: {
-                if inputsAreValid() {
-                    let activity = Activity(data: activityData, manager: tD)
-                    createActivity(activity: activity)
-                } else {
-                    errorMessage = "Make sure all fields are filled"
-                }
-            }, label: {
-                ActivityButton("Create Activity")
-            })
-            .alert("Activity Created", isPresented: $showingAlert) {
-                Button("OK", role: .cancel){}
-            }
+            ErrorMessageText(errorMessage: $errorMessage)
+            CreateActivityButton(activityData: $activityData,
+                                 showingAlert: $showingAlert,
+                                 errorMessage: $errorMessage,
+                                 activityType: $activityType)
         }
         .background(Color("LightBlue"))
         .onAppear {
@@ -72,7 +61,31 @@ struct HeaderText: View {
     }
 }
 
-extension CreateActivityView {
+struct CreateActivityButton: View {
+    @EnvironmentObject var lM: LocationManager
+    @EnvironmentObject var tD: TestData
+    @Binding var activityData: Activity.Data
+    @Binding var showingAlert: Bool
+    @Binding var errorMessage: String
+    @Binding var activityType: String
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        Button(action: {
+            if inputsAreValid() {
+                let activity = Activity(data: activityData, manager: tD)
+                createActivity(activity: activity)
+            } else {
+                errorMessage = "Make sure all fields are filled"
+            }
+        }, label: {
+            ActivityButton("Create Activity")
+        })
+        .alert("Activity Created", isPresented: $showingAlert) {
+            Button("OK", role: .cancel){}
+        }
+    }
+    
     func inputsAreValid() -> Bool {
         if activityData.sport == "" {
             print("Empty Sport")
@@ -92,13 +105,6 @@ extension CreateActivityView {
             }
         }
         return true
-    }
-    
-    func addressTextState() -> String {
-        if addressText == "" {
-            return "Address will show here"
-        }
-        return addressText
     }
     
     func createActivity(activity: Activity) {

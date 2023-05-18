@@ -34,12 +34,7 @@ struct ActivityAnnotationDetailView: View {
                             .foregroundColor(Color("TextBlue"))
                     }
                 }
-                if activity.description != "" {
-                    Text(activity.description)
-                        .foregroundColor(Color("TextBlue"))
-                        .fontWeight(.light)
-                        .padding([.leading, .bottom, .trailing])
-                }
+                ActivityDescription(activity: activity)
                 Divider().padding([.leading, .trailing])
                 if activity.currentlyActive {
                     Text("Currently Active")
@@ -49,19 +44,8 @@ struct ActivityAnnotationDetailView: View {
                 } else {
                     Text("This activity has not started yet").padding()
                 }
-                Text("Players (\($playerlist.count))")
-                    .foregroundColor(Color("TextBlue"))
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach($playerlist) { $player in
-                            ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
-                        }
-                    }
-                    .padding(.leading)
-                }
-                Text("Date: \(activity.date.formatted())")
-                    .foregroundColor(Color("TextBlue"))
-                    .padding(.top)
+                ActivityPlayerList(playerList: $playerlist)
+                ActivityDateView(activity: activity)
                 Spacer()
                 Text("View on Dashboard or Activities List to join")
                     .font(.footnote)

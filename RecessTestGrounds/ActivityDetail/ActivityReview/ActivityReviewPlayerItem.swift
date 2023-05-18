@@ -18,27 +18,46 @@ struct ActivityReviewPlayerItem: View {
             ProfilePicView(profileString: playerList[playerIndex].profilePicString, height: 60)
             Text(playerList[playerIndex].name).foregroundColor(Color("TextBlue"))
             Spacer()
-            Button(action: {
-                playerReviews[playerIndex] = 1
-                ratingChoice = "positive"
-            }, label: {
-                Image(systemName: "hand.thumbsup.fill")
-                    .foregroundColor({ratingChoice == "positive" ? .green : Color("TextBlue")}())
-                    .padding(.trailing)
-            })
-            Button(action: {
-                playerReviews[playerIndex] = 0
-                ratingChoice = "negative"
-            }, label: {
-                Image(systemName: "hand.thumbsdown.fill")
-                    .foregroundColor({ratingChoice == "negative" ? .red : Color("TextBlue")}())
-                    .padding(.trailing)
-            })
+            ReviewButton(playerReviews: $playerReviews,
+                         ratingChoice: $ratingChoice,
+                         playerIndex: playerIndex,
+                         color: .green,
+                         ratingNum: 1,
+                         ratingString: "positive",
+                         imageString: "hand.thumbsup.fill")
+            ReviewButton(playerReviews: $playerReviews,
+                         ratingChoice: $ratingChoice,
+                         playerIndex: playerIndex,
+                         color: .red,
+                         ratingNum: 0,
+                         ratingString: "negative",
+                         imageString: "hand.thumbsdown.fill")
         }
         .frame(maxWidth: 350)
         .background(RoundedRectangle(cornerRadius: 50)
             .foregroundColor(.white)
             .shadow(radius: 1))
+    }
+}
+
+struct ReviewButton: View {
+    @Binding var playerReviews: [Int]
+    @Binding var ratingChoice: String
+    var playerIndex: Int
+    var color: Color
+    var ratingNum: Int
+    var ratingString: String
+    var imageString: String
+    
+    var body: some View {
+        Button(action: {
+            playerReviews[playerIndex] = ratingNum
+            ratingChoice = ratingString
+        }, label: {
+            Image(systemName: imageString)
+                .foregroundColor({ratingChoice == ratingString ? color : Color("TextBlue")}())
+                .padding(.trailing)
+        })
     }
 }
 

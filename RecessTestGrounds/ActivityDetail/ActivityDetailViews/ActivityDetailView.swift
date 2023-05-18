@@ -24,70 +24,16 @@ struct ActivityDetailView: View {
             VStack {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
-                HStack {
-                    NavigationLink(destination: PlayerProfile(tD: tD, player: $userInfo), label: {
-                        ProfilePicView(profileString: userInfo.profilePicString, height: 90)
-                    })
-                    VStack {
-                        Text(activity.sport)
-                            .foregroundColor(Color("TextBlue"))
-                            .font(.largeTitle)
-                        Text("Hosted by \(userInfo.name)")
-                            .font(.subheadline)
-                            .foregroundColor(Color("TextBlue"))
-                    }
-                }
-                if activity.description != "" {
-                    Text(activity.description)
-                        .foregroundColor(Color("TextBlue"))
-                        .fontWeight(.light)
-                        .padding([.leading, .bottom, .trailing])
-                }
+                PlayerProfileLink(activity: $activity, userInfo: $userInfo)
+                ActivityDescription(activity: activity)
                 Divider().padding([.leading, .trailing])
-                if activity.currentlyActive {
-                    Text("Currently Active")
-                        .foregroundColor(Color("TextBlue"))
-                        .bold()
-                        .padding()
-                } else {
-                    Text("This activity has not started yet").padding()
-                }
-                Text("Players (\($playerlist.count))")
-                    .foregroundColor(Color("TextBlue"))
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach($playerlist) { $player in
-                            ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
-                        }
-                    }
-                    .padding(.leading)
-                }
-                Text("Date: \(activity.date.formatted())")
-                    .foregroundColor(Color("TextBlue"))
-                    .padding(.top)
+                ActivityStatus(activity: $activity)
+                ActivityPlayerList(playerList: $playerlist)
+                ActivityDateView(activity: activity)
                 ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)
                     .environmentObject(tD)
                     .environmentObject(lM)
-                if tD.currentUser.id == activity.creator {
-                    Button(action: {
-                        Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
-                            if let error = error {
-                                print("Error deleting document: \(error)")
-                            }
-                        }
-                        if let indexToRemove = tD.activities.firstIndex(where: {$0.id == activity.id}) {
-                            tD.activities.remove(at: indexToRemove)
-                        }
-                        showingAlert = true
-                        presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Text("Delete").foregroundColor(.red)
-                    })
-                    .alert("Activity Deleted", isPresented: $showingAlert) {
-                        Button("OK", role: .cancel){}
-                    }
-                
-                }
+                ActivityDeleteButton(activity: $activity, showingAlert: $showingAlert)
             }
             .onAppear {
                 getCreatorInfo()
@@ -102,8 +48,114 @@ struct ActivityDetailView: View {
     }
 }
 
-extension ActivityDetailView {
+struct PlayerProfileLink: View {
+    @EnvironmentObject var tD: TestData
+    @Binding var activity: Activity
+    @Binding var userInfo: User
     
+    var body: some View {
+        HStack {
+            NavigationLink(destination: PlayerProfile(tD: tD, player: $userInfo), label: {
+                ProfilePicView(profileString: userInfo.profilePicString, height: 90)
+            })
+            VStack {
+                Text(activity.sport)
+                    .foregroundColor(Color("TextBlue"))
+                    .font(.largeTitle)
+                Text("Hosted by \(userInfo.name)")
+                    .font(.subheadline)
+                    .foregroundColor(Color("TextBlue"))
+            }
+        }
+    }
+}
+
+struct ActivityDescription: View {
+    let activity: Activity
+    
+    var body: some View {
+        if activity.description != "" {
+            Text(activity.description)
+                .foregroundColor(Color("TextBlue"))
+                .fontWeight(.light)
+                .padding([.leading, .bottom, .trailing])
+        }
+    }
+}
+
+struct ActivityStatus: View {
+    @Binding var activity: Activity
+    
+    var body: some View {
+        if activity.currentlyActive {
+            Text("Currently Active")
+                .foregroundColor(Color("TextBlue"))
+                .bold()
+                .padding()
+        } else {
+            Text("This activity has not started yet").padding()
+        }
+    }
+}
+
+struct ActivityPlayerList: View {
+    @Binding var playerList: [User]
+    
+    var body: some View {
+        Text("Players (\($playerList.count))")
+            .foregroundColor(Color("TextBlue"))
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach($playerList) { $player in
+                    ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
+                }
+            }
+            .padding(.leading)
+        }
+    }
+}
+
+struct ActivityDateView: View {
+    let activity: Activity
+    
+    var body: some View {
+        Text("Date: \(activity.date.formatted())")
+            .foregroundColor(Color("TextBlue"))
+            .padding(.top)
+    }
+}
+
+struct ActivityDeleteButton: View {
+    @EnvironmentObject var tD: TestData
+    @Binding var activity: Activity
+    @Binding var showingAlert: Bool
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        if tD.currentUser.id == activity.creator {
+            Button(action: {
+                Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
+                    if let error = error {
+                        print("Error deleting document: \(error)")
+                    }
+                }
+                if let indexToRemove = tD.activities.firstIndex(where: {$0.id == activity.id}) {
+                    tD.activities.remove(at: indexToRemove)
+                }
+                showingAlert = true
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Delete").foregroundColor(.red)
+            })
+            .alert("Activity Deleted", isPresented: $showingAlert) {
+                Button("OK", role: .cancel){}
+            }
+        
+        }
+    }
+}
+
+extension ActivityDetailView {
     func getCreatorInfo() {
         Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
             if let error = error {

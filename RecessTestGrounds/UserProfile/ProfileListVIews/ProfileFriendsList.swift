@@ -14,6 +14,9 @@ struct ProfileFriendsList: View {
         VStack(alignment: .leading) {
             Text("Friends List")
                 .modifier(SectionHeader())
+            Text("Coming Soon!")
+                .foregroundColor(Color("TextBlue"))
+                .padding(.horizontal)
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(user.friends, id: \.self) { friend in

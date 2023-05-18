@@ -14,6 +14,9 @@ struct ProfileFriendRequests: View {
         VStack(alignment: .leading) {
             Text("Friend Requests")
                 .modifier(SectionHeader())
+            Text("Coming Soon!")
+                .foregroundColor(Color("TextBlue"))
+                .padding(.horizontal)
             ScrollView(.horizontal) {
                 HStack {
                     ForEach($user.friendRequests) { $request in

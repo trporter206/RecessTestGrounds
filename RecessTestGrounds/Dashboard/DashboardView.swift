@@ -18,35 +18,14 @@ struct DashboardView: View {
             ScrollView(.vertical) {
                 MyProfileHeader(user: tD.currentUser)
                 VStack() {
-                    Button(action: {
-                        showingMap.toggle()
-                    }, label: {
-                        Text("Show Map")
-                            .foregroundColor({showingMap ? Color.red : Color.green}())
-                    })
+                    MapButtonView(showingMap: $showingMap)
                     if showingMap {
                         DashboardMapView()
                             .frame(height: 500)
                     } else {
-                        if scheduled().count > 0 {
-                            Text("Your Next Activity")
-                                .modifier(SectionHeader())
-                            NextActivityView(activity: scheduled()[0])
-                                .environmentObject(lM)
-                                .environmentObject(tD)
-                        } else {
-                            Text("No Activities Scheduled")
-                        }
-                        Text("Your Scheduled Activities: \(scheduled().dropFirst().count)")
-                            .modifier(SectionHeader())
-                        ForEach(scheduled().dropFirst()) { $activity in
-                            if $activity.wrappedValue.players.contains(tD.currentUser.id) {
-                                ActivityListItem(activity: $activity)
-                                    .environmentObject(lM)
-                                    .environmentObject(tD)
-                                    .padding([.leading, .trailing])
-                            }
-                        }
+                        ScheduledActivitiesListView()
+                            .environmentObject(tD)
+                            .environmentObject(lM)
                         .padding(.bottom)
                     }
                 }
@@ -56,7 +35,44 @@ struct DashboardView: View {
     }
 }
 
-extension DashboardView {
+struct MapButtonView: View {
+    @Binding var showingMap: Bool
+    
+    var body: some View {
+        Button(action: {
+            showingMap.toggle()
+        }, label: {
+            Text("Show Map")
+                .foregroundColor({showingMap ? Color.red : Color.green}())
+        })
+    }
+}
+
+struct ScheduledActivitiesListView: View {
+    @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
+    
+    var body: some View {
+        if scheduled().count > 0 {
+            Text("Your Next Activity")
+                .modifier(SectionHeader())
+            NextActivityView(activity: scheduled()[0])
+                .environmentObject(lM)
+                .environmentObject(tD)
+            Text("Other Scheduled Activities: \(scheduled().dropFirst().count)")
+                .modifier(SectionHeader())
+            ForEach(scheduled().dropFirst()) { $activity in
+                if $activity.wrappedValue.players.contains(tD.currentUser.id) {
+                    ActivityListItem(activity: $activity)
+                        .environmentObject(lM)
+                        .environmentObject(tD)
+                        .padding([.leading, .trailing])
+                }
+            }
+        } else {
+            Text("No Activities Scheduled")
+        }
+    }
     
     func scheduled() -> [Binding<Activity>] {
         var results: [Binding<Activity>] = []
@@ -66,17 +82,6 @@ extension DashboardView {
             }
         }
         return results.sorted(by: {$0.wrappedValue.date < $1.wrappedValue.date})
-    }
-    
-    func distanceToKilometers(activity: Binding<Activity>) -> Double? {
-        let distance = lM.locationManager?.location?
-            .distance(from:
-                        CLLocation(latitude: activity.wrappedValue.coordinates[0],
-                                   longitude: activity.wrappedValue.coordinates[1]))
-        guard distance != nil else {
-            return nil
-        }
-        return distance!
     }
 }
 

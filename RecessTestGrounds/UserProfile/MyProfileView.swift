@@ -26,58 +26,66 @@ struct MyProfileView: View {
                 //})
                 //.padding()
                 ProfileClubsList(user: $user)
-                Text("Coming Soon!")
-                    .foregroundColor(Color("TextBlue"))
-                    .padding(.horizontal)
                 ProfileFriendsList(user: user)
-                Text("Coming Soon!")
-                    .foregroundColor(Color("TextBlue"))
-                    .padding(.horizontal)
                 ProfileFriendRequests(user: $user)
-                Text("Coming Soon!")
-                    .foregroundColor(Color("TextBlue"))
-                    .padding(.horizontal)
-                Button(action: {
-                    do {
-                        try Auth.auth().signOut()
-                        tD.loggedIn = false
-                    } catch {
-                        print("Error signing out: \(error)")
-                    }
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 50)
-                            .foregroundColor(.orange)
-                            .frame(width: 300, height: 60)
-                        Text("Log Out")
-                            .foregroundColor(.white)
-                            .bold()
-                    }
-                    .padding()
-                })
-                Button {
-                    deleteAccount.toggle()
-                } label: {
-                    Text("Delete profile")
-                        .foregroundColor(.red)
-                        .padding()
-                }
-                .alert(isPresented: $deleteAccount) {
-                    Alert(title: Text("Delete user data?"),
-                          message: Text("Your info will be deleted and you will be returned to login"),
-                          primaryButton: .default(
-                          Text("Cancel"),
-                          action: {deleteAccount.toggle()}
-                          ),
-                          secondaryButton: .destructive(
-                          Text("Delete"),
-                          action: {deleteAccountInfo()}
-                          )
-                    )
-                }
+                LogOutButton()
+                DeleteProfileButton(deleteAccount: $deleteAccount, action: deleteAccountInfo)
             }
         }
         .background(Color("LightBlue"))
+    }
+}
+
+struct LogOutButton: View {
+    @EnvironmentObject var tD: TestData
+    
+    var body: some View {
+        Button(action: {
+            do {
+                try Auth.auth().signOut()
+                tD.loggedIn = false
+            } catch {
+                print("Error signing out: \(error)")
+            }
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.orange)
+                    .frame(width: 300, height: 60)
+                Text("Log Out")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+            .padding()
+        })
+    }
+}
+
+struct DeleteProfileButton: View {
+    @Binding var deleteAccount: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button {
+            deleteAccount.toggle()
+        } label: {
+            Text("Delete profile")
+                .foregroundColor(.red)
+                .padding()
+        }
+        .alert(isPresented: $deleteAccount) {
+            Alert(title: Text("Delete user data?"),
+                  message: Text("Your info will be deleted and you will be returned to login"),
+                  primaryButton: .default(
+                  Text("Cancel"),
+                  action: {deleteAccount.toggle()}
+                  ),
+                  secondaryButton: .destructive(
+                  Text("Delete"),
+                  action: action
+                  )
+            )
+        }
     }
 }
 

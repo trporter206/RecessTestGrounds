@@ -30,35 +30,59 @@ struct CreateUserFields: View {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(0...avatarStrings.count-1, id: \.self) { index in
                     if chosenAvatar == avatarStrings[index] {
-                        Button(action: {
-                            chosenAvatar = avatarStrings[index]
-                        }, label: {
-                            ZStack(alignment: .center) {
-                                Image(avatarStrings[index])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: CGFloat(90), height: CGFloat(90))
-                                    .clipShape(Circle())
-                            }
-                        })
+                        ChosenAvatarView(chosenAvatar: $chosenAvatar,
+                                         index: index,
+                                         avatarStrings: avatarStrings)
                     } else {
-                        Button(action: {
-                            chosenAvatar = avatarStrings[index]
-                        }, label: {
-                            ZStack(alignment: .center) {
-                                Image(avatarStrings[index])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .opacity(0.5)
-                                    .frame(width: CGFloat(90), height: CGFloat(90))
-                                    .clipShape(Circle())
-                            }
-                        })
+                        BlurredAvatarView(chosenAvatar: $chosenAvatar,
+                                          index: index,
+                                          avatarStrings: avatarStrings)
                     }
                 }
             }
             .padding()
         }
+    }
+}
+
+struct ChosenAvatarView: View {
+    @Binding var chosenAvatar: String
+    var index: Int
+    var avatarStrings: [String]
+    
+    var body: some View {
+        Button(action: {
+            chosenAvatar = avatarStrings[index]
+        }, label: {
+            ZStack(alignment: .center) {
+                Image(avatarStrings[index])
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: CGFloat(90), height: CGFloat(90))
+                    .clipShape(Circle())
+            }
+        })
+    }
+}
+
+struct BlurredAvatarView: View {
+    @Binding var chosenAvatar: String
+    var index: Int
+    var avatarStrings: [String]
+    
+    var body: some View {
+        Button(action: {
+            chosenAvatar = avatarStrings[index]
+        }, label: {
+            ZStack(alignment: .center) {
+                Image(avatarStrings[index])
+                    .resizable()
+                    .scaledToFill()
+                    .opacity(0.5)
+                    .frame(width: CGFloat(90), height: CGFloat(90))
+                    .clipShape(Circle())
+            }
+        })
     }
 }
 

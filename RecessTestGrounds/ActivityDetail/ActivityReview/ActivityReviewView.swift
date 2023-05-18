@@ -27,36 +27,51 @@ struct ActivityReviewView: View {
                 .padding()
                 .foregroundColor(.white)
                 .background(Color("TextBlue"))
-            Text("Players")
-            ScrollView(.vertical) {
-                VStack {
-                    ForEach($playerList.filter({$0.id != tD.currentUser.id}).indices) { index in
-                        ActivityReviewPlayerItem(playerList: $playerList,
-                                                 playerReviews: $playerReviews,
-                                                 playerIndex: index)
-                    }
-                }
-            }
+            ActivityReviewPlayerList(playerList: $playerList, playerReviews: $playerReviews)
             Spacer()
-            Button(action: {
-                closeOutActivity()
-            }, label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 50)
-                        .foregroundColor(.orange)
-                        .frame(width: 300, height: 60)
-                    Text("Submit")
-                        .foregroundColor(.white)
-                        .bold()
-                }
-                .padding()
-            })
-            
+            ActivityReviewSubmitButton(action: closeOutActivity)
         }
         .background(Color("LightBlue"))
         .onAppear {
             playerReviews = Array(repeating: 2, count: playerList.count-1)
         }
+    }
+}
+
+struct ActivityReviewPlayerList: View {
+    @EnvironmentObject var tD: TestData
+    @Binding var playerList: [User]
+    @Binding var playerReviews: [Int]
+    
+    var body: some View {
+        Text("Players")
+        ScrollView(.vertical) {
+            VStack {
+                ForEach($playerList.filter({$0.id != tD.currentUser.id}).indices) { index in
+                    ActivityReviewPlayerItem(playerList: $playerList,
+                                             playerReviews: $playerReviews,
+                                             playerIndex: index)
+                }
+            }
+        }
+    }
+}
+
+struct ActivityReviewSubmitButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.orange)
+                    .frame(width: 300, height: 60)
+                Text("Submit")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+            .padding()
+        })
     }
 }
 

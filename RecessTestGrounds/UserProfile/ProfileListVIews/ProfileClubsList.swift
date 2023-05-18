@@ -14,6 +14,9 @@ struct ProfileClubsList: View {
         VStack(alignment: .leading) {
             Text("Your Clubs")
                 .modifier(SectionHeader())
+            Text("Coming Soon!")
+                .foregroundColor(Color("TextBlue"))
+                .padding(.horizontal)
             ScrollView(.horizontal) {
                 HStack {
                     ForEach($user.clubs) { $club in

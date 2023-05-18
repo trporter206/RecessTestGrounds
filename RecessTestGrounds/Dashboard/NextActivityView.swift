@@ -29,38 +29,15 @@ struct NextActivityView: View {
                         ZStack(alignment: .bottomTrailing) {
                             if let user = userInfo {
                                 ProfilePicView(profileString: user.profilePicString, height: 90)
-                                Text("\(user.points)")
-                                    .foregroundColor(.orange)
-                                    .fontWeight(.heavy)
-                                    .padding(4)
-                                    .background(RoundedRectangle(cornerRadius: 50)
-                                        .foregroundColor(.white)
-                                        .shadow(radius: 1))
+                                ProfilePointsLink(user: user)
                             } else {
                                 EmptyView()
                             }
                         }
                         .padding([.leading, .trailing])
-                        VStack (alignment: .leading) {
-                            Text(activity.sport).bold().font(.title)
-                            if let name = userInfo?.getName() {
-                                Text("Hosted by \(name)")
-                            }
-                            Divider()
-                            HStack {
-                                Spacer()
-                                Text(activity.date.formatted()).fontWeight(.light)
-                            }
-                        }.padding(.trailing)
+                        NextActivityHeaderInfo(activity: activity)
                     }
-                    Text("\(activity.playerCount)/\(activity.maxPlayers) Players").bold().padding([.leading, .top])
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(profileStrings, id: \.self) { str in
-                                ProfilePicView(profileString: str, height: 60)
-                            }
-                        }.padding([.leading, .trailing])
-                    }
+                    NextActivityPlayerList(activity: activity, profileStrings: profileStrings)
                     Text(activity.description).padding()
                 }.padding()
             }
@@ -69,6 +46,41 @@ struct NextActivityView: View {
         .onAppear {
             getCreatorInfo()
             getProfileStrings()
+        }
+    }
+}
+
+struct NextActivityHeaderInfo: View {
+    var activity: Activity
+    var userInfo: User?
+    
+    var body: some View {
+        VStack (alignment: .leading) {
+            Text(activity.sport).bold().font(.title)
+            if let name = userInfo?.getName() {
+                Text("Hosted by \(name)")
+            }
+            Divider()
+            HStack {
+                Spacer()
+                Text(activity.date.formatted()).fontWeight(.light)
+            }
+        }.padding(.trailing)
+    }
+}
+
+struct NextActivityPlayerList: View {
+    var activity: Activity
+    var profileStrings: [String]
+    
+    var body: some View {
+        Text("\(activity.playerCount) Players").bold().padding([.leading, .top])
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(profileStrings, id: \.self) { str in
+                    ProfilePicView(profileString: str, height: 60)
+                }
+            }.padding([.leading, .trailing])
         }
     }
 }

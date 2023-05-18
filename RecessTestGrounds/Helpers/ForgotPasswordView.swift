@@ -17,30 +17,38 @@ struct ForgotPasswordView: View {
             SuperTextField(placeholder: Text("   Email").foregroundColor(.white),
                            text: $email)
             .modifier(FormField())
-            Button(action: {
-                Auth.auth().sendPasswordReset(withEmail: email) { error in
-                    if error != nil {
-                        print(error!)
-                        errorMessage = error!.localizedDescription
-                    } else {
-                        errorMessage = "Email Sent"
-                    }
-                }
-            }, label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 50)
-                        .foregroundColor(.orange)
-                        .frame(width: 300, height: 60)
-                    Text("Send Email")
-                        .foregroundColor(.white)
-                        .bold()
-                }
-                .padding()
-            })
-            Text(errorMessage)
-                .foregroundColor(.orange)
+            SendEmailButton(email: $email, errorMessage: $errorMessage)
+            ErrorMessageText(errorMessage: $errorMessage)
         }
         .background(Color("LightBlue"))
+    }
+}
+
+struct SendEmailButton: View {
+    @Binding var email: String
+    @Binding var errorMessage: String
+    
+    var body: some View {
+        Button(action: {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                if error != nil {
+                    print(error!)
+                    errorMessage = error!.localizedDescription
+                } else {
+                    errorMessage = "Email Sent"
+                }
+            }
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.orange)
+                    .frame(width: 300, height: 60)
+                Text("Send Email")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+            .padding()
+        })
     }
 }
 

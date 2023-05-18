@@ -17,46 +17,19 @@ struct ActivityActionButtonView: View {
     @Binding var playerList: [User]
     @Binding var showingReview: Bool
     
-    let activityref = Firestore.firestore().collection("Activities")
-    
     var body: some View {
         VStack {
             if $tD.currentUser.id == activity.creator {
                 if activity.currentlyActive {
-                    Button(action: {
-                        showingReview.toggle()
-                    }, label: {
-                        ActivityButton("End Activity")
-                    })
+                    EndActivityButton(showingReview: $showingReview)
                 } else {
-                    if distanceToMeters(activity: $activity) > 100 {
-                        Text("You must be within 100 meters of your activity to start")
-                            .bold()
-                            .foregroundColor(.orange)
-                            .padding()
-                    } else {
-                        Button(action: {
-                            activity.currentlyActive = true
-                        }, label: {
-                            ActivityButton("Start Activity")
-                        })
-                    }
+                    StartActivityButton(activity: $activity)
                 }
             } else {
                 if joined {
-                    Button(action: {
-                        removePlayer()
-                        joined = false
-                    }, label: {
-                        ActivityButton("Leave Activity")
-                    })
+                    LeaveActivityButton(joined: $joined, activity: $activity, playerList: $playerList)
                 } else {
-                    Button(action: {
-                        addPlayer()
-                        joined = true
-                    }, label: {
-                        ActivityButton("Join Activity")
-                    })
+                    JoinActivityButton(joined: $joined, activity: $activity, playerList: $playerList)
                 }
             }
         }
@@ -66,7 +39,36 @@ struct ActivityActionButtonView: View {
     }
 }
 
-extension ActivityActionButtonView {
+struct EndActivityButton: View {
+    @Binding var showingReview: Bool
+    
+    var body: some View {
+        Button(action: {
+            showingReview.toggle()
+        }, label: {
+            ActivityButton("End Activity")
+        })
+    }
+}
+
+struct StartActivityButton: View {
+    @EnvironmentObject var lM: LocationManager
+    @Binding var activity: Activity
+    
+    var body: some View {
+        if distanceToMeters(activity: $activity) > 100 {
+            Text("You must be within 100 meters of your activity to start")
+                .bold()
+                .foregroundColor(.orange)
+                .padding()
+        } else {
+            Button(action: {
+                activity.currentlyActive = true
+            }, label: {
+                ActivityButton("Start Activity")
+            })
+        }
+    }
     
     func distanceToMeters(activity: Binding<Activity>) -> Double {
         let distance = lM.locationManager?.location?
@@ -78,20 +80,49 @@ extension ActivityActionButtonView {
         }
         return distance!
     }
+}
+
+struct LeaveActivityButton: View {
+    @EnvironmentObject var tD: TestData
+    @Binding var joined: Bool
+    @Binding var activity: Activity
+    @Binding var playerList: [User]
     
-    func checkJoined() {
-        if activity.players.contains(tD.currentUser.id) {
-            joined = true
-        } else {
+    let activityref = Firestore.firestore().collection("Activities")
+    
+    var body: some View {
+        Button(action: {
+            removePlayer()
             joined = false
-        }
+        }, label: {
+            ActivityButton("Leave Activity")
+        })
     }
     
-    func makeActive() {
-        activity.currentlyActive = true
+    func removePlayer() {
+        activity.removePlayer(tD.currentUser)
+        playerList.removeAll(where: {$0.id == tD.currentUser.id})
         activityref.document(activity.id).updateData([
-            "currentlyActive" : true
+            "players" : FieldValue.arrayRemove([tD.currentUser.id]),
+            "playerCount" : FieldValue.increment(Int64(-1))
         ])
+    }
+}
+
+struct JoinActivityButton: View {
+    @EnvironmentObject var tD: TestData
+    @Binding var joined: Bool
+    @Binding var activity: Activity
+    @Binding var playerList: [User]
+    let activityref = Firestore.firestore().collection("Activities")
+    
+    var body: some View {
+        Button(action: {
+            addPlayer()
+            joined = true
+        }, label: {
+            ActivityButton("Join Activity")
+        })
     }
     
     func addPlayer() {
@@ -102,13 +133,22 @@ extension ActivityActionButtonView {
             "playerCount" : FieldValue.increment(Int64(1))
         ])
     }
+}
+
+extension ActivityActionButtonView {
+    func checkJoined() {
+        if activity.players.contains(tD.currentUser.id) {
+            joined = true
+        } else {
+            joined = false
+        }
+    }
     
-    func removePlayer() {
-        activity.removePlayer(tD.currentUser)
-        playerList.removeAll(where: {$0.id == tD.currentUser.id})
+    func makeActive() {
+        let activityref = Firestore.firestore().collection("Activities")
+        activity.currentlyActive = true
         activityref.document(activity.id).updateData([
-            "players" : FieldValue.arrayRemove([tD.currentUser.id]),
-            "playerCount" : FieldValue.increment(Int64(-1))
+            "currentlyActive" : true
         ])
     }
 }

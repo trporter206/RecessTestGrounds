@@ -25,33 +25,13 @@ struct ActivityListItem: View {
                 if let user = userInfo {
                     ProfilePicView(profileString: user.profilePicString, height: 90)
                 } else {
-                    Image(systemName: getSportIcon(activity.sport))
-                        .resizable()
-                        .padding()
-                        .foregroundColor(Color("TextBlue"))
-                        .scaledToFit()
-                        .frame(width: CGFloat(90), height: CGFloat(90))
-                        .clipShape(Circle())
+                    SportIcon(activity: activity)
                 }
                 VStack(alignment: .leading) {
-                    Text(activity.sport)
-                        .font(.title)
-                        .lineLimit(1)
-                        .foregroundColor(Color("TextBlue"))
-                        .bold()
-                    HStack {
-                        Text("\(activity.playerCount)/\(activity.maxPlayers)")
-                            .fontWeight(.light)
-                        Image(systemName: "person.3.fill")
-                        Text(activity.date, format: .dateTime.day().month()).fontWeight(.light)
-                    }
-                    .foregroundColor(Color("TextBlue"))
+                    ActivityListItemHeader(activity: activity)
+                    ActivityListItemInfo(activity: activity)
                 }
-                if distanceToKilometers() != nil {
-                    Text("\(distanceToKilometers()!)km")
-                        .foregroundColor(Color("TextBlue"))
-                        .padding()
-                }
+                ActivityListItemDistance(activity: activity)
             }
             .background(RoundedRectangle(cornerRadius: 50)
                 .foregroundColor(.white)
@@ -64,47 +44,42 @@ struct ActivityListItem: View {
     }
 }
 
-extension ActivityListItem {
-    func getSportIcon(_ sport: String) -> String {
-        switch activity.sport {
-        case "Baseball":
-            return "figure.baseball"
-        case "Basketball":
-            return "figure.basketball"
-        case "Football":
-            return "figure.american.football"
-        case "Rugby":
-            return "figure.rugby"
-        case "Soccer":
-            return "figure.soccer"
-        case "Spikeball":
-            return "figure.run"
-        case "Tennis":
-            return "figure.tennis"
-        case "Volleyball":
-            return "figure.volleyball"
-        default:
-            return "figure.run"
-        }
-    }
+struct ActivityListItemHeader: View {
+    let activity: Activity
     
-    func getCreatorInfo() {
-        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activityId }) else {
-            return
-        }
+    var body: some View {
+        Text(activity.sport)
+            .font(.title2)
+            .lineLimit(1)
+            .foregroundColor(Color("TextBlue"))
+            .bold()
+            .padding(.trailing)
+    }
+}
 
-        Firestore.firestore().collection("Users").document(tD.activities[activityIndex].creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Error getting creator info: \(error)")
-            } else {
-                do {
-                    if let user = try documentSnapshot?.data(as: User.self) {
-                        userInfo = user
-                    }
-                } catch {
-                    print("Error decoding creator info: \(error)")
-                }
-            }
+struct ActivityListItemInfo: View {
+    let activity: Activity
+    
+    var body: some View {
+        HStack {
+            Text("\(activity.playerCount)")
+                .fontWeight(.light)
+            Image(systemName: "person.3.fill")
+            Text(activity.date, format: .dateTime.day().month()).fontWeight(.light)
+        }
+        .foregroundColor(Color("TextBlue"))
+    }
+}
+
+struct ActivityListItemDistance: View {
+    @EnvironmentObject var lM: LocationManager
+    let activity: Activity
+    
+    var body: some View {
+        if distanceToKilometers() != nil {
+            Text("\(distanceToKilometers()!)km")
+                .foregroundColor(Color("TextBlue"))
+                .padding()
         }
     }
     
@@ -131,6 +106,66 @@ extension ActivityListItem {
         }
         let distanceInKilometers = convertDistanceToDouble(distance!)
         return removeTrailingZeros(distanceInKilometers)
+    }
+}
+
+struct SportIcon: View {
+    let activity: Activity
+    
+    var body: some View {
+        Image(systemName: getSportIcon(activity.sport))
+            .resizable()
+            .padding()
+            .foregroundColor(Color("TextBlue"))
+            .scaledToFit()
+            .frame(width: CGFloat(90), height: CGFloat(90))
+            .clipShape(Circle())
+    }
+    
+    func getSportIcon(_ sport: String) -> String {
+        switch activity.sport {
+        case "Baseball":
+            return "figure.baseball"
+        case "Basketball":
+            return "figure.basketball"
+        case "Football":
+            return "figure.american.football"
+        case "Rugby":
+            return "figure.rugby"
+        case "Soccer":
+            return "figure.soccer"
+        case "Spikeball":
+            return "figure.run"
+        case "Tennis":
+            return "figure.tennis"
+        case "Volleyball":
+            return "figure.volleyball"
+        default:
+            return "figure.run"
+        }
+    }
+}
+
+extension ActivityListItem {
+    
+    func getCreatorInfo() {
+        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activityId }) else {
+            return
+        }
+
+        Firestore.firestore().collection("Users").document(tD.activities[activityIndex].creator).getDocument() { documentSnapshot, error in
+            if let error = error {
+                print("Error getting creator info: \(error)")
+            } else {
+                do {
+                    if let user = try documentSnapshot?.data(as: User.self) {
+                        userInfo = user
+                    }
+                } catch {
+                    print("Error decoding creator info: \(error)")
+                }
+            }
+        }
     }
 }
 

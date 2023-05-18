@@ -25,12 +25,7 @@ struct ActivityDetailHeader: View {
                         .foregroundColor(Color("TextBlue"))
                 }
             }
-            if activity.description != "" {
-                Text(activity.description)
-                    .foregroundColor(Color("TextBlue"))
-                    .fontWeight(.light)
-                    .padding([.leading, .bottom, .trailing])
-            }
+            ActivityDescription(activity: activity)
             Divider().padding([.leading, .trailing])
         }
         .onAppear {

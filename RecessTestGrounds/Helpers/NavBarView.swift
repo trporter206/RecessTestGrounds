@@ -36,53 +36,25 @@ struct NavBarView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Button(action: {
-                        selectedTab = 0
-                    }) {
-                        VStack {
-                            Image(systemName: "globe")
-                                .font(.system(size: 24, weight: .bold))
-                                .padding([.horizontal, .top])
-                            Text("Dashboard").font(.footnote)
-                        }
-                    }
-                    .accentColor(selectedTab == 0 ? .orange : .white)
+                    NavButtonView(selectedTab: $selectedTab,
+                                  imageString: "globe",
+                                  label: "Dashboard",
+                                  index: 0)
                     Spacer()
-                    Button(action: {
-                        selectedTab = 1
-                    }) {
-                        VStack {
-                            Image(systemName: "figure.basketball")
-                                .font(.system(size: 24, weight: .bold))
-                                .padding([.horizontal, .top])
-                            Text("Activities").font(.footnote)
-                        }
-                    }
-                    .accentColor(selectedTab == 1 ? .orange : .white)
+                    NavButtonView(selectedTab: $selectedTab,
+                                  imageString: "figure.basketball",
+                                  label: "Activities",
+                                  index: 1)
                     Spacer()
-                    Button(action: {
-                        selectedTab = 2
-                    }) {
-                        VStack {
-                            Image(systemName: "person.circle")
-                                .font(.system(size: 24, weight: .bold))
-                                .padding([.horizontal, .top])
-                            Text("Profile").font(.footnote)
-                        }
-                    }
-                    .accentColor(selectedTab == 2 ? .orange : .white)
+                    NavButtonView(selectedTab: $selectedTab,
+                                  imageString: "person.circle",
+                                  label: "Profile",
+                                  index: 2)
                     Spacer()
-                    Button(action: {
-                        selectedTab = 3
-                    }) {
-                        VStack {
-                            Image(systemName: "questionmark")
-                                .font(.system(size: 24, weight: .bold))
-                                .padding([.horizontal, .top])
-                            Text("Help").font(.footnote)
-                        }
-                    }
-                    .accentColor(selectedTab == 3 ? .orange : .white)
+                    NavButtonView(selectedTab: $selectedTab,
+                                  imageString: "questionmark",
+                                  label: "Help",
+                                  index: 3)
                     Spacer()
                 }
                 .background(Color("TextBlue"))
@@ -91,6 +63,27 @@ struct NavBarView: View {
         .onAppear {
             lM.checkIfLocationServicesEnabled()
         }
+    }
+}
+
+struct NavButtonView: View {
+    @Binding var selectedTab: Int
+    var imageString: String
+    var label: String
+    var index: Int
+    
+    var body: some View {
+        Button(action: {
+            selectedTab = index
+        }) {
+            VStack {
+                Image(systemName: imageString)
+                    .font(.system(size: 24, weight: .bold))
+                    .padding([.horizontal, .top])
+                Text(label).font(.footnote)
+            }
+        }
+        .accentColor(selectedTab == index ? .orange : .white)
     }
 }
 
