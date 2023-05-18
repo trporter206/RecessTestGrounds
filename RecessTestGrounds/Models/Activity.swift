@@ -14,7 +14,6 @@ struct Activity: Identifiable, Codable {
     var id: String
     var points: Int
     var sport: String
-    var maxPlayers: Int
     var playerCount: Int
     var date: Date
     var description: String
@@ -23,10 +22,9 @@ struct Activity: Identifiable, Codable {
     var coordinates: [Double]
     var currentlyActive: Bool
     
-    init(sport: String, maxPlayers: Int, date: Date, description: String = "", coordinates: [Double], creator: String) {
+    init(sport: String, date: Date, description: String = "", coordinates: [Double], creator: String) {
         self.id = UUID().uuidString
         self.sport = sport
-        self.maxPlayers = maxPlayers
         self.date = date
         self.description = description
         self.coordinates = coordinates
@@ -76,7 +74,6 @@ class FirestoreService: FirestoreServiceProtocol {
 extension Activity {
     struct Data {
         var sport: String = sportOptions[0]
-        var maxPlayers: Int = 1
         var date: Date = Date.now
         var description: String = ""
         var coordinates: [Double] = [0.0, 0.0]
@@ -84,7 +81,6 @@ extension Activity {
     
     var data: Data {
         Data(sport: sport,
-        maxPlayers: maxPlayers,
         date: date,
         description: description,
         coordinates: coordinates)
@@ -93,7 +89,6 @@ extension Activity {
     init(data: Data, manager: TestData) {
         id = UUID().uuidString
         sport = data.sport
-        maxPlayers = data.maxPlayers
         date = data.date
         description = data.description
         coordinates = data.coordinates

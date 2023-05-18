@@ -13,7 +13,6 @@ struct ActivityNowFormFields: View {
     var body: some View {
         VStack {
             FieldPickerSport(title: "Sport", selection: $activityData.sport, options: sportOptions)
-            FieldPickerPlayers(title: "Players wanted", selection: $activityData.maxPlayers, options: Array(1..<20).map(String.init))
             SuperTextField(placeholder: Text("   Description").foregroundColor(.white),
                            text: $activityData.description)
             .modifier(FormField())

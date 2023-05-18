@@ -17,7 +17,6 @@ struct ActivityFormFields: View {
             DatePickerField(title: "Time", selection: $activityData.date)
             SuperTextField(placeholder: Text("   Description"), text: $activityData.description)
                 .modifier(FormField())
-            FieldPickerPlayers(title: "Number of Players", selection: $activityData.maxPlayers, options: Array(1..<20).map(String.init))
             ChooseLocationLink(activityData: $activityData)
         }
         .background(Color("LightBlue"))
@@ -27,24 +26,6 @@ struct ActivityFormFields: View {
 struct FieldPickerSport: View {
     let title: String
     @Binding var selection: String
-    let options: [String]
-    var body: some View {
-        HStack {
-            Text("   \(title)")
-            Spacer()
-            Picker(title, selection: $selection) {
-                ForEach(options, id: \.self) {
-                    Text($0)
-                }
-            }
-        }
-        .modifier(FormField())
-    }
-}
-
-struct FieldPickerPlayers: View {
-    let title: String
-    @Binding var selection: Int
     let options: [String]
     var body: some View {
         HStack {

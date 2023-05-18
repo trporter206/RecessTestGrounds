@@ -90,9 +90,6 @@ struct CreateActivityButton: View {
         if activityData.sport == "" {
             print("Empty Sport")
             return false
-        } else if (activityData.maxPlayers == 0) {
-            print("0 players")
-            return false
         } else if (activityData.description == "") {
             print("Empty desc")
             return false
@@ -113,7 +110,6 @@ struct CreateActivityButton: View {
                 "id" : activity.id,
                 "points" : 50,
                 "sport" : activity.sport,
-                "maxPlayers" : activity.maxPlayers,
                 "playerCount" : 1,
                 "date" : activity.date,
                 "description" : activity.description,
@@ -134,7 +130,6 @@ struct CreateActivityButton: View {
                 "id" : activity.id,
                 "points" : 50,
                 "sport" : activity.sport,
-                "maxPlayers" : activity.maxPlayers,
                 "playerCount" : 1,
                 "date" : Date.now,
                 "description" : activity.description,

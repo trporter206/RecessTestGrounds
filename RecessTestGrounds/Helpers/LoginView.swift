@@ -34,29 +34,13 @@ struct LoginView: View {
     }
     
     func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let error = error {
-                self.errorMessage = "Error reaching data: \(error.localizedDescription)"
-                return
-            }
-            self.fetchUserInfo(email: email)
-        }
-    }
-    
-    private func fetchUserInfo(email: String) {
-        Firestore.firestore().collection("Users").whereField("emailAddress", isEqualTo: email).getDocuments() { documentSnapshot, error in
-            if let error = error {
-                self.errorMessage = "Error getting user info: \(error.localizedDescription)"
-                return
-            }
-            do {
-                for document in documentSnapshot!.documents {
-                    tD.currentUser = try document.data(as: User.self)
-                    print("Current user is \(tD.currentUser.name)")
-                }
+        FirebaseService.shared.login(email: email, password: password) { result in
+            switch result {
+            case .success(let user):
+                tD.currentUser = user
                 tD.loggedIn = true
-            } catch {
-                self.errorMessage = "Error decoding info: \(error.localizedDescription)"
+            case .failure(let error):
+                errorMessage = error.localizedDescription
             }
         }
     }
@@ -152,6 +136,35 @@ struct SignUpButton: View {
             }
             .padding()
         })
+    }
+}
+
+class FirebaseService {
+    static let shared = FirebaseService()
+
+    func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            Firestore.firestore().collection("Users").whereField("emailAddress", isEqualTo: email).getDocuments() { documentSnapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                for document in documentSnapshot!.documents {
+                    do {
+                        let user = try document.data(as: User.self)
+                        completion(.success(user))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+            }
+        }
     }
 }
 
