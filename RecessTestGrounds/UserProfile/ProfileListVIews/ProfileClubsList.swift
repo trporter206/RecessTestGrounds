@@ -19,9 +19,9 @@ struct ProfileClubsList: View {
                 .padding(.horizontal)
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach($user.clubs) { $club in
-                        ClubListItem(club: $club)
-                    }
+//                    ForEach($user.clubs) { $club in
+//                        ClubListItem(club: $club)
+//                    }
                 }.padding()
             }
         }

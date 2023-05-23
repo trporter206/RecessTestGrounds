@@ -22,6 +22,9 @@ struct ProfilePicView: View {
                 .frame(width: CGFloat(height), height: CGFloat(height))
                 .clipShape(Circle())
         }
+        .onAppear {
+            
+        }
     }
 }
 

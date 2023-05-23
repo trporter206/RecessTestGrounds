@@ -32,10 +32,10 @@ struct ClubListView: View {
                     })
                     Text("Locally active clubs")
                         .modifier(SectionHeader())
-                    ForEach($tD.clubs) {$club in
-                        ClubListItem(club: $club)
-                            .padding([.leading, .trailing])
-                    }
+//                    ForEach($tD.clubs) {$club in
+//                        ClubListItem(club: $club)
+//                            .padding([.leading, .trailing])
+//                    }
                 }
             }
             .background(Color("LightBlue"))

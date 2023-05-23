@@ -10,23 +10,23 @@ import SwiftUI
 
 struct Club: Identifiable, Codable {
     var id: String
-    var creator: User
+    var creator: String
     var name: String
     var sport: String
-    var members: [User]
-    var upcomingActivities: [Activity] = []
+    var members: [String]
+    var upcomingActivities: [String] = []
     var numActivities: Int
     var type: String
     var description: String
     
     mutating func addMember(_ user: User) {
-        if !members.contains(user) {
-                members.append(user)
-            }
+        if !members.contains(user.id) {
+            members.append(user.id)
+        }
     }
     
     mutating func removeMember(_ user: User) {
-        if let index = members.firstIndex(of: user) {
+        if let index = members.firstIndex(of: user.id) {
             members.remove(at: index)
         }
     }
@@ -49,7 +49,7 @@ extension Club {
     
     init(data: Data, manager: TestData) {
         id = UUID().uuidString
-        creator = manager.currentUser
+        creator = manager.currentUser.id
         name = data.name
         sport = data.sport
         members = []

@@ -12,28 +12,34 @@ struct ActivityListView: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @State var searchText = ""
+    @State var showingMap = false
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical) {
+            VStack {
                 Text("Activities")
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(Color("TextBlue"))
                     .padding()
-                VStack() {
-                    CreateActivityLinkView()
-                        .environmentObject(tD)
-                        .environmentObject(lM)
-                    ActivitiesStartngSoonListView()
-                        .environmentObject(tD)
-                        .environmentObject(lM)
-                    ActivitiesNearbyListView()
-                        .environmentObject(tD)
-                        .environmentObject(lM)
+                MapButtonView(showingMap: $showingMap)
+                if showingMap {
+                    DashboardMapView()
+                        .frame(maxHeight: .infinity)
+                } else {
+                    ScrollView(.vertical) {
+                        VStack() {
+                            ActiveActivitiesListView()
+                                .environmentObject(tD)
+                                .environmentObject(lM)
+                            ActivitiesNearbyListView()
+                                .environmentObject(tD)
+                                .environmentObject(lM)
+                        }
+                    }
+                    .background(Color("LightBlue"))
                 }
             }
-            .background(Color("LightBlue"))
         }
     }
 }
@@ -58,16 +64,16 @@ struct CreateActivityLinkView: View {
     }
 }
 
-struct ActivitiesStartngSoonListView: View {
+struct ActiveActivitiesListView: View {
     @EnvironmentObject var tD: TestData
     @EnvironmentObject var lM: LocationManager
     
     var body: some View {
-        Text("Activities Starting Soon")
+        Text("Active Activities")
             .modifier(SectionHeader())
         ScrollView(.horizontal) {
             HStack {
-                ForEach($tD.activities.filter({isDateWithinNext24Hours($0.date.wrappedValue)})) { $activity in
+                ForEach($tD.activities.filter({$0.wrappedValue.currentlyActive})) { $activity in
                     if !$activity.wrappedValue.players.contains(tD.currentUser.id) {
                         ActivityListItem(activity: $activity)
                             .environmentObject(lM)
@@ -78,20 +84,6 @@ struct ActivitiesStartngSoonListView: View {
             }
             .padding()
         }
-    }
-    
-    func isDateWithinNext24Hours(_ date: Date) -> Bool {
-        let currentDate = Date()
-        let calendar = Calendar.current
-        
-        // Add 24 hours to the current date
-        if let date24HoursLater = calendar.date(byAdding: .hour, value: 24, to: currentDate) {
-            // Check if the given date is between the current date and the date 24 hours later
-            if date >= currentDate && date <= date24HoursLater {
-                return true
-            }
-        }
-        return false
     }
 }
 

@@ -18,16 +18,23 @@ struct DashboardView: View {
             ScrollView(.vertical) {
                 MyProfileHeader(user: tD.currentUser)
                 VStack() {
-                    MapButtonView(showingMap: $showingMap)
-                    if showingMap {
-                        DashboardMapView()
-                            .frame(height: 500)
-                    } else {
-                        ScheduledActivitiesListView()
-                            .environmentObject(tD)
-                            .environmentObject(lM)
-                        .padding(.bottom)
-                    }
+                    CreateActivityLinkView()
+                        .environmentObject(tD)
+                        .environmentObject(lM)
+                    ScheduledActivitiesListView()
+                        .environmentObject(tD)
+                        .environmentObject(lM)
+                    .padding(.bottom)
+//                    MapButtonView(showingMap: $showingMap)
+//                    if showingMap {
+//                        DashboardMapView()
+//                            .frame(height: 500)
+//                    } else {
+//                        ScheduledActivitiesListView()
+//                            .environmentObject(tD)
+//                            .environmentObject(lM)
+//                        .padding(.bottom)
+//                    }
                 }
             }
             .background(Color("LightBlue"))
@@ -53,24 +60,27 @@ struct ScheduledActivitiesListView: View {
     @EnvironmentObject var lM: LocationManager
     
     var body: some View {
-        if scheduled().count > 0 {
-            Text("Your Next Activity")
-                .modifier(SectionHeader())
-            NextActivityView(activity: scheduled()[0])
-                .environmentObject(lM)
-                .environmentObject(tD)
-            Text("Other Scheduled Activities: \(scheduled().dropFirst().count)")
-                .modifier(SectionHeader())
-            ForEach(scheduled().dropFirst()) { $activity in
-                if $activity.wrappedValue.players.contains(tD.currentUser.id) {
-                    ActivityListItem(activity: $activity)
-                        .environmentObject(lM)
-                        .environmentObject(tD)
-                        .padding([.leading, .trailing])
+        VStack {
+            if scheduled().count > 0 {
+                Text("Your Next Activity")
+                    .modifier(SectionHeader())
+                NextActivityView(activity: scheduled()[0])
+                    .environmentObject(lM)
+                    .environmentObject(tD)
+                Text("Other Scheduled Activities: \(scheduled().dropFirst().count)")
+                    .modifier(SectionHeader())
+                ForEach(scheduled().dropFirst()) { $activity in
+                    if $activity.wrappedValue.players.contains(tD.currentUser.id) {
+                        ActivityListItem(activity: $activity)
+                            .environmentObject(lM)
+                            .environmentObject(tD)
+                            .padding([.leading, .trailing])
+                    }
                 }
+            } else {
+                Text("No Activities Scheduled")
+                    .padding()
             }
-        } else {
-            Text("No Activities Scheduled")
         }
     }
     

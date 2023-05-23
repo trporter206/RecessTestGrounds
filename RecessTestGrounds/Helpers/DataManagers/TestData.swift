@@ -68,10 +68,10 @@ var activitiesData: [Activity] = [
 
 var clubsData: [Club] = [
     Club(id: UUID().uuidString,
-         creator: usersData[0],
+         creator: usersData[0].id,
          name: "Portland Blacktop",
          sport: "Basketball",
-         members: usersData,
+         members: [usersData[0].id],
          numActivities: 12,
          type: "Paid",
          description: "For Portlanders who are serious weekend warriors looking to improve their game")

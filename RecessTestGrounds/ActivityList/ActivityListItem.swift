@@ -14,13 +14,12 @@ struct ActivityListItem: View {
     @EnvironmentObject var tD: TestData
     @Binding var activity: Activity
     @State var userInfo: User? = nil
-    @State private var activityId: String = ""
     
     let dateFormatter = DateFormatter()
     
     var body: some View {
-        NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM)
-            .environmentObject(tD), label: {
+        NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM).environmentObject(tD),
+                       label: {
             HStack {
                 if let user = userInfo {
                     ProfilePicView(profileString: user.profilePicString, height: 90)
@@ -38,7 +37,7 @@ struct ActivityListItem: View {
                 .shadow(radius: 1))
         })
         .onAppear {
-            getCreatorInfo()
+            getUserInfo()
             dateFormatter.dateFormat = "M/d, h:mma"
         }
     }
@@ -157,11 +156,12 @@ struct SportIcon: View {
 
 extension ActivityListItem {
     
-    func getCreatorInfo() {
-        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activityId }) else {
+    func getUserInfo() {
+        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
+            print("Could not find activity index")
             return
         }
-
+        print("Activity index is: \(activityIndex)")
         Firestore.firestore().collection("Users").document(tD.activities[activityIndex].creator).getDocument() { documentSnapshot, error in
             if let error = error {
                 print("Error getting creator info: \(error)")
