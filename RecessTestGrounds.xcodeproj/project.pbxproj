@@ -254,7 +254,6 @@
 		D78D329629D5227F00DD2F05 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				D7116BFB29F8464300017DFC /* MapView */,
 				D78D329B29D5251100DD2F05 /* DashboardView.swift */,
 				D78D329F29D54AE700DD2F05 /* NextActivityView.swift */,
 				D78D32A329D600A300DD2F05 /* ProfilePicView.swift */,
@@ -274,6 +273,7 @@
 		D78D32AE29D6462E00DD2F05 /* ActivityList */ = {
 			isa = PBXGroup;
 			children = (
+				D7116BFB29F8464300017DFC /* MapView */,
 				D78D329D29D53B6E00DD2F05 /* ActivityListItem.swift */,
 				D78D32AF29D6464100DD2F05 /* ActivityListView.swift */,
 			);

@@ -7,16 +7,19 @@
 
 import Foundation
 import MapKit
+import SwiftUI
 
 class ActivityAnnotation: NSObject, MKAnnotation {
-    let activity: Activity
+    let activity: Binding<Activity>
     let coordinate: CLLocationCoordinate2D
     let tD: TestData
+    let lM: LocationManager
     
-    init(activity: Activity, tD: TestData) {
+    init(activity: Binding<Activity>, tD: TestData, lM: LocationManager) {
         self.activity = activity
-        self.coordinate = CLLocationCoordinate2D(latitude: activity.coordinates[0], longitude: activity.coordinates[1])
+        self.coordinate = CLLocationCoordinate2D(latitude: activity.wrappedValue.coordinates[0], longitude: activity.wrappedValue.coordinates[1])
         self.tD = tD
+        self.lM = lM
         super.init()
     }
 }

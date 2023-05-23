@@ -10,27 +10,29 @@ import CoreLocation
 import FirebaseFirestore
 
 struct ActivityAnnotationView: View {
-    var activity: Activity
+    var activity: Binding<Activity>
     var tD: TestData
+    var lM: LocationManager
     dynamic var coordinate: CLLocationCoordinate2D
     var title: String
     var frameSize: CGSize = CGSize(width: 200, height: 50)
     @State var imageString = ""
     
-    init(activity: Activity, tD: TestData) {
+    init(activity: Binding<Activity>, tD: TestData, lM: LocationManager) {
         self.activity = activity
-        self.coordinate = CLLocationCoordinate2D(latitude: activity.coordinates[0], longitude: activity.coordinates[1])
-        self.title = activity.sport
+        self.coordinate = CLLocationCoordinate2D(latitude: activity.wrappedValue.coordinates[0], longitude: activity.wrappedValue.coordinates[1])
+        self.title = activity.wrappedValue.sport
         self.tD = tD
+        self.lM = lM
     }
     
     var body: some View {
-        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD), label: {
+        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD, lM: lM), label: {
             HStack {
                 ProfilePicView(profileString: imageString, height: 50)
                 VStack(alignment: .leading) {
-                    ActivityListItemHeader(activity: activity)
-                    ActivityListItemInfo(activity: activity)
+                    ActivityListItemHeader(activity: activity.wrappedValue)
+                    ActivityListItemInfo(activity: activity.wrappedValue)
                     .padding(.trailing)
                     .foregroundColor(Color("TextBlue"))
                 }
@@ -49,7 +51,7 @@ struct ActivityAnnotationView: View {
 extension ActivityAnnotationView {
     
     func getCreatorIcon() {
-        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
+        Firestore.firestore().collection("Users").document(activity.wrappedValue.creator).getDocument() { documentSnapshot, error in
             if let error = error {
                 print("Error getting creator info: \(error)")
             } else {

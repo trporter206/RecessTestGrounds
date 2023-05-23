@@ -12,8 +12,6 @@ struct ProfilePicView: View {
     var profileString: String
     var height: Int
     
-    @State var userInfo = usersData[0]
-    
     var body: some View {
         VStack {
             Image(profileString)
@@ -21,9 +19,6 @@ struct ProfilePicView: View {
                 .scaledToFill()
                 .frame(width: CGFloat(height), height: CGFloat(height))
                 .clipShape(Circle())
-        }
-        .onAppear {
-            
         }
     }
 }

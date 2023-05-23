@@ -24,7 +24,7 @@ struct ActivityDetailView: View {
             VStack {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
-                PlayerProfileLink(activity: $activity, userInfo: $userInfo)
+                PlayerProfileLink(activity: activity, userInfo: $userInfo)
                 ActivityDescription(activity: activity)
                 Divider().padding([.leading, .trailing])
                 ActivityStatus(activity: $activity)
@@ -50,7 +50,7 @@ struct ActivityDetailView: View {
 
 struct PlayerProfileLink: View {
     @EnvironmentObject var tD: TestData
-    @Binding var activity: Activity
+    var activity: Activity
     @Binding var userInfo: User
     
     var body: some View {

@@ -49,7 +49,7 @@ struct ActivityListItemHeader: View {
     var body: some View {
         if activity.title != "" {
             Text(activity.title)
-                .font(.title2)
+                .font(.title3)
                 .lineLimit(1)
                 .foregroundColor(Color("TextBlue"))
                 .bold()
