@@ -73,12 +73,6 @@ struct DashboardMapView: UIViewRepresentable {
                     span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
                 ), animated: false)
         }
-//        if let userLocation = lM.locationManager?.location?.coordinate {
-//            region = MKCoordinateRegion(
-//                center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
-//                span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
-//            )
-//        }
 
         return mapView
     }
