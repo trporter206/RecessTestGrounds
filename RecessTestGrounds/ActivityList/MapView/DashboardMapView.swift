@@ -50,6 +50,7 @@ class DashboardMapCoordinator: NSObject, MKMapViewDelegate {
 struct DashboardMapView: UIViewRepresentable {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
+    @Binding var filteredActivites: [Activity]
 
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 49.267155, longitude: -123.116873),
@@ -67,22 +68,26 @@ struct DashboardMapView: UIViewRepresentable {
 
         // Set the initial region to user's location if available
         if let userLocation = lM.locationManager?.location?.coordinate {
-            region = MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
-                span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
-            )
+                mapView.setRegion(MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
+                    span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+                ), animated: false)
         }
+//        if let userLocation = lM.locationManager?.location?.coordinate {
+//            region = MKCoordinateRegion(
+//                center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
+//                span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+//            )
+//        }
 
         return mapView
     }
 
     func updateUIView(_ view: MKMapView, context: Context) {
-        view.setRegion(region, animated: true)
-
         let existingAnnotations = view.annotations
         view.removeAnnotations(existingAnnotations)
 
-        let newAnnotations = $tD.activities.map { ActivityAnnotation(activity: $0, tD: tD, lM: lM) }
+        let newAnnotations = $filteredActivites.map { ActivityAnnotation(activity: $0, tD: tD, lM: lM) }
         view.addAnnotations(newAnnotations)
     }
 }
@@ -90,7 +95,7 @@ struct DashboardMapView: UIViewRepresentable {
 
 struct DashboardMapView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardMapView()
+        DashboardMapView(filteredActivites: .constant([]))
             .environmentObject(TestData())
     }
 }

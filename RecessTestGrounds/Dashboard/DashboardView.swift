@@ -25,16 +25,6 @@ struct DashboardView: View {
                         .environmentObject(tD)
                         .environmentObject(lM)
                     .padding(.bottom)
-//                    MapButtonView(showingMap: $showingMap)
-//                    if showingMap {
-//                        DashboardMapView()
-//                            .frame(height: 500)
-//                    } else {
-//                        ScheduledActivitiesListView()
-//                            .environmentObject(tD)
-//                            .environmentObject(lM)
-//                        .padding(.bottom)
-//                    }
                 }
             }
             .background(Color("LightBlue"))
@@ -42,15 +32,22 @@ struct DashboardView: View {
     }
 }
 
-struct MapButtonView: View {
-    @Binding var showingMap: Bool
+struct CreateActivityLinkView: View {
+    @EnvironmentObject var lM: LocationManager
+    @EnvironmentObject var tD: TestData
     
     var body: some View {
-        Button(action: {
-            showingMap.toggle()
-        }, label: {
-            Text("Show Map")
-                .foregroundColor({showingMap ? Color.red : Color.green}())
+        NavigationLink(destination: CreateActivityView().environmentObject(lM)
+            .environmentObject(tD), label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.orange)
+                    .frame(width: 300, height: 60)
+                Text("Create Activity")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+            .padding()
         })
     }
 }
