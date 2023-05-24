@@ -10,7 +10,7 @@ import CoreLocation
 import FirebaseFirestore
 
 struct ActivityAnnotationView: View {
-    var activity: Binding<Activity>
+    var activity: Binding<Activity>?
     var tD: TestData
     var lM: LocationManager
     dynamic var coordinate: CLLocationCoordinate2D
@@ -27,47 +27,64 @@ struct ActivityAnnotationView: View {
     }
     
     var body: some View {
-        NavigationLink(destination: ActivityAnnotationDetailView(activity: activity, tD: tD, lM: lM), label: {
-            HStack {
-                ProfilePicView(profileString: imageString, height: 50)
-                VStack(alignment: .leading) {
-                    ActivityListItemHeader(activity: activity.wrappedValue)
-                    ActivityListItemInfo(activity: activity.wrappedValue)
-                    .padding(.trailing)
-                    .foregroundColor(Color("TextBlue"))
+        if let activityVal = activity {
+            NavigationLink(destination: ActivityAnnotationDetailView(activity: activityVal, tD: tD, lM: lM), label: {
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 50)
+                        .foregroundColor(.white)
+                        .shadow(radius: 1)
+                    HStack {
+                        if imageString != "" {
+                            ProfilePicView(profileString: imageString, height: 50)
+                        }
+                        VStack(alignment: .leading) {
+                            ActivityListItemHeader(activity: activityVal.wrappedValue)
+                                .font(.title3)
+                            ActivityListItemInfo(activity: activityVal.wrappedValue)
+                                .font(.caption)
+                        }
+                        .foregroundColor(Color("TextBlue"))
+                    }
+                }
+            })
+            .frame(width: frameSize.width, height: frameSize.height)
+            .onAppear {
+                if let activityVal = activity {
+                    Task {
+                            await getCreatorIcon(activityVal)
+                        }
                 }
             }
-            .background(RoundedRectangle(cornerRadius: 50)
-                .foregroundColor(.white)
-                .shadow(radius: 1))
-        })
-        .frame(width: frameSize.width, height: frameSize.height)
-        .onAppear {
-            getCreatorIcon()
+        } else {
+            EmptyView()
         }
     }
 }
 
 extension ActivityAnnotationView {
     
-    func getCreatorIcon() {
-        Firestore.firestore().collection("Users").document(activity.wrappedValue.creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Error getting creator info: \(error)")
-            } else {
-                do {
-                    let user = try documentSnapshot!.data(as: User.self)
+    func fetchUserFromFirestore(userID: String) async throws -> User? {
+        let documentSnapshot = try await Firestore.firestore().collection("Users").document(userID).getDocument()
+        return try documentSnapshot.data(as: User.self)
+    }
+
+    
+    func getCreatorIcon(_ activityVal: Binding<Activity>) async {
+        if let activityVal = activity {
+            do {
+                if let user = try await fetchUserFromFirestore(userID: activityVal.wrappedValue.creator) {
                     imageString = user.profilePicString
-                } catch {
-                    print("Error decoding creator info: \(error)")
                 }
+            } catch {
+                print("Error getting creator info: \(error)")
             }
         }
     }
+
 }
 
-//struct ActivityAnnotationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ActivityAnnotationView(activity: activitiesData[0], tD: TestData())
-//    }
-//}
+struct ActivityAnnotationView_Previews: PreviewProvider {
+    static var previews: some View {
+        ActivityAnnotationView(activity: .constant(activitiesData[0]), tD: TestData(skipFetching: true), lM: LocationManager())
+    }
+}

@@ -60,7 +60,6 @@ struct User: Identifiable, Equatable, Codable {
     mutating func addPoints(_ points: Int) {
         self.points += points
         self.checkTier()
-        Firestore.firestore().collection("Users").document(self.id).updateData(["points" : self.points])
     }
     
     mutating func checkTier() {
@@ -76,14 +75,13 @@ struct User: Identifiable, Equatable, Codable {
         default:
             self.tier = 5
         }
-        Firestore.firestore().collection("Users").document(self.id).updateData(["tier" : self.tier])
+//        Firestore.firestore().collection("Users").document(self.id).updateData(["tier" : self.tier])
     }
     
     mutating func acceptRequest(request: FriendRequest) {
         guard let index = friendRequests.firstIndex(of: request) else { return }
         friendRequests[index].isAccepted = true
         friends.append(request.sender.id)
-        //TODO: add reciever to senders friend list as well
         friendRequests.remove(at: index)
     }
     

@@ -7,9 +7,6 @@
 
 import SwiftUI
 import MapKit
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 struct CreateActivityView: View {
     @EnvironmentObject var tD: TestData
@@ -103,41 +100,19 @@ struct CreateActivityButton: View {
     
     func createActivity(activity: Activity) {
         if activityType == "Later" {
-            Firestore.firestore().collection("Activities").document(activity.id).setData([
-                "id" : activity.id,
-                "title" : activity.title,
-                "points" : 50,
-                "sport" : activity.sport,
-                "playerCount" : 1,
-                "date" : activity.date,
-                "description" : activity.description,
-                "creator" : activity.creator,
-                "players" : [activity.creator],
-                "coordinates" : activity.coordinates,
-                "currentlyActive" : false
-            ])
+            FirestoreService.shared.createActivityForLater(activity: activity)
             tD.activities.append(activity)
         } else {
             let coords = [lM.locationManager!.location!.coordinate.latitude,
                           lM.locationManager!.location!.coordinate.longitude]
             activityData.coordinates = coords
+            //updatedActivity created since activity is constant and cannot be adjusted. only differences are coordinates and active status
             var updatedActivity = Activity(data: activityData, manager: tD)
             updatedActivity.id = activity.id
             updatedActivity.currentlyActive = true
-            Firestore.firestore().collection("Activities").document(activity.id).setData([
-                "id" : activity.id,
-                "title" : activity.title,
-                "points" : 50,
-                "sport" : activity.sport,
-                "playerCount" : 1,
-                "date" : Date.now,
-                "description" : activity.description,
-                "creator" : activity.creator,
-                "players" : [activity.creator],
-                "coordinates" : coords,
-                "currentlyActive" : true
-            ])
+            FirestoreService.shared.createActivityNow(activity: activity, coordinates: coords)
             tD.activities.append(updatedActivity)
+            print("Activity ID: \(activity.id), updatedActivity ID: \(updatedActivity.id)")
         }
         showingAlert = true
         self.presentationMode.wrappedValue.dismiss()

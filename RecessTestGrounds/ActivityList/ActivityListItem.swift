@@ -20,21 +20,23 @@ struct ActivityListItem: View {
     var body: some View {
         NavigationLink(destination: ActivityDetailView(activity: $activity).environmentObject(lM).environmentObject(tD),
                        label: {
-            HStack {
-                if let user = userInfo {
-                    ProfilePicView(profileString: user.profilePicString, height: 90)
-                } else {
-                    SportIcon(activity: activity)
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.white)
+                    .shadow(radius: 1)
+                HStack {
+                    if let user = userInfo {
+                        ProfilePicView(profileString: user.profilePicString, height: 80)
+                    } else {
+                        SportIcon(activity: activity)
+                    }
+                    VStack(alignment: .leading) {
+                        ActivityListItemHeader(activity: activity)
+                        ActivityListItemInfo(activity: activity)
+                    }
                 }
-                VStack(alignment: .leading) {
-                    ActivityListItemHeader(activity: activity)
-                    ActivityListItemInfo(activity: activity)
-                }
-                ActivityListItemDistance(activity: activity)
             }
-            .background(RoundedRectangle(cornerRadius: 50)
-                .foregroundColor(.white)
-                .shadow(radius: 1))
+            .padding([.bottom, .horizontal])
         })
         .onAppear {
             getUserInfo()
@@ -49,14 +51,14 @@ struct ActivityListItemHeader: View {
     var body: some View {
         if activity.title != "" {
             Text(activity.title)
-                .font(.title3)
+                .font(.title2)
                 .lineLimit(1)
                 .foregroundColor(Color("TextBlue"))
                 .bold()
 //                .padding(.trailing)
         } else {
             Text(activity.sport)
-                .font(.title2)
+                .font(.caption)
                 .lineLimit(1)
                 .foregroundColor(Color("TextBlue"))
                 .bold()
@@ -74,6 +76,8 @@ struct ActivityListItemInfo: View {
                 .fontWeight(.light)
             Image(systemName: "person.3.fill")
             Text(activity.date, format: .dateTime.day().month()).fontWeight(.light)
+            Image(systemName: "calendar")
+            ActivityListItemDistance(activity: activity)
         }
         .foregroundColor(Color("TextBlue"))
     }
@@ -85,9 +89,12 @@ struct ActivityListItemDistance: View {
     
     var body: some View {
         if distanceToKilometers() != nil {
-            Text("\(distanceToKilometers()!)km")
-                .foregroundColor(Color("TextBlue"))
-                .padding()
+            HStack {
+                Text("\(distanceToKilometers()!)km")
+                    .fontWeight(.light)
+                    .foregroundColor(Color("TextBlue"))
+                Image(systemName: "location.fill")
+            }
         }
     }
     
@@ -155,8 +162,11 @@ struct SportIcon: View {
 }
 
 extension ActivityListItem {
-    
+    //TODO: figure out deletion bug
     func getUserInfo() {
+        guard tD.activities.contains(where: { $0.id == activity.id }) else {
+            return
+        }
         guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
             print("Could not find activity index")
             return

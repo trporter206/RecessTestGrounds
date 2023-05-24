@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
 
 struct ActivityReviewView: View {
     @EnvironmentObject var tD: TestData
@@ -15,8 +14,6 @@ struct ActivityReviewView: View {
     @State var playerReviews: [Int] = []
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    let usersRef = Firestore.firestore().collection("Users")
     
     var body: some View {
         VStack {
@@ -76,31 +73,30 @@ struct ActivityReviewSubmitButton: View {
 }
 
 extension ActivityReviewView {
+    func addReviewsForParticipants() {
+        for (index, review) in playerReviews.enumerated() {
+            let userInstance = playerList[index]
+            let rating = playerList[index].updateRating(review)
+            FirestoreService.shared.updatePoints(user: userInstance, points: 25)
+            FirestoreService.shared.updateRating(user: userInstance, rating: rating)
+            FirestoreService.shared.updateReviewCounts(user: userInstance, review: review)
+        }
+    }
+    
     func closeOutActivity() {
         let points = 50 + ((playerList.count - 1) * 5)
+        let tierBeforeNewPoints = tD.currentUser.tier
         tD.currentUser.addPoints(points)
-        for (index, review) in playerReviews.enumerated() {
-            let rating = playerList[index].updateRating(review)
-            usersRef.document(playerList[index].id).updateData(["points" : FieldValue.increment(Int64(25))])
-            usersRef.document(playerList[index].id).updateData(["rating" : rating])
-            if review == 1 {
-                usersRef.document(playerList[index].id).updateData([
-                    "numRatings" : FieldValue.increment(Int64(1)),
-                    "positiveRatingCount" : FieldValue.increment(Int64(1)),
-                ])
-            } else if review == 0 {
-                usersRef.document(playerList[index].id).updateData([
-                    "numRatings" : FieldValue.increment(Int64(1)),
-                ])
-            }
+        FirestoreService.shared.updatePoints(user: tD.currentUser, points: points)
+        let tierAfterNewPoints = tD.currentUser.tier
+        if tierBeforeNewPoints < tierAfterNewPoints {
+            FirestoreService.shared.updateTier(user: tD.currentUser, tier: tierAfterNewPoints)
         }
+        addReviewsForParticipants()
+        
         dismiss()
         presentationMode.wrappedValue.dismiss()
-        Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
-            if let error = error {
-                print("Error deleting document: \(error)")
-            }
-        }
+        FirestoreService.shared.deleteActivity(activity: activity)
         tD.activities.removeAll(where: {$0.id == activity.id})
     }
 }

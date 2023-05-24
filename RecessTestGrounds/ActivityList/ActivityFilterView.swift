@@ -22,28 +22,32 @@ struct ActivityFilterView: View {
                 .foregroundColor(.white)
                 .padding()
             HStack {
-                Text("Sport")
-                    .foregroundColor(.white)
-                    .bold()
-                Picker("Sport", selection: $sport) {
-                    Text("All").tag("All")
-                    ForEach(sportOptions, id: \.self) {
-                        Text($0)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Sport")
+                            .foregroundColor(.white)
+                            .bold()
+                        Picker("Sport", selection: $sport) {
+                            Text("All").tag("All")
+                            ForEach(sportOptions, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .onChange(of: sport) { sportValue in
+                            filterActivities(sportValue, activeOnly: activeOnly)
+                        }
                     }
+                    Toggle("Active Only", isOn: $activeOnly)
+                        .foregroundColor(.white)
+                        .bold()
+                        .onChange(of: activeOnly) { _ in
+                            filterActivities(sport, activeOnly: activeOnly)
+                        }
                 }
                 .padding(.trailing)
-                .onChange(of: sport) { sportValue in
-                    filterActivities(sportValue, activeOnly: activeOnly)
-                }
-                Spacer()
-                Toggle("Active Only", isOn: $activeOnly)
-                    .foregroundColor(.white)
-                    .bold()
-                    .onChange(of: activeOnly) { _ in
-                        filterActivities(sport, activeOnly: activeOnly)
-                    }
                 Spacer()
                 MapButtonView(showingMap: $showingMap)
+                    .padding(.leading)
             }
             .padding()
         }
@@ -83,8 +87,8 @@ extension ActivityFilterView {
         if activeOnly {
             activities = activities.filter({$0.currentlyActive})
         }
-
         filteredActivities = activities
+        print("Num filtered activites: \(filteredActivities.count)")
     }
 }
 

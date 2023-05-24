@@ -6,10 +6,6 @@
 //
 
 import SwiftUI
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseFirestoreSwift
-import FirebaseAuth
 
 struct LoginView: View {
     @EnvironmentObject var tD: TestData
@@ -34,7 +30,7 @@ struct LoginView: View {
     }
     
     func login() {
-        FirebaseService.shared.login(email: email, password: password) { result in
+        FirestoreService.shared.login(email: email, password: password) { result in
             switch result {
             case .success(let user):
                 tD.currentUser = user
@@ -136,35 +132,6 @@ struct SignUpButton: View {
             }
             .padding()
         })
-    }
-}
-
-class FirebaseService {
-    static let shared = FirebaseService()
-
-    func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            Firestore.firestore().collection("Users").whereField("emailAddress", isEqualTo: email).getDocuments() { documentSnapshot, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-
-                for document in documentSnapshot!.documents {
-                    do {
-                        let user = try document.data(as: User.self)
-                        completion(.success(user))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                }
-            }
-        }
     }
 }
 

@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 import FirebaseAuth
 
 struct CreateUserView: View {
@@ -22,20 +19,22 @@ struct CreateUserView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack {
-            CreateProfileHeader()
-            CreateUserFields(userData: $userData,
-                             password: $password,
-                             chosenAvatar: $chosenAvatar)
-            .padding()
-            Spacer()
-            ErrorMessageText(errorMessage: $errorMessage)
-            Spacer()
-            SignUpProfileButton(userData: $userData,
-                                errorMessage: $errorMessage,
-                                chosenAvatar: $chosenAvatar,
-                                password: $password,
-                                showingAlert: $showingAlert)
+        ScrollView(.vertical) {
+            VStack {
+                CreateProfileHeader()
+                CreateUserFields(userData: $userData,
+                                 password: $password,
+                                 chosenAvatar: $chosenAvatar)
+                .padding()
+                Spacer()
+                ErrorMessageText(errorMessage: $errorMessage)
+                Spacer()
+                SignUpProfileButton(userData: $userData,
+                                    errorMessage: $errorMessage,
+                                    chosenAvatar: $chosenAvatar,
+                                    password: $password,
+                                    showingAlert: $showingAlert)
+            }
         }
         .background(Color("LightBlue"))
     }
@@ -97,21 +96,7 @@ struct SignUpProfileButton: View {
     }
     
     func createUser(user: User) {
-        Firestore.firestore().collection("Users").document(user.id).setData([
-            "id" : user.id,
-            "name" : user.name,
-            "tier" : user.tier,
-            "positiveRatingCount" : user.positiveRatingCount,
-            "clubs" : user.clubs,
-            "friends" : user.friends,
-            "achievements" : user.achievements,
-            "points" : user.points,
-            "profilePicString" : chosenAvatar,
-            "friendRequests" : user.friendRequests,
-            "numRatings" : user.numRatings,
-            "rating" : user.rating,
-            "emailAddress" : user.emailAddress
-        ])
+        FirestoreService.shared.createUser(user: user, avatar: chosenAvatar)
         showingAlert = true
         tD.currentUser = user
     }

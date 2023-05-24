@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
 import CoreLocation
 
 struct ActivityActionButtonView: View {
@@ -34,7 +33,11 @@ struct ActivityActionButtonView: View {
             }
         }
         .onAppear {
-            checkJoined()
+            if activity.players.contains(tD.currentUser.id) {
+                joined = true
+            } else {
+                joined = false
+            }
         }
     }
 }
@@ -64,6 +67,7 @@ struct StartActivityButton: View {
         } else {
             Button(action: {
                 activity.currentlyActive = true
+                FirestoreService.shared.makeActivityActive(activity: activity)
             }, label: {
                 ActivityButton("Start Activity")
             })
@@ -88,8 +92,6 @@ struct LeaveActivityButton: View {
     @Binding var activity: Activity
     @Binding var playerList: [User]
     
-    let activityref = Firestore.firestore().collection("Activities")
-    
     var body: some View {
         Button(action: {
             removePlayer()
@@ -102,10 +104,7 @@ struct LeaveActivityButton: View {
     func removePlayer() {
         activity.removePlayer(tD.currentUser)
         playerList.removeAll(where: {$0.id == tD.currentUser.id})
-        activityref.document(activity.id).updateData([
-            "players" : FieldValue.arrayRemove([tD.currentUser.id]),
-            "playerCount" : FieldValue.increment(Int64(-1))
-        ])
+        FirestoreService.shared.removePlayer(activity: activity, user: tD.currentUser)
     }
 }
 
@@ -114,7 +113,6 @@ struct JoinActivityButton: View {
     @Binding var joined: Bool
     @Binding var activity: Activity
     @Binding var playerList: [User]
-    let activityref = Firestore.firestore().collection("Activities")
     
     var body: some View {
         Button(action: {
@@ -128,28 +126,7 @@ struct JoinActivityButton: View {
     func addPlayer() {
         activity.addPlayer(tD.currentUser) //maintain info when leaving view
         playerList.append(tD.currentUser)  //update view on click
-        activityref.document(activity.id).updateData([ //update database
-            "players" : FieldValue.arrayUnion([tD.currentUser.id]),
-            "playerCount" : FieldValue.increment(Int64(1))
-        ])
-    }
-}
-
-extension ActivityActionButtonView {
-    func checkJoined() {
-        if activity.players.contains(tD.currentUser.id) {
-            joined = true
-        } else {
-            joined = false
-        }
-    }
-    
-    func makeActive() {
-        let activityref = Firestore.firestore().collection("Activities")
-        activity.currentlyActive = true
-        activityref.document(activity.id).updateData([
-            "currentlyActive" : true
-        ])
+        FirestoreService.shared.addPlayer(activity: activity, user: tD.currentUser)
     }
 }
 

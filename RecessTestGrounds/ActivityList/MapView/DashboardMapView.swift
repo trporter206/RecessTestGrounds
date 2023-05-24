@@ -80,7 +80,6 @@ struct DashboardMapView: UIViewRepresentable {
     func updateUIView(_ view: MKMapView, context: Context) {
         let existingAnnotations = view.annotations
         view.removeAnnotations(existingAnnotations)
-
         let newAnnotations = $filteredActivites.map { ActivityAnnotation(activity: $0, tD: tD, lM: lM) }
         view.addAnnotations(newAnnotations)
     }

@@ -52,27 +52,6 @@ struct Activity: Identifiable, Codable {
     }
 }
 
-protocol FirestoreServiceProtocol {
-    func getUserInfo(id: String, completion: @escaping (Result<User, Error>) -> Void)
-}
-
-class FirestoreService: FirestoreServiceProtocol {
-    func getUserInfo(id: String, completion: @escaping (Result<User, Error>) -> Void) {
-        Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                do {
-                    let user = try documentSnapshot!.data(as: User.self)
-                    completion(.success(user))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-}
-
 extension Activity {
     struct Data {
         var title: String = ""

@@ -35,7 +35,6 @@ struct ActivityListView: View {
                                         ActivityListItem(activity: $activity)
                                             .environmentObject(lM)
                                             .environmentObject(tD)
-                                            .padding(.trailing)
                                 }
                             }
                         }

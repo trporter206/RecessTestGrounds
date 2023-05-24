@@ -138,21 +138,18 @@ struct ActivityDeleteButton: View {
     var body: some View {
         if tD.currentUser.id == activity.creator {
             Button(action: {
-                Firestore.firestore().collection("Activities").document(activity.id).delete() { error in
-                    if let error = error {
-                        print("Error deleting document: \(error)")
-                    }
-                }
+                FirestoreService.shared.deleteActivity(activity: activity)
                 if let indexToRemove = tD.activities.firstIndex(where: {$0.id == activity.id}) {
                     tD.activities.remove(at: indexToRemove)
                 }
                 showingAlert = true
-                presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Delete").foregroundColor(.red)
             })
             .alert("Activity Deleted", isPresented: $showingAlert) {
-                Button("OK", role: .cancel){}
+                Button("OK", role: .cancel){
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         
         }

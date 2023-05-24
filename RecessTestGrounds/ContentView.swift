@@ -6,21 +6,10 @@
 //
 
 import SwiftUI
-import FirebaseCore
-import FirebaseAuth
-
-func configureFirebase() {
-    guard FirebaseApp.app() == nil else { return }
-    FirebaseApp.configure()
-}
 
 struct ContentView: View {
     @StateObject var lM = LocationManager()
     @StateObject var tD = TestData()
-    
-    init() {
-        configureFirebase()
-    }
     
     
     var body: some View {
@@ -35,6 +24,8 @@ struct ContentView: View {
                     .environmentObject(lM)
             }
         }
+        .padding(.bottom)
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
