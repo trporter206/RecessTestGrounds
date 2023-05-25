@@ -11,18 +11,19 @@ import FirebaseAuth
 import CoreLocation
 
 protocol FirestoreServiceProtocol {
+    //helper functions
     func getUserInfo(id: String, completion: @escaping (Result<User, Error>) -> Void)
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void)
     func makeActivityActive(activity: Activity)
-    
+    //update functions
     func updatePoints(user: User, points: Int)
     func updateTier(user: User, tier: Int)
     func updateRating(user: User, rating: String)
     func updateReviewCounts(user: User, review: Int)
-    
+    //deletion functions
     func deleteActivity(activity: Activity)
     func removePlayer(activity: Activity, user: User)
-    
+    //creation functions
     func createUser(user: User, avatar: String)
     func createActivityForLater(activity: Activity)
     func createActivityNow(activity: Activity, coordinates: [CLLocationDegrees])

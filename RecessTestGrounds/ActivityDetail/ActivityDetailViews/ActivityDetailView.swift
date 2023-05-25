@@ -36,8 +36,26 @@ struct ActivityDetailView: View {
                 ActivityDeleteButton(activity: $activity, showingAlert: $showingAlert)
             }
             .onAppear {
-                getCreatorInfo()
-                getPlayerList()
+                FirestoreService.shared.getUserInfo(id: activity.creator) {
+                    result in
+                    switch result {
+                    case .success(let user):
+                        userInfo = user
+                    case .failure(let error):
+                        print("Error decoding creator info: \(error)")
+                    }
+                }
+                playerlist = []
+                for id in activity.players {
+                    FirestoreService.shared.getUserInfo(id: id) {result in
+                        switch result {
+                        case .success(let user):
+                            playerlist.append(user)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
             }
             
         }
@@ -137,55 +155,27 @@ struct ActivityDeleteButton: View {
     
     var body: some View {
         if tD.currentUser.id == activity.creator {
-            Button(action: {
-                FirestoreService.shared.deleteActivity(activity: activity)
-                if let indexToRemove = tD.activities.firstIndex(where: {$0.id == activity.id}) {
-                    tD.activities.remove(at: indexToRemove)
-                }
-                showingAlert = true
-            }, label: {
+            Button(action: { showingAlert.toggle() },
+                   label: {
                 Text("Delete").foregroundColor(.red)
             })
-            .alert("Activity Deleted", isPresented: $showingAlert) {
-                Button("OK", role: .cancel){
-                    presentationMode.wrappedValue.dismiss()
-                }
-            }
-        
-        }
-    }
-}
-
-extension ActivityDetailView {
-    func getCreatorInfo() {
-        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Error getting creator info: \(error)")
-            } else {
-                do {
-                    let user = try documentSnapshot!.data(as: User.self)
-                    userInfo = user
-                } catch {
-                    print("Error decoding creator info: \(error)")
-                }
-            }
-        }
-    }
-    
-    func getPlayerList() {
-        playerlist = []
-        for id in activity.players {
-            Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
-                if let error = error {
-                    print("Error getting player list info: \(error)")
-                } else {
-                    do {
-                        let user = try documentSnapshot!.data(as: User.self)
-                        playerlist.append(user)
-                    } catch {
-                        print("Error decoding playerlist info: \(error)")
-                    }
-                }
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Delete this activity?"),
+                      primaryButton: .default(
+                        Text("Cancel"),
+                        action: {showingAlert.toggle()}
+                      ),
+                      secondaryButton: .destructive(
+                        Text("Delete"),
+                        action: {
+                            presentationMode.wrappedValue.dismiss()
+                            if let indexToRemove = tD.activities.firstIndex(where: {$0.id == activity.id}) {
+                                FirestoreService.shared.deleteActivity(activity: activity)
+                                tD.activities.remove(at: indexToRemove)
+                            }
+                        }
+                      )
+                )
             }
         }
     }

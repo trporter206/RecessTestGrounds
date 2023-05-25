@@ -26,7 +26,9 @@ struct CreateActivityView: View {
             Picker("Start Now or Later", selection: $activityType) {
                 Text("Now").tag("Now")
                 Text("Later").tag("Later")
-            }.pickerStyle(.segmented)
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal)
             if activityType == "Now" {
                 ActivityNowFormFields(activityData: $activityData)
             } else {

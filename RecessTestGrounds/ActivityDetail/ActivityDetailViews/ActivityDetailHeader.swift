@@ -29,21 +29,12 @@ struct ActivityDetailHeader: View {
             Divider().padding([.leading, .trailing])
         }
         .onAppear {
-            getCreatorInfo()
-        }
-    }
-}
-
-extension ActivityDetailHeader {
-    func getCreatorInfo() {
-        Firestore.firestore().collection("Users").document(activity.creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Error getting creator info: \(error)")
-            } else {
-                do {
-                    let user = try documentSnapshot!.data(as: User.self)
+            FirestoreService.shared.getUserInfo(id: activity.creator) {
+                result in
+                switch result {
+                case .success(let user):
                     userInfo = user
-                } catch {
+                case .failure(let error):
                     print("Error decoding creator info: \(error)")
                 }
             }

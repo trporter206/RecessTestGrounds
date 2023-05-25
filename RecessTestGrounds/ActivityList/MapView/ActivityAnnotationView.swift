@@ -49,38 +49,19 @@ struct ActivityAnnotationView: View {
             })
             .frame(width: frameSize.width, height: frameSize.height)
             .onAppear {
-                if let activityVal = activity {
-                    Task {
-                            await getCreatorIcon(activityVal)
-                        }
+                FirestoreService.shared.getUserInfo(id: activityVal.wrappedValue.creator) { result in
+                    switch result {
+                    case .success(let user):
+                        imageString = user.profilePicString
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
             }
         } else {
             EmptyView()
         }
     }
-}
-
-extension ActivityAnnotationView {
-    
-    func fetchUserFromFirestore(userID: String) async throws -> User? {
-        let documentSnapshot = try await Firestore.firestore().collection("Users").document(userID).getDocument()
-        return try documentSnapshot.data(as: User.self)
-    }
-
-    
-    func getCreatorIcon(_ activityVal: Binding<Activity>) async {
-        if let activityVal = activity {
-            do {
-                if let user = try await fetchUserFromFirestore(userID: activityVal.wrappedValue.creator) {
-                    imageString = user.profilePicString
-                }
-            } catch {
-                print("Error getting creator info: \(error)")
-            }
-        }
-    }
-
 }
 
 struct ActivityAnnotationView_Previews: PreviewProvider {

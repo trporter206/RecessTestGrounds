@@ -34,12 +34,30 @@ struct ActivityAnnotationDetailView: View {
                 ActivityActionButtonView(activity: activity, playerList: $playerlist, showingReview: $showingReviewSheet)
                     .environmentObject(tD)
                     .environmentObject(lM)
-                ActivityDeleteButton(activity: activity, showingAlert: $showingAlert)
-                    .environmentObject(tD)
+//                ActivityDeleteButton(activity: activity, showingAlert: $showingAlert)
+//                    .environmentObject(tD)
             }
             .onAppear {
-                getCreatorInfo()
-                getPlayerList()
+                FirestoreService.shared.getUserInfo(id: activity.wrappedValue.creator) {
+                    result in
+                    switch result {
+                    case .success(let user):
+                        userInfo = user
+                    case .failure(let error):
+                        print("Error decoding creator info: \(error)")
+                    }
+                }
+                playerlist = []
+                for id in activity.wrappedValue.players {
+                    FirestoreService.shared.getUserInfo(id: id) {result in
+                        switch result {
+                        case .success(let user):
+                            playerlist.append(user)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
             }
             
         }
@@ -47,41 +65,6 @@ struct ActivityAnnotationDetailView: View {
         .sheet(isPresented: $showingReviewSheet, content: {
             ActivityReviewView(activity: activity, playerList: $playerlist, presentationMode: _presentationMode)
         })
-    }
-}
-
-extension ActivityAnnotationDetailView {
-    func getCreatorInfo() {
-        Firestore.firestore().collection("Users").document(activity.wrappedValue.creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Error getting creator info: \(error)")
-            } else {
-                do {
-                    let user = try documentSnapshot!.data(as: User.self)
-                    userInfo = user
-                } catch {
-                    print("Error decoding creator info: \(error)")
-                }
-            }
-        }
-    }
-    
-    func getPlayerList() {
-        playerlist = []
-        for id in activity.wrappedValue.players {
-            Firestore.firestore().collection("Users").document(id).getDocument() { documentSnapshot, error in
-                if let error = error {
-                    print("Error getting player list info: \(error)")
-                } else {
-                    do {
-                        let user = try documentSnapshot!.data(as: User.self)
-                        playerlist.append(user)
-                    } catch {
-                        print("Error decoding playerlist info: \(error)")
-                    }
-                }
-            }
-        }
     }
 }
 

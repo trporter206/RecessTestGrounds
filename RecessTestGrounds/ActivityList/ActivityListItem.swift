@@ -162,7 +162,6 @@ struct SportIcon: View {
 }
 
 extension ActivityListItem {
-    //TODO: figure out deletion bug
     func getUserInfo() {
         guard tD.activities.contains(where: { $0.id == activity.id }) else {
             return
@@ -171,18 +170,13 @@ extension ActivityListItem {
             print("Could not find activity index")
             return
         }
-        print("Activity index is: \(activityIndex)")
-        Firestore.firestore().collection("Users").document(tD.activities[activityIndex].creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Error getting creator info: \(error)")
-            } else {
-                do {
-                    if let user = try documentSnapshot?.data(as: User.self) {
-                        userInfo = user
-                    }
-                } catch {
-                    print("Error decoding creator info: \(error)")
-                }
+        FirestoreService.shared.getUserInfo(id: tD.activities[activityIndex].creator) {
+            result in
+            switch result {
+            case .success(let user):
+                userInfo = user
+            case .failure(let error):
+                print("Error decoding creator info: \(error)")
             }
         }
     }

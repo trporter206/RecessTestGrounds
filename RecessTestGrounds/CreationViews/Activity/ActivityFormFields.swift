@@ -21,7 +21,6 @@ struct ActivityFormFields: View {
                 .modifier(FormField())
             ChooseLocationLink(activityData: $activityData)
         }
-        .background(Color("LightBlue"))
     }
 }
 

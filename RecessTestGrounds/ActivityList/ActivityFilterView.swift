@@ -52,6 +52,12 @@ struct ActivityFilterView: View {
             .padding()
         }
         .background(Color("TextBlue"))
+        .onAppear {
+            //shitty fix for deletion bug, improve eventually
+            if sport == "All" && !activeOnly {
+                filteredActivities = tD.activities
+            }
+        }
     }
 }
 

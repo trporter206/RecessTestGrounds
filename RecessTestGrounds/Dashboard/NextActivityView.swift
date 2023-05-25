@@ -44,7 +44,15 @@ struct NextActivityView: View {
             .foregroundColor(Color("TextBlue"))
         })
         .onAppear {
-            getCreatorInfo()
+            FirestoreService.shared.getUserInfo(id: activity.creator) {
+                result in
+                switch result {
+                case .success(let user):
+                    userInfo = user
+                case .failure(let error):
+                    print("Error decoding creator info: \(error)")
+                }
+            }
             getProfileStrings()
         }
     }
@@ -109,26 +117,6 @@ extension NextActivityView {
                     } catch {
                         print("Erro decoding creator info \(error)")
                     }
-                }
-            }
-        }
-    }
-
-    
-    func getCreatorInfo() {
-        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
-            return
-        }
-        
-        Firestore.firestore().collection("Users").document(tD.activities[activityIndex].creator).getDocument() { documentSnapshot, error in
-            if let error = error {
-                print("Erro getting creator info \(error)")
-            } else {
-                do {
-                    let user = try documentSnapshot!.data(as: User.self)
-                    userInfo = user
-                } catch {
-                    print("Erro decoding creator info \(error)")
                 }
             }
         }

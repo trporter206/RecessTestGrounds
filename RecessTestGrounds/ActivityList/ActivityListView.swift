@@ -43,9 +43,6 @@ struct ActivityListView: View {
                 }
             }
             .background(Color("LightBlue"))
-            .onAppear {
-                filteredActivities = tD.activities
-            }
         }
     }
 }
