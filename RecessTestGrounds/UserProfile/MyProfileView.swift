@@ -26,10 +26,11 @@ struct MyProfileView: View {
                 //})
                 //.padding()
                 ProfileClubsList(user: $user)
-                ProfileFriendsList(user: user)
-                ProfileFriendRequests(user: $user)
                 LogOutButton()
-                DeleteProfileButton(deleteAccount: $deleteAccount, action: deleteAccountInfo)
+                HStack {
+                    EditProfileButton()
+                    DeleteProfileButton(deleteAccount: $deleteAccount, action: deleteAccountInfo)
+                }
             }
         }
         .background(Color("LightBlue"))
@@ -57,6 +58,16 @@ struct LogOutButton: View {
                     .bold()
             }
             .padding()
+        })
+    }
+}
+
+struct EditProfileButton: View {
+    @EnvironmentObject var tD: TestData
+    
+    var body: some View {
+        NavigationLink(destination: CreateUserView().environmentObject(tD), label: {
+            Text("Edit Profile")
         })
     }
 }

@@ -39,11 +39,13 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             print("location services set to denied")
         case .authorizedAlways, .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
-            if let center = locationManager.location?.coordinate {
-                region = MKCoordinateRegion(center: center,
-                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            } else {
-                print("Error getting coordinates")
+            DispatchQueue.main.async {
+                if let center = locationManager.location?.coordinate {
+                    self.region = MKCoordinateRegion(center: center,
+                                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                } else {
+                    print("Error getting coordinates")
+                }
             }
         @unknown default:
             break

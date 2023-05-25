@@ -72,7 +72,7 @@ struct NextActivityHeaderInfo: View {
             } else {
                 Text(activity.sport).bold().font(.title)
             }
-            if let name = userInfo?.getName() {
+            if let name = userInfo?.name {
                 Text("Hosted by \(name)")
             }
             Divider()

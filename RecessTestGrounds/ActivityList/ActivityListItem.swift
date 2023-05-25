@@ -58,7 +58,7 @@ struct ActivityListItemHeader: View {
 //                .padding(.trailing)
         } else {
             Text(activity.sport)
-                .font(.caption)
+                .font(.title2)
                 .lineLimit(1)
                 .foregroundColor(Color("TextBlue"))
                 .bold()

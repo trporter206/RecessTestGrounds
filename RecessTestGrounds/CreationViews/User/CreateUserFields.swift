@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CreateUserFields: View {
+    @EnvironmentObject var tD: TestData
     @Binding var userData: User.Data
     @Binding var password: String
     @Binding var chosenAvatar: String
@@ -19,12 +20,14 @@ struct CreateUserFields: View {
             SuperTextField(placeholder: Text("   Name").foregroundColor(.white),
                            text: $userData.name)
             .modifier(FormField())
-            SuperTextField(placeholder: Text("   Email").foregroundColor(.white),
-                           text: $userData.email)
-            .modifier(FormField())
-            SuperTextField(placeholder: Text("   Password").foregroundColor(.white),
-                           text: $password)
-            .modifier(FormField())
+            if !tD.loggedIn {
+                SuperTextField(placeholder: Text("   Email").foregroundColor(.white),
+                               text: $userData.email)
+                .modifier(FormField())
+                SuperTextField(placeholder: Text("   Password").foregroundColor(.white),
+                               text: $password)
+                .modifier(FormField())
+            }
             Text("Choose an Avatar")
                 .modifier(SectionHeader())
             LazyVGrid(columns: columns, spacing: 20) {

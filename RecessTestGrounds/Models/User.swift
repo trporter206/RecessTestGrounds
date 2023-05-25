@@ -16,11 +16,11 @@ struct User: Identifiable, Equatable, Codable {
     var tier: Int
     var positiveRatingCount: Int
     var clubs: [Club]
-    var friends: [String]
+    var followers: [String]
+    var following: [String]
     var achievements: [String]
     var profilePicString: String
     var points: Int
-    var friendRequests: [FriendRequest]
     var numRatings: Int
     var rating: String
     var emailAddress: String
@@ -31,11 +31,11 @@ struct User: Identifiable, Equatable, Codable {
         self.tier = 5
         self.positiveRatingCount = 0
         self.clubs = []
-        self.friends = []
+        self.followers = []
+        self.following = []
         self.achievements = []
         self.profilePicString = avatar
         self.points = 0
-        self.friendRequests = []
         self.numRatings = 0
         self.rating = "0.0"
         self.emailAddress = email
@@ -78,38 +78,10 @@ struct User: Identifiable, Equatable, Codable {
 //        Firestore.firestore().collection("Users").document(self.id).updateData(["tier" : self.tier])
     }
     
-    mutating func acceptRequest(request: FriendRequest) {
-        guard let index = friendRequests.firstIndex(of: request) else { return }
-        friendRequests[index].isAccepted = true
-        friends.append(request.sender.id)
-        friendRequests.remove(at: index)
-    }
-    
-    mutating func rejectRequest(request: FriendRequest) {
-        guard let index = friendRequests.firstIndex(of: request) else { return }
-        friendRequests.remove(at: index)
-    }
-    
     func getImage() -> Image {
         return Image(self.profilePicString)
     }
-    
-    func getName() -> String {
-        return self.name
-    }
-    
-    func getTier() -> Int {
-        return self.tier
-    }
-    
-    func getInitials() -> String {
-        var initials = ""
-        for word in self.getName().components(separatedBy: " ") {
-            initials.append(word.capitalized.first!)
-        }
-        return initials
-    }
-    
+
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id
     }
@@ -137,10 +109,10 @@ extension User {
         tier = 5
         positiveRatingCount = 0
         clubs = []
-        friends = []
+        followers = []
         achievements = []
         points = 0
-        friendRequests = []
+        following = []
         numRatings = 0
         rating = "0.0"
     }

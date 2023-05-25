@@ -78,6 +78,7 @@ var clubsData: [Club] = [
 ]
 
 var avatarStrings: [String] = [
+    "3d_avatar_1",
     "3d_avatar_3",
     "3d_avatar_6",
     "3d_avatar_7",

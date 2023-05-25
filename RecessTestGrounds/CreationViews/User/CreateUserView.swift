@@ -16,7 +16,6 @@ struct CreateUserView: View {
     @State var password = ""
     @State var errorMessage = ""
     @State var chosenAvatar = ""
-    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView(.vertical) {
@@ -25,18 +24,55 @@ struct CreateUserView: View {
                 CreateUserFields(userData: $userData,
                                  password: $password,
                                  chosenAvatar: $chosenAvatar)
+                .environmentObject(tD)
                 .padding()
                 Spacer()
                 ErrorMessageText(errorMessage: $errorMessage)
                 Spacer()
-                SignUpProfileButton(userData: $userData,
-                                    errorMessage: $errorMessage,
-                                    chosenAvatar: $chosenAvatar,
-                                    password: $password,
-                                    showingAlert: $showingAlert)
+                if tD.loggedIn {
+                    UpdateProfileButton(user: $userData, chosenAvatar: $chosenAvatar)
+                } else {
+                    SignUpProfileButton(userData: $userData,
+                                        errorMessage: $errorMessage,
+                                        chosenAvatar: $chosenAvatar,
+                                        password: $password,
+                                        showingAlert: $showingAlert)
+                }
             }
         }
         .background(Color("LightBlue"))
+        .onAppear {
+            if tD.loggedIn {
+                userData = tD.currentUser.data
+                chosenAvatar = tD.currentUser.profilePicString
+            }
+        }
+    }
+}
+
+struct UpdateProfileButton: View {
+    @EnvironmentObject var tD: TestData
+    @Binding var user: User.Data
+    @Binding var chosenAvatar: String
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        Button(action: {
+            FirestoreService.shared.updateUser(data: user, id: tD.currentUser.id)
+            tD.currentUser.name = user.name
+            tD.currentUser.profilePicString = chosenAvatar
+            self.presentationMode.wrappedValue.dismiss()
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 60)
+                Text("Update Profile")
+                    .foregroundColor(.orange)
+                    .bold()
+            }
+            .padding()
+        })
     }
 }
 

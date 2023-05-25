@@ -20,7 +20,7 @@ struct ActivityFilterView: View {
                 .font(.largeTitle)
                 .bold()
                 .foregroundColor(.white)
-                .padding()
+                .padding(.top)
             HStack {
                 VStack(alignment: .leading) {
                     HStack {

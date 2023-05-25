@@ -16,7 +16,6 @@ struct PlayerProfile: View {
             VStack(alignment: .leading) {
                 MyProfileHeader(user: player)
 //                ProfileClubsList(user: $player)
-                ProfileFriendsList(user: player)
             }
         }
         .background(Color("LightBlue"))

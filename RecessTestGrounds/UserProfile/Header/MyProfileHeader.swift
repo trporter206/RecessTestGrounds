@@ -57,7 +57,7 @@ struct ProfileTierLink: View {
             HStack {
                 Text("Tier")
                     .bold()
-                Text("\(user.getTier())")
+                Text("\(user.tier)")
                     .foregroundColor(.orange)
                     .bold()
             }

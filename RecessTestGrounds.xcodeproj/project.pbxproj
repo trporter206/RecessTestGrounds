@@ -61,8 +61,6 @@
 		D7C5873029DBCBBE00EC9955 /* ClubMemberListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872F29DBCBBE00EC9955 /* ClubMemberListItem.swift */; };
 		D7C5873229DBCD1400EC9955 /* ActivityDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873129DBCD1400EC9955 /* ActivityDetailHeader.swift */; };
 		D7C5873529DBCDE800EC9955 /* ProfileClubsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */; };
-		D7C5873729DBCE6800EC9955 /* ProfileFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */; };
-		D7C5873929DBCF0700EC9955 /* ProfileFriendRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */; };
 		D7C5873B29DBCF9F00EC9955 /* ProfileAchievementsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */; };
 		D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */; };
 		D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814CE29D74C0600C7DF7A /* NavBarView.swift */; };
@@ -77,7 +75,7 @@
 		D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E829DAB69E00C7DF7A /* Modifiers.swift */; };
 		D7D070692A016E3800EE01E4 /* CreateUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D070682A016E3800EE01E4 /* CreateUserFields.swift */; };
 		D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */; };
-		D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */; };
+		D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EA2A1FF057006695C5 /* UserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,8 +135,6 @@
 		D7C5872F29DBCBBE00EC9955 /* ClubMemberListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubMemberListItem.swift; sourceTree = "<group>"; };
 		D7C5873129DBCD1400EC9955 /* ActivityDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailHeader.swift; sourceTree = "<group>"; };
 		D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileClubsList.swift; sourceTree = "<group>"; };
-		D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsList.swift; sourceTree = "<group>"; };
-		D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendRequests.swift; sourceTree = "<group>"; };
 		D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAchievementsList.swift; sourceTree = "<group>"; };
 		D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotation.swift; sourceTree = "<group>"; };
 		D7C814CE29D74C0600C7DF7A /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
@@ -154,7 +150,7 @@
 		D7C814E829DAB69E00C7DF7A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		D7D070682A016E3800EE01E4 /* CreateUserFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserFields.swift; sourceTree = "<group>"; };
 		D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationDetailView.swift; sourceTree = "<group>"; };
-		D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestListItemView.swift; sourceTree = "<group>"; };
+		D7E391EA2A1FF057006695C5 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +208,7 @@
 		D78D327729D51F0B00DD2F05 = {
 			isa = PBXGroup;
 			children = (
+				D7E391EA2A1FF057006695C5 /* UserTests.swift */,
 				D762F40A2A1E654900329601 /* ActivityTests.swift */,
 				D78D328229D51F0C00DD2F05 /* RecessTestGrounds */,
 				D78D328129D51F0C00DD2F05 /* Products */,
@@ -315,10 +312,7 @@
 		D7B9CAD129EF287A0085BD72 /* ProfileListVIews */ = {
 			isa = PBXGroup;
 			children = (
-				D7FBFF1C29DF33CB00C0D2E3 /* FriendRequestListItemView.swift */,
 				D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */,
-				D7C5873829DBCF0700EC9955 /* ProfileFriendRequests.swift */,
-				D7C5873629DBCE6800EC9955 /* ProfileFriendsList.swift */,
 				D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */,
 			);
 			path = ProfileListVIews;
@@ -553,6 +547,7 @@
 				D762F40B2A1E654900329601 /* ActivityTests.swift in Sources */,
 				D74DA37629F3371500E1C282 /* Activity.swift in Sources */,
 				D762F4142A1E696F00329601 /* Club.swift in Sources */,
+				D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */,
 				D762F4122A1E68FF00329601 /* User.swift in Sources */,
 				D762F4132A1E691900329601 /* TestData.swift in Sources */,
 				D762F4152A1E699300329601 /* FriendRequest.swift in Sources */,
@@ -582,7 +577,6 @@
 				D7C814DE29D9F5A700C7DF7A /* LocationManager.swift in Sources */,
 				D7B018C22A05BED400D5C473 /* InfoPageView.swift in Sources */,
 				D7D070692A016E3800EE01E4 /* CreateUserFields.swift in Sources */,
-				D7C5873729DBCE6800EC9955 /* ProfileFriendsList.swift in Sources */,
 				D78D32A029D54AE700DD2F05 /* NextActivityView.swift in Sources */,
 				D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */,
 				D78D329E29D53B6E00DD2F05 /* ActivityListItem.swift in Sources */,
@@ -592,7 +586,6 @@
 				D78D32B029D6464100DD2F05 /* ActivityListView.swift in Sources */,
 				D7BF82C329E4AB730064A7A5 /* CreateActivityView.swift in Sources */,
 				D78D329C29D5251100DD2F05 /* DashboardView.swift in Sources */,
-				D7C5873929DBCF0700EC9955 /* ProfileFriendRequests.swift in Sources */,
 				D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */,
 				D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */,
 				D7C5873529DBCDE800EC9955 /* ProfileClubsList.swift in Sources */,
@@ -602,7 +595,6 @@
 				D7C5872429DB692F00EC9955 /* ActivityActionButtonView.swift in Sources */,
 				D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */,
 				D7116C0529F8990500017DFC /* ActivityFormFields.swift in Sources */,
-				D7FBFF1D29DF33CB00C0D2E3 /* FriendRequestListItemView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,
 				D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */,

@@ -6,8 +6,6 @@
 //
 import XCTest
 
-// Add your Activity struct here
-
 class ActivityTests: XCTestCase {
     func testAddPlayer() {
         var activity = Activity(title: "Test activity", sport: "Basketball", date: Date(), coordinates: [0.0, 0.0], creator: "CreatorId")

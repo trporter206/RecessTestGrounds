@@ -16,6 +16,7 @@ protocol FirestoreServiceProtocol {
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void)
     func makeActivityActive(activity: Activity)
     //update functions
+    func updateUser(data: User.Data, id: String)
     func updatePoints(user: User, points: Int)
     func updateTier(user: User, tier: Int)
     func updateRating(user: User, rating: String)
@@ -35,6 +36,13 @@ class FirestoreService: FirestoreServiceProtocol {
     static let shared = FirestoreService()
     let userRef = Firestore.firestore().collection("Users")
     let activityRef = Firestore.firestore().collection("Activities")
+    
+    func updateUser(data: User.Data, id: String) {
+        userRef.document(id).updateData([
+            "name" : data.name,
+            "profilePicString" : data.profilePicString,
+        ])
+    }
     
     func makeActivityActive(activity: Activity) {
         activityRef.document(activity.id).updateData([
@@ -95,11 +103,11 @@ class FirestoreService: FirestoreServiceProtocol {
             "tier" : user.tier,
             "positiveRatingCount" : user.positiveRatingCount,
             "clubs" : user.clubs,
-            "friends" : user.friends,
+            "followers" : user.followers,
             "achievements" : user.achievements,
             "points" : user.points,
             "profilePicString" : avatar,
-            "friendRequests" : user.friendRequests,
+            "following" : user.following,
             "numRatings" : user.numRatings,
             "rating" : user.rating,
             "emailAddress" : user.emailAddress
