@@ -70,8 +70,8 @@ extension Activity {
             coordinates: coordinates)
     }
     
-    init(data: Data, manager: TestData) {
-        id = UUID().uuidString
+    init(data: Data, idString: String = UUID().uuidString, manager: TestData) {
+        id = idString
         title = data.title
         sport = data.sport
         date = data.date

@@ -49,7 +49,7 @@ struct ActivityFilterView: View {
                 MapButtonView(showingMap: $showingMap)
                     .padding(.leading)
             }
-            .padding()
+            .padding([.horizontal, .bottom])
         }
         .background(Color("TextBlue"))
         .onAppear {

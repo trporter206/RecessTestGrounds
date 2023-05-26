@@ -25,21 +25,20 @@ struct NextActivityView: View {
                     .padding()
                     .shadow(radius: 1)
                 VStack (alignment: .leading) {
-                    HStack {
-                        ZStack(alignment: .bottomTrailing) {
-                            if let user = userInfo {
+                    HStack(alignment: .center) {
+                        if let user = userInfo {
+                            ZStack(alignment: .bottomTrailing) {
                                 ProfilePicView(profileString: user.profilePicString, height: 90)
                                 ProfilePointsLink(user: user)
-                            } else {
-                                EmptyView()
-                            }
+                            }.padding(.horizontal)
+                        } else {
+                            EmptyView()
                         }
-                        .padding([.leading, .trailing])
                         NextActivityHeaderInfo(activity: activity, userInfo: userInfo)
                     }
                     NextActivityPlayerList(activity: activity, profileStrings: profileStrings)
                     Text(activity.description).padding()
-                }.padding()
+                }.padding(.horizontal)
             }
             .foregroundColor(Color("TextBlue"))
         })
@@ -66,14 +65,17 @@ struct NextActivityHeaderInfo: View {
         VStack (alignment: .leading) {
             if activity.title != "" {
                 VStack(alignment: .leading) {
-                    Text(activity.title).bold().font(.title)
-                    Text(activity.sport).fontWeight(.light)
-                }.padding(.bottom)
+                    Text(activity.title)
+                        .lineLimit(1)
+                        .bold()
+                        .font(.title)
+                    Text(activity.sport).bold()
+                }
             } else {
                 Text(activity.sport).bold().font(.title)
             }
             if let name = userInfo?.name {
-                Text("Hosted by \(name)")
+                Text("Hosted by \(name)").fontWeight(.light)
             }
             Divider()
             HStack {
@@ -89,13 +91,13 @@ struct NextActivityPlayerList: View {
     var profileStrings: [String]
     
     var body: some View {
-        Text("\(activity.playerCount) Players").bold().padding([.leading, .top])
+        Text("\(activity.playerCount) Players").bold().padding(.leading)
         ScrollView(.horizontal) {
             HStack {
                 ForEach(profileStrings, id: \.self) { str in
                     ProfilePicView(profileString: str, height: 60)
                 }
-            }.padding([.leading, .trailing])
+            }.padding(.horizontal)
         }
     }
 }

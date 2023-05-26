@@ -15,7 +15,7 @@ struct ActivityAnnotationView: View {
     var lM: LocationManager
     dynamic var coordinate: CLLocationCoordinate2D
     var title: String
-    var frameSize: CGSize = CGSize(width: 200, height: 50)
+    var frameSize: CGSize = CGSize(width: 300, height: 50)
     @State var imageString = ""
     
     init(activity: Binding<Activity>, tD: TestData, lM: LocationManager) {
@@ -30,21 +30,24 @@ struct ActivityAnnotationView: View {
         if let activityVal = activity {
             NavigationLink(destination: ActivityAnnotationDetailView(activity: activityVal, tD: tD, lM: lM), label: {
                 ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 50)
-                        .foregroundColor(.white)
-                        .shadow(radius: 1)
                     HStack {
                         if imageString != "" {
                             ProfilePicView(profileString: imageString, height: 50)
                         }
                         VStack(alignment: .leading) {
                             ActivityListItemHeader(activity: activityVal.wrappedValue)
-                                .font(.title3)
+                                .font(.caption)
                             ActivityListItemInfo(activity: activityVal.wrappedValue)
                                 .font(.caption)
                         }
                         .foregroundColor(Color("TextBlue"))
                     }
+                    .padding(.trailing)
+                    .background(
+                        RoundedRectangle(cornerRadius: 50)
+                            .foregroundColor(.white)
+                            .shadow(radius: 1)
+                    )
                 }
             })
             .frame(width: frameSize.width, height: frameSize.height)

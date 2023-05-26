@@ -16,7 +16,8 @@ protocol FirestoreServiceProtocol {
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void)
     func makeActivityActive(activity: Activity)
     //update functions
-    func updateUser(data: User.Data, id: String)
+    func updateUser(data: User.Data, chosenAvatar: String, id: String)
+    func updateActivity(data: Activity.Data, id: String)
     func updatePoints(user: User, points: Int)
     func updateTier(user: User, tier: Int)
     func updateRating(user: User, rating: String)
@@ -37,10 +38,20 @@ class FirestoreService: FirestoreServiceProtocol {
     let userRef = Firestore.firestore().collection("Users")
     let activityRef = Firestore.firestore().collection("Activities")
     
-    func updateUser(data: User.Data, id: String) {
+    func updateActivity(data: Activity.Data, id: String) {
+        activityRef.document(id).updateData([
+            "title" : data.title,
+            "sport" : data.sport,
+            "date" : data.date,
+            "description" : data.description,
+            "coordinates" : data.coordinates,
+        ])
+    }
+    
+    func updateUser(data: User.Data, chosenAvatar: String, id: String) {
         userRef.document(id).updateData([
             "name" : data.name,
-            "profilePicString" : data.profilePicString,
+            "profilePicString" : chosenAvatar,
         ])
     }
     

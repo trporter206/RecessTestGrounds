@@ -16,6 +16,7 @@ struct CreateActivityView: View {
     @State private var showingAlert = false
     @State var addressText = ""
     @State var errorMessage = ""
+    @State var id: String = ""
     @Environment(\.presentationMode) var presentationMode
     
     @State var coords = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)

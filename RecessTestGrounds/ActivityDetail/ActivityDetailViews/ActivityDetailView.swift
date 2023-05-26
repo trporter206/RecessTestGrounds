@@ -24,16 +24,21 @@ struct ActivityDetailView: View {
             VStack {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
-                PlayerProfileLink(activity: activity, userInfo: $userInfo)
+                PlayerProfileLink(activity: activity,
+                                  userInfo: $userInfo)
                 ActivityDescription(activity: activity)
                 Divider().padding([.leading, .trailing])
                 ActivityStatus(activity: $activity)
                 ActivityPlayerList(playerList: $playerlist)
                 ActivityDateView(activity: activity)
-                ActivityActionButtonView(activity: $activity, playerList: $playerlist, showingReview: $showingReviewSheet)
-                    .environmentObject(tD)
-                    .environmentObject(lM)
-                ActivityDeleteButton(activity: $activity, showingAlert: $showingAlert)
+                ActivityActionButtonView(activity: $activity,
+                                         playerList: $playerlist,
+                                         showingReview: $showingReviewSheet).environmentObject(tD).environmentObject(lM)
+                HStack {
+                    EditActivityButton(activity: $activity).environmentObject(tD).environmentObject(lM)
+                    ActivityDeleteButton(activity: $activity,
+                                         showingAlert: $showingAlert)
+                }
             }
             .onAppear {
                 FirestoreService.shared.getUserInfo(id: activity.creator) {
@@ -144,6 +149,26 @@ struct ActivityDateView: View {
         Text("Date: \(activity.date.formatted())")
             .foregroundColor(Color("TextBlue"))
             .padding(.top)
+    }
+}
+
+struct EditActivityButton: View {
+    @EnvironmentObject var tD: TestData
+    @EnvironmentObject var lM: LocationManager
+    @Binding var activity: Activity
+    
+    @State var activityData = Activity.Data()
+    
+    var body: some View {
+        NavigationLink(destination: EditActivityView(activityData: $activityData, id: activity.id)
+            .environmentObject(tD)
+            .environmentObject(lM),
+                       label: {
+            Text("Edit Activity")
+        })
+        .onAppear {
+            activityData = activity.data
+        }
     }
 }
 

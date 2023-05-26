@@ -14,6 +14,7 @@ struct CreateUserView: View {
     @State var userData = User.Data()
     @State var showingAlert = false
     @State var password = ""
+    @State var confirmedPassword = ""
     @State var errorMessage = ""
     @State var chosenAvatar = ""
     
@@ -23,8 +24,8 @@ struct CreateUserView: View {
                 CreateProfileHeader()
                 CreateUserFields(userData: $userData,
                                  password: $password,
-                                 chosenAvatar: $chosenAvatar)
-                .environmentObject(tD)
+                                 confirmedPassword: $confirmedPassword,
+                                 chosenAvatar: $chosenAvatar).environmentObject(tD)
                 .padding()
                 Spacer()
                 ErrorMessageText(errorMessage: $errorMessage)
@@ -36,6 +37,7 @@ struct CreateUserView: View {
                                         errorMessage: $errorMessage,
                                         chosenAvatar: $chosenAvatar,
                                         password: $password,
+                                        confirmedPassword: $confirmedPassword,
                                         showingAlert: $showingAlert)
                 }
             }
@@ -58,18 +60,15 @@ struct UpdateProfileButton: View {
     
     var body: some View {
         Button(action: {
-            FirestoreService.shared.updateUser(data: user, id: tD.currentUser.id)
+            FirestoreService.shared.updateUser(data: user, chosenAvatar: chosenAvatar, id: tD.currentUser.id)
             tD.currentUser.name = user.name
             tD.currentUser.profilePicString = chosenAvatar
+//            let updateUser = tD.currentUser
             self.presentationMode.wrappedValue.dismiss()
+//            tD.currentUser = updateUser
         }, label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 50)
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 60)
-                Text("Update Profile")
-                    .foregroundColor(.orange)
-                    .bold()
+                ActivityButton("Update Profile")
             }
             .padding()
         })
@@ -82,12 +81,13 @@ struct SignUpProfileButton: View {
     @Binding var errorMessage: String
     @Binding var chosenAvatar: String
     @Binding var password: String
+    @Binding var confirmedPassword: String
     @Binding var showingAlert: Bool
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         Button(action: {
-            if isValidEmail(userData.email) && noBlankFields() {
+            if isValidEmail(userData.email) && verifyFields() {
                 var user = User(data: userData)
                 user.profilePicString = chosenAvatar
                 Task {
@@ -95,19 +95,9 @@ struct SignUpProfileButton: View {
                 }
                 tD.loggedIn = true
                 self.presentationMode.wrappedValue.dismiss()
-            } else {
-                errorMessage = "Make sure email format is correct and all fields are filled"
             }
         }, label: {
-            ZStack {
-                RoundedRectangle(cornerRadius: 50)
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 60)
-                Text("Sign Up")
-                    .foregroundColor(.orange)
-                    .bold()
-            }
-            .padding()
+            ActivityButton("Sign Up")
         })
     }
     
@@ -124,11 +114,16 @@ struct SignUpProfileButton: View {
         }
     }
     
-    func noBlankFields() -> Bool {
-        if userData.name != "" && password != "" && chosenAvatar != "" {
-            return true
+    func verifyFields() -> Bool {
+        if userData.name == "" || password == "" && chosenAvatar == "" {
+            errorMessage = "Incomplete fields"
+            return false
         }
-        return false
+        if password != confirmedPassword {
+            errorMessage = "Passwords do not match"
+            return false
+        }
+        return true
     }
     
     func createUser(user: User) {

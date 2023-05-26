@@ -19,7 +19,6 @@
 		D762F4122A1E68FF00329601 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329229D51F9F00DD2F05 /* User.swift */; };
 		D762F4132A1E691900329601 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329929D522E700DD2F05 /* TestData.swift */; };
 		D762F4142A1E696F00329601 /* Club.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32A829D60CB300DD2F05 /* Club.swift */; };
-		D762F4152A1E699300329601 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872529DBAC0700EC9955 /* FriendRequest.swift */; };
 		D762F4172A1E83CB00329601 /* FIrestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762F4162A1E83CB00329601 /* FIrestoreService.swift */; };
 		D76759642A02C9F300A1014D /* ActivityNowFormFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76759632A02C9F300A1014D /* ActivityNowFormFields.swift */; };
 		D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91229E64B0600A9EE8F /* CreateUserView.swift */; };
@@ -54,7 +53,6 @@
 		D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5871D29DB591700EC9955 /* ActivityReviewView.swift */; };
 		D7C5872029DB618500EC9955 /* ActivityReviewPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5871F29DB618500EC9955 /* ActivityReviewPlayerItem.swift */; };
 		D7C5872429DB692F00EC9955 /* ActivityActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872329DB692F00EC9955 /* ActivityActionButtonView.swift */; };
-		D7C5872629DBAC0700EC9955 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872529DBAC0700EC9955 /* FriendRequest.swift */; };
 		D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872929DBCAAC00EC9955 /* TierHeaderView.swift */; };
 		D7C5872C29DBCAF300EC9955 /* AchievementListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872B29DBCAF300EC9955 /* AchievementListItem.swift */; };
 		D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872D29DBCB5A00EC9955 /* ClubHeaderView.swift */; };
@@ -76,6 +74,8 @@
 		D7D070692A016E3800EE01E4 /* CreateUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D070682A016E3800EE01E4 /* CreateUserFields.swift */; };
 		D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */; };
 		D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EA2A1FF057006695C5 /* UserTests.swift */; };
+		D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EC2A20515A006695C5 /* EditActivityView.swift */; };
+		D7E391F02A21240B006695C5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D7E391EF2A21240B006695C5 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,7 +128,6 @@
 		D7C5871D29DB591700EC9955 /* ActivityReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityReviewView.swift; sourceTree = "<group>"; };
 		D7C5871F29DB618500EC9955 /* ActivityReviewPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityReviewPlayerItem.swift; sourceTree = "<group>"; };
 		D7C5872329DB692F00EC9955 /* ActivityActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityActionButtonView.swift; sourceTree = "<group>"; };
-		D7C5872529DBAC0700EC9955 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		D7C5872929DBCAAC00EC9955 /* TierHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierHeaderView.swift; sourceTree = "<group>"; };
 		D7C5872B29DBCAF300EC9955 /* AchievementListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementListItem.swift; sourceTree = "<group>"; };
 		D7C5872D29DBCB5A00EC9955 /* ClubHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubHeaderView.swift; sourceTree = "<group>"; };
@@ -151,6 +150,8 @@
 		D7D070682A016E3800EE01E4 /* CreateUserFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserFields.swift; sourceTree = "<group>"; };
 		D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationDetailView.swift; sourceTree = "<group>"; };
 		D7E391EA2A1FF057006695C5 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
+		D7E391EC2A20515A006695C5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
+		D7E391EE2A2123D7006695C5 /* RecessTestGrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecessTestGrounds.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +169,7 @@
 			files = (
 				D7BF82BA29E4A96E0064A7A5 /* FirebaseAnalytics in Frameworks */,
 				D7BF82BC29E4A96E0064A7A5 /* FirebaseAuth in Frameworks */,
+				D7E391F02A21240B006695C5 /* FirebaseMessaging in Frameworks */,
 				D7BF82BE29E4A96E0064A7A5 /* FirebaseFirestore in Frameworks */,
 				D7BF82C029E4A96E0064A7A5 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -201,6 +203,7 @@
 				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
 				D7116C0429F8990500017DFC /* ActivityFormFields.swift */,
 				D76759632A02C9F300A1014D /* ActivityNowFormFields.swift */,
+				D7E391EC2A20515A006695C5 /* EditActivityView.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 		D78D328229D51F0C00DD2F05 /* RecessTestGrounds */ = {
 			isa = PBXGroup;
 			children = (
+				D7E391EE2A2123D7006695C5 /* RecessTestGrounds.entitlements */,
 				D7BF82C629E4B31D0064A7A5 /* GoogleService-Info.plist */,
 				D7C814DC29D9F49E00C7DF7A /* Info.plist */,
 				D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */,
@@ -262,7 +266,6 @@
 				D78D329229D51F9F00DD2F05 /* User.swift */,
 				D78D329429D5216600DD2F05 /* Activity.swift */,
 				D78D32A829D60CB300DD2F05 /* Club.swift */,
-				D7C5872529DBAC0700EC9955 /* FriendRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				D7BF82BB29E4A96E0064A7A5 /* FirebaseAuth */,
 				D7BF82BD29E4A96E0064A7A5 /* FirebaseFirestore */,
 				D7BF82BF29E4A96E0064A7A5 /* FirebaseFirestoreSwift */,
+				D7E391EF2A21240B006695C5 /* FirebaseMessaging */,
 			);
 			productName = RecessTestGrounds;
 			productReference = D78D328029D51F0C00DD2F05 /* RecessTestGrounds.app */;
@@ -550,7 +554,6 @@
 				D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */,
 				D762F4122A1E68FF00329601 /* User.swift in Sources */,
 				D762F4132A1E691900329601 /* TestData.swift in Sources */,
-				D762F4152A1E699300329601 /* FriendRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,11 +610,11 @@
 				D7C814E129D9F7E600C7DF7A /* ActivityMapView.swift in Sources */,
 				D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */,
 				D7C5873029DBCBBE00EC9955 /* ClubMemberListItem.swift in Sources */,
-				D7C5872629DBAC0700EC9955 /* FriendRequest.swift in Sources */,
 				D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */,
 				D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */,
 				D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */,
 				D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */,
+				D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +807,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = RecessTestGrounds/RecessTestGrounds.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"RecessTestGrounds/Preview Content\"";
@@ -829,7 +833,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.torriporter.RecessTestGrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -844,6 +848,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = RecessTestGrounds/RecessTestGrounds.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"RecessTestGrounds/Preview Content\"";
@@ -869,7 +874,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.torriporter.RecessTestGrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -961,6 +966,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		D7E391EF2A21240B006695C5 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var lM = LocationManager()
-    @StateObject var tD = TestData()
+    @StateObject var tD = TestData(skipFetching: true)
     
     
     var body: some View {

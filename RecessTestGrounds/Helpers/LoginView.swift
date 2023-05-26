@@ -35,6 +35,7 @@ struct LoginView: View {
             case .success(let user):
                 tD.currentUser = user
                 tD.loggedIn = true
+                tD.getActivities()
             case .failure(let error):
                 errorMessage = error.localizedDescription
             }

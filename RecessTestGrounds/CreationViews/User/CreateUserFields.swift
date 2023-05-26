@@ -11,6 +11,7 @@ struct CreateUserFields: View {
     @EnvironmentObject var tD: TestData
     @Binding var userData: User.Data
     @Binding var password: String
+    @Binding var confirmedPassword: String
     @Binding var chosenAvatar: String
     
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
@@ -26,6 +27,9 @@ struct CreateUserFields: View {
                 .modifier(FormField())
                 SuperTextField(placeholder: Text("   Password").foregroundColor(.white),
                                text: $password)
+                .modifier(FormField())
+                SuperTextField(placeholder: Text("   Confirm Password").foregroundColor(.white),
+                               text: $confirmedPassword)
                 .modifier(FormField())
             }
             Text("Choose an Avatar")
