@@ -97,6 +97,7 @@ struct CreateUserFields_Previews: PreviewProvider {
     static var previews: some View {
         CreateUserFields(userData: .constant(usersData[0].data),
                          password: .constant(""),
+                         confirmedPassword: .constant(""),
                          chosenAvatar: .constant(""))
     }
 }

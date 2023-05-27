@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var appDelegate: NotificationsController
     @StateObject var lM = LocationManager()
     @StateObject var tD = TestData(skipFetching: true)
     
@@ -22,6 +23,7 @@ struct ContentView: View {
                 NavBarView()
                     .environmentObject(tD)
                     .environmentObject(lM)
+                    .environmentObject(appDelegate)
             }
         }
         .padding(.bottom)

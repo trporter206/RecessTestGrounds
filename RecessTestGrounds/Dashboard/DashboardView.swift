@@ -9,6 +9,7 @@ import SwiftUI
 import CoreLocation
 
 struct DashboardView: View {
+    @EnvironmentObject var appleDelegate: NotificationsController
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @State var showingMap = false
@@ -28,6 +29,9 @@ struct DashboardView: View {
                 }
             }
             .background(Color("LightBlue"))
+            onAppear {
+                appleDelegate.resetBadgeNumber()
+            }
         }
     }
 }

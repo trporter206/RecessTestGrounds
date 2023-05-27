@@ -76,6 +76,7 @@
 		D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EA2A1FF057006695C5 /* UserTests.swift */; };
 		D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EC2A20515A006695C5 /* EditActivityView.swift */; };
 		D7E391F02A21240B006695C5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D7E391EF2A21240B006695C5 /* FirebaseMessaging */; };
+		D7E391F22A2128C6006695C5 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391F12A2128C6006695C5 /* NotificationsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,7 @@
 		D7E391EA2A1FF057006695C5 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		D7E391EC2A20515A006695C5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
 		D7E391EE2A2123D7006695C5 /* RecessTestGrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecessTestGrounds.entitlements; sourceTree = "<group>"; };
+		D7E391F12A2128C6006695C5 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,6 +420,7 @@
 				D78D329929D522E700DD2F05 /* TestData.swift */,
 				D7C814DD29D9F5A700C7DF7A /* LocationManager.swift */,
 				D762F4162A1E83CB00329601 /* FIrestoreService.swift */,
+				D7E391F12A2128C6006695C5 /* NotificationsController.swift */,
 			);
 			path = DataManagers;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D7E391F42A212F6C006695C5 /* PBXTargetDependency */,
 				D71B80A629FF0A7600E9BC4F /* PBXTargetDependency */,
 				D71B80A429FF0A6E00E9BC4F /* PBXTargetDependency */,
 				D71B80A229FF0A6800E9BC4F /* PBXTargetDependency */,
@@ -613,6 +617,7 @@
 				D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */,
 				D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */,
 				D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */,
+				D7E391F22A2128C6006695C5 /* NotificationsController.swift in Sources */,
 				D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */,
 				D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */,
 			);
@@ -637,6 +642,10 @@
 			isa = PBXTargetDependency;
 			target = D78D327F29D51F0C00DD2F05 /* RecessTestGrounds */;
 			targetProxy = D74DA37029F3363600E1C282 /* PBXContainerItemProxy */;
+		};
+		D7E391F42A212F6C006695C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D7E391F32A212F6C006695C5 /* FirebaseMessaging */;
 		};
 /* End PBXTargetDependency section */
 
@@ -968,6 +977,11 @@
 			productName = FirebaseFirestoreSwift;
 		};
 		D7E391EF2A21240B006695C5 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		D7E391F32A212F6C006695C5 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;

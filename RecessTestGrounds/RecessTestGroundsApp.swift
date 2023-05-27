@@ -12,6 +12,8 @@ import FirebaseAuth
 @main
 struct RecessTestGroundsApp: App {
     
+    @UIApplicationDelegateAdaptor(NotificationsController.self) var appDelegate
+    
     init() {
         FirebaseApp.configure()
     }
@@ -19,6 +21,7 @@ struct RecessTestGroundsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(appDelegate)
         }
     }
 }

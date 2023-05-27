@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NavBarView: View {
+    @EnvironmentObject var appDelegate: NotificationsController
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @State private var selectedTab: Int = 0
@@ -18,6 +19,7 @@ struct NavBarView: View {
                 DashboardView()
                     .environmentObject(lM)
                     .environmentObject(tD)
+                    .environmentObject(appDelegate)
                     .padding([.bottom], 60)
             } else if selectedTab == 1 {
                 ActivityListView()
