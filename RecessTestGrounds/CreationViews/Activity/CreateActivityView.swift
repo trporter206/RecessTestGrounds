@@ -24,17 +24,13 @@ struct CreateActivityView: View {
     var body: some View {
         VStack {
             HeaderText(title: "Create New Activity")
-            Picker("Start Now or Later", selection: $activityType) {
+            Picker("Start Now or Later", selection: $activityType.animation()) {
                 Text("Now").tag("Now")
                 Text("Later").tag("Later")
             }
             .pickerStyle(.segmented)
             .padding(.horizontal)
-            if activityType == "Now" {
-                ActivityNowFormFields(activityData: $activityData)
-            } else {
-                ActivityFormFields(activityData: $activityData)
-            }
+            ActivityFormFields(activityData: $activityData, activityType: $activityType)
             Spacer()
             ErrorMessageText(errorMessage: $errorMessage)
             CreateActivityButton(activityData: $activityData,

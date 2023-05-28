@@ -70,12 +70,20 @@ struct ActivityChooseLocalMap: View {
             CustomMapView(selectedCoordinate: $coords)
             .ignoresSafeArea()
             VStack {
+                Text("Hold your finger down on the desired location")
+                    .foregroundColor(Color("TextBlue"))
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 50)
+                            .foregroundColor(.white)
+                            .shadow(radius: 1)
+                    )
                 Spacer()
                 Button(action: {
                     activityData.coordinates = [coords.latitude, coords.longitude]
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
-                    Text("Save")
+                    ActivityButton("Save Location")
                 })
             }
         }

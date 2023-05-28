@@ -20,7 +20,6 @@
 		D762F4132A1E691900329601 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329929D522E700DD2F05 /* TestData.swift */; };
 		D762F4142A1E696F00329601 /* Club.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D32A829D60CB300DD2F05 /* Club.swift */; };
 		D762F4172A1E83CB00329601 /* FIrestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762F4162A1E83CB00329601 /* FIrestoreService.swift */; };
-		D76759642A02C9F300A1014D /* ActivityNowFormFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76759632A02C9F300A1014D /* ActivityNowFormFields.swift */; };
 		D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91229E64B0600A9EE8F /* CreateUserView.swift */; };
 		D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91629E7589100A9EE8F /* LoginView.swift */; };
 		D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */; };
@@ -98,7 +97,6 @@
 		D762F4082A1D372700329601 /* ActivityFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterView.swift; sourceTree = "<group>"; };
 		D762F40A2A1E654900329601 /* ActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTests.swift; sourceTree = "<group>"; };
 		D762F4162A1E83CB00329601 /* FIrestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIrestoreService.swift; sourceTree = "<group>"; };
-		D76759632A02C9F300A1014D /* ActivityNowFormFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNowFormFields.swift; sourceTree = "<group>"; };
 		D76CF91229E64B0600A9EE8F /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		D76CF91629E7589100A9EE8F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
 				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
 				D7116C0429F8990500017DFC /* ActivityFormFields.swift */,
-				D76759632A02C9F300A1014D /* ActivityNowFormFields.swift */,
 				D7E391EC2A20515A006695C5 /* EditActivityView.swift */,
 			);
 			path = Activity;
@@ -574,7 +571,6 @@
 				D7C814D829D8A00F00C7DF7A /* AchievementView.swift in Sources */,
 				D762F4092A1D372700329601 /* ActivityFilterView.swift in Sources */,
 				D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */,
-				D76759642A02C9F300A1014D /* ActivityNowFormFields.swift in Sources */,
 				D7B9CAD429EF28D90085BD72 /* RatingView.swift in Sources */,
 				D7B9CAD629EF2A120085BD72 /* PointsView.swift in Sources */,
 				D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */,

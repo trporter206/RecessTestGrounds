@@ -10,16 +10,30 @@ import SwiftUI
 struct ActivityFormFields: View {
     @EnvironmentObject var lM: LocationManager
     @Binding var activityData: Activity.Data
+    @Binding var activityType: String
     
     var body: some View {
         VStack {
             SuperTextField(placeholder: Text("   Title (optional)"), text: $activityData.title)
                 .modifier(FormField())
             FieldPickerSport(title: "Sport", selection: $activityData.sport, options: sportOptions)
-            DatePickerField(title: "Time", selection: $activityData.date)
             SuperTextField(placeholder: Text("   Description (optional)"), text: $activityData.description)
                 .modifier(FormField())
-            ChooseLocationLink(activityData: $activityData)
+            if activityType == "Later" {
+                Group {
+                    DatePickerField(title: "Time", selection: $activityData.date)
+                    ChooseLocationLink(activityData: $activityData)
+                }
+                .transition(AnyTransition.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
+                .animation(.easeIn, value: activityType)
+            } else {
+                Text("The activity will start automatically at your current location")
+                    .foregroundColor(.orange)
+                    .bold()
+                    .padding()
+                    .transition(AnyTransition.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .leading)))
+                    .animation(.easeIn, value: activityType)
+            }
         }
     }
 }
@@ -73,9 +87,9 @@ struct ChooseLocationLink: View {
     }
 }
 
-struct ActivityFormFields_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivityFormFields(activityData: .constant(Activity.Data()))
-            .environmentObject(LocationManager())
-    }
-}
+//struct ActivityFormFields_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActivityFormFields(activityData: .constant(Activity.Data()))
+//            .environmentObject(LocationManager())
+//    }
+//}

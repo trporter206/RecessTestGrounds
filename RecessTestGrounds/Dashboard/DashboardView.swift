@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 
 struct DashboardView: View {
-    @EnvironmentObject var appleDelegate: NotificationsController
+//    @EnvironmentObject var appleDelegate: NotificationsController
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @State var showingMap = false
@@ -29,9 +29,9 @@ struct DashboardView: View {
                 }
             }
             .background(Color("LightBlue"))
-            onAppear {
-                appleDelegate.resetBadgeNumber()
-            }
+//            onAppear {
+//                appleDelegate.resetBadgeNumber()
+//            }
         }
     }
 }
@@ -79,7 +79,9 @@ struct ScheduledActivitiesListView: View {
                     }
                 }
             } else {
-                Text("No Activities Scheduled")
+                Text("No Activities Scheduled, consider creating one!")
+                    .foregroundColor(Color("TextBlue"))
+                    .bold()
                     .padding()
             }
         }

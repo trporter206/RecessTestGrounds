@@ -37,12 +37,16 @@ struct ActivityFilterView: View {
                             filterActivities(sportValue, activeOnly: activeOnly)
                         }
                     }
-                    Toggle("Active Only", isOn: $activeOnly)
-                        .foregroundColor(.white)
-                        .bold()
-                        .onChange(of: activeOnly) { _ in
-                            filterActivities(sport, activeOnly: activeOnly)
-                        }
+                    HStack(spacing: 0) {
+                        Text("Active Only")
+                            .foregroundColor(.white)
+                            .bold().padding(.trailing)
+                        Toggle("", isOn: $activeOnly)
+                            .labelsHidden()  // Hides the label for the Toggle, so it doesn't appear twice
+                            .onChange(of: activeOnly) { _ in
+                                filterActivities(sport, activeOnly: activeOnly)
+                            }
+                    }
                 }
                 .padding(.trailing)
                 Spacer()
@@ -51,6 +55,7 @@ struct ActivityFilterView: View {
             }
             .padding([.horizontal, .bottom])
         }
+        .padding(.top)
         .background(Color("TextBlue"))
         .onAppear {
             //shitty fix for deletion bug, improve eventually
@@ -70,10 +75,12 @@ struct MapButtonView: View {
         }, label: {
             if showingMap {
                 Image(systemName: "list.bullet")
+                    .scaleEffect(1.5)
                     .foregroundColor(.white)
                     .bold()
             } else {
                 Image(systemName: "map")
+                    .scaleEffect(1.5)
                     .foregroundColor(.white)
                     .bold()
             }

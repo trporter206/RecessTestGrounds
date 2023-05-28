@@ -23,7 +23,7 @@ struct ContentView: View {
                 NavBarView()
                     .environmentObject(tD)
                     .environmentObject(lM)
-                    .environmentObject(appDelegate)
+//                    .environmentObject(appDelegate)
             }
         }
         .padding(.bottom)

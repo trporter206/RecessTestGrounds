@@ -43,6 +43,9 @@ struct NextActivityView: View {
             .foregroundColor(Color("TextBlue"))
         })
         .onAppear {
+            guard tD.activities.contains(where: { $0.id == activity.id }) else {
+                return
+            }
             FirestoreService.shared.getUserInfo(id: activity.creator) {
                 result in
                 switch result {

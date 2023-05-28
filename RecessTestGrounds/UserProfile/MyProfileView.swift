@@ -19,18 +19,19 @@ struct MyProfileView: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            VStack(alignment: .leading) {
+            VStack {
                 MyProfileHeader(user: user)
                 //CameraView(onCapture: { capturedImage in
                 //  user.profilePic = Image(uiImage: capturedImage)
                 //})
                 //.padding()
-                ProfileClubsList(user: $user)
+//                ProfileClubsList(user: $user)
+                
                 LogOutButton()
                 HStack {
                     EditProfileButton()
                     DeleteProfileButton(deleteAccount: $deleteAccount, action: deleteAccountInfo)
-                }
+                }.padding([.horizontal, .bottom])
             }
         }
         .background(Color("LightBlue"))

@@ -18,16 +18,25 @@ struct ActivityListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                ActivityFilterView(filteredActivities: $filteredActivities,
-                                   showingMap: $showingMap)
                 if showingMap {
-                    DashboardMapView(filteredActivites: $filteredActivities)
-                        .frame(maxHeight: .infinity)
+                    VStack {
+                        Spacer()
+                            .frame(height: 5)
+                        ActivityFilterView(filteredActivities: $filteredActivities,
+                                           showingMap: $showingMap)
+                        DashboardMapView(filteredActivites: $filteredActivities)
+                            .frame(maxHeight: .infinity)
+                    }
                 } else {
                     ScrollView(.vertical) {
                         VStack {
+                            ActivityFilterView(filteredActivities: $filteredActivities,
+                                               showingMap: $showingMap)
                             if filteredActivities.isEmpty {
                                 Text("No Activities Nearby!")
+                                    .foregroundColor(.orange)
+                                    .bold()
+                                    .padding()
                             } else {
                                 Text("\(filteredActivities.count) Activities").padding()
                                 ForEach($filteredActivities.sorted(by: {distanceToMeters(activity: $0) < distanceToMeters(activity: $1)}))
