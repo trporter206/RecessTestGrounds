@@ -6,18 +6,13 @@
 //
 
 import SwiftUI
-import FirebaseCore
-import FirebaseAuth
+import UserNotifications
 
 @main
 struct RecessTestGroundsApp: App {
     
     @UIApplicationDelegateAdaptor(NotificationsController.self) var appDelegate
-    
-    init() {
-        FirebaseApp.configure()
-    }
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -30,32 +30,8 @@ struct EditActivityView: View {
     }
 }
 
-struct UpdateActivityButton: View {
-    @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var tD: TestData
-    @State var showingAlert: Bool = false
-    @Binding var activityData: Activity.Data
-    var id: String
-    
-    var body: some View {
-        Button(action: {
-            FirestoreService.shared.updateActivity(data: activityData, id: id)
-            showingAlert.toggle()
-            var newActivity = Activity(data: activityData, idString: id, manager: tD)
-            if let newActivityIndex = tD.activities.firstIndex(where: {$0.id == id}) {
-                tD.activities[newActivityIndex] = newActivity
-            }
-            self.presentationMode.wrappedValue.dismiss()
-        }, label: {
-            ActivityButton("Update Info")
-        }).alert("Activity Updated", isPresented: $showingAlert) {
-            Button("OK", role: .cancel){}
-        }
-    }
-}
-
-struct EditActivityView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditActivityView(activityData: .constant(activitiesData[0].data), id: "")
-    }
-}
+//struct EditActivityView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditActivityView(activityData: .constant(activitiesData[0].data), id: "")
+//    }
+//}

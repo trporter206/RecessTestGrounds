@@ -1,45 +1,20 @@
 //
-//  LoginView.swift
+//  Login-VM.swift
 //  RecessTestGrounds
 //
-//  Created by Torri Ray Porter Jr on 2023-04-12.
+//  Created by Torri Ray Porter Jr on 2023-05-28.
 //
 
+import Foundation
+import FirebaseAuth
 import SwiftUI
 
-struct LoginView: View {
-    @EnvironmentObject var tD: TestData
-    @EnvironmentObject var lM: LocationManager
-    @State var email = ""
-    @State var password = ""
-    @State var errorMessage = ""
-    
-    var body: some View {
-        VStack {
-            Heading()
-            EmailTextField(email: $email)
-            PasswordTextField(password: $password)
-            ForgotPasswordLink()
-            Spacer()
-            ErrorMessageText(errorMessage: $errorMessage)
-            Spacer()
-            LoginButton(action: login)
-            SignUpButton()
-        }
-        .background(Color("LightBlue"))
-    }
-    
-    func login() {
-        FirestoreService.shared.login(email: email, password: password) { result in
-            switch result {
-            case .success(let user):
-                tD.currentUser = user
-                tD.loggedIn = true
-                tD.getActivities()
-            case .failure(let error):
-                errorMessage = error.localizedDescription
-            }
-        }
+extension LoginView {
+    @MainActor class ViewModel: ObservableObject {
+        @EnvironmentObject var tD: TestData
+        @Published var email = ""
+        @Published var password = ""
+        @Published var errorMessage = ""
     }
 }
 
@@ -136,8 +111,30 @@ struct SignUpButton: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView().environmentObject(TestData())
+struct SendEmailButton: View {
+    @Binding var email: String
+    @Binding var errorMessage: String
+    
+    var body: some View {
+        Button(action: {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                if error != nil {
+                    print(error!)
+                    errorMessage = error!.localizedDescription
+                } else {
+                    errorMessage = "Email Sent"
+                }
+            }
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.orange)
+                    .frame(width: 300, height: 60)
+                Text("Send Email")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+            .padding()
+        })
     }
 }

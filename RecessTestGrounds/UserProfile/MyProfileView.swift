@@ -108,11 +108,7 @@ extension MyProfileView {
                 print("There was an error deleting your account: \(error)")
             }
         }
-        Firestore.firestore().collection("Users").document("\(user.id)").delete() { error in
-            if let error = error {
-                print("Error removing document: \(error)")
-            }
-        }
+        FirestoreService.shared.deleteUser(user)
         tD.loggedIn = false
         print("Account Deleted")
     }

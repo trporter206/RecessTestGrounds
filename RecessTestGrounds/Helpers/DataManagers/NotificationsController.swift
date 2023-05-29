@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseMessaging
 import UserNotifications
 import UIKit
@@ -13,6 +14,9 @@ import UIKit
 class NotificationsController: UIResponder, MessagingDelegate, UNUserNotificationCenterDelegate, UIApplicationDelegate, ObservableObject {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
+        
         UNUserNotificationCenter.current().delegate = self
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { success, error in

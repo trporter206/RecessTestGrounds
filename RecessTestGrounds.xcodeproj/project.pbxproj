@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D7116BFF29F8482F00017DFC /* ActivityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */; };
 		D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116C0029F872AB00017DFC /* PlayerProfile.swift */; };
-		D7116C0529F8990500017DFC /* ActivityFormFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116C0429F8990500017DFC /* ActivityFormFields.swift */; };
 		D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */; };
 		D742A2F529F97EA100CFAF8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
 		D74DA37629F3371500E1C282 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329429D5216600DD2F05 /* Activity.swift */; };
@@ -50,13 +49,10 @@
 		D7BF82C329E4AB730064A7A5 /* CreateActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */; };
 		D7BF82C729E4B31D0064A7A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7BF82C629E4B31D0064A7A5 /* GoogleService-Info.plist */; };
 		D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5871D29DB591700EC9955 /* ActivityReviewView.swift */; };
-		D7C5872029DB618500EC9955 /* ActivityReviewPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5871F29DB618500EC9955 /* ActivityReviewPlayerItem.swift */; };
-		D7C5872429DB692F00EC9955 /* ActivityActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872329DB692F00EC9955 /* ActivityActionButtonView.swift */; };
 		D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872929DBCAAC00EC9955 /* TierHeaderView.swift */; };
 		D7C5872C29DBCAF300EC9955 /* AchievementListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872B29DBCAF300EC9955 /* AchievementListItem.swift */; };
 		D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872D29DBCB5A00EC9955 /* ClubHeaderView.swift */; };
 		D7C5873029DBCBBE00EC9955 /* ClubMemberListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5872F29DBCBBE00EC9955 /* ClubMemberListItem.swift */; };
-		D7C5873229DBCD1400EC9955 /* ActivityDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873129DBCD1400EC9955 /* ActivityDetailHeader.swift */; };
 		D7C5873529DBCDE800EC9955 /* ProfileClubsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */; };
 		D7C5873B29DBCF9F00EC9955 /* ProfileAchievementsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */; };
 		D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */; };
@@ -70,12 +66,16 @@
 		D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E229DA21FE00C7DF7A /* CameraView.swift */; };
 		D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */; };
 		D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E829DAB69E00C7DF7A /* Modifiers.swift */; };
-		D7D070692A016E3800EE01E4 /* CreateUserFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D070682A016E3800EE01E4 /* CreateUserFields.swift */; };
 		D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */; };
 		D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EA2A1FF057006695C5 /* UserTests.swift */; };
 		D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EC2A20515A006695C5 /* EditActivityView.swift */; };
 		D7E391F02A21240B006695C5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D7E391EF2A21240B006695C5 /* FirebaseMessaging */; };
 		D7E391F22A2128C6006695C5 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391F12A2128C6006695C5 /* NotificationsController.swift */; };
+		D7E3922C2A240F12006695C5 /* CreateUser-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E3922B2A240F12006695C5 /* CreateUser-VM.swift */; };
+		D7E3922E2A241181006695C5 /* Login-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E3922D2A241181006695C5 /* Login-VM.swift */; };
+		D7E392312A241745006695C5 /* CreateActivity-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E392302A241745006695C5 /* CreateActivity-VM.swift */; };
+		D7E392332A2419F6006695C5 /* ActivityDetail-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E392322A2419F6006695C5 /* ActivityDetail-VM.swift */; };
+		D7E392352A241C45006695C5 /* ActivityReview-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E392342A241C45006695C5 /* ActivityReview-VM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +91,6 @@
 /* Begin PBXFileReference section */
 		D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationView.swift; sourceTree = "<group>"; };
 		D7116C0029F872AB00017DFC /* PlayerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfile.swift; sourceTree = "<group>"; };
-		D7116C0429F8990500017DFC /* ActivityFormFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFormFields.swift; sourceTree = "<group>"; };
 		D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		D74DA36C29F3363600E1C282 /* RecessTestGroundsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecessTestGroundsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D762F4082A1D372700329601 /* ActivityFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterView.swift; sourceTree = "<group>"; };
@@ -125,13 +124,10 @@
 		D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateActivityView.swift; sourceTree = "<group>"; };
 		D7BF82C629E4B31D0064A7A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7C5871D29DB591700EC9955 /* ActivityReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityReviewView.swift; sourceTree = "<group>"; };
-		D7C5871F29DB618500EC9955 /* ActivityReviewPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityReviewPlayerItem.swift; sourceTree = "<group>"; };
-		D7C5872329DB692F00EC9955 /* ActivityActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityActionButtonView.swift; sourceTree = "<group>"; };
 		D7C5872929DBCAAC00EC9955 /* TierHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierHeaderView.swift; sourceTree = "<group>"; };
 		D7C5872B29DBCAF300EC9955 /* AchievementListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementListItem.swift; sourceTree = "<group>"; };
 		D7C5872D29DBCB5A00EC9955 /* ClubHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubHeaderView.swift; sourceTree = "<group>"; };
 		D7C5872F29DBCBBE00EC9955 /* ClubMemberListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubMemberListItem.swift; sourceTree = "<group>"; };
-		D7C5873129DBCD1400EC9955 /* ActivityDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailHeader.swift; sourceTree = "<group>"; };
 		D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileClubsList.swift; sourceTree = "<group>"; };
 		D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAchievementsList.swift; sourceTree = "<group>"; };
 		D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotation.swift; sourceTree = "<group>"; };
@@ -146,12 +142,16 @@
 		D7C814E229DA21FE00C7DF7A /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMapView.swift; sourceTree = "<group>"; };
 		D7C814E829DAB69E00C7DF7A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
-		D7D070682A016E3800EE01E4 /* CreateUserFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserFields.swift; sourceTree = "<group>"; };
 		D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationDetailView.swift; sourceTree = "<group>"; };
 		D7E391EA2A1FF057006695C5 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		D7E391EC2A20515A006695C5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
 		D7E391EE2A2123D7006695C5 /* RecessTestGrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecessTestGrounds.entitlements; sourceTree = "<group>"; };
 		D7E391F12A2128C6006695C5 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
+		D7E3922B2A240F12006695C5 /* CreateUser-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateUser-VM.swift"; sourceTree = "<group>"; };
+		D7E3922D2A241181006695C5 /* Login-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Login-VM.swift"; sourceTree = "<group>"; };
+		D7E392302A241745006695C5 /* CreateActivity-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateActivity-VM.swift"; sourceTree = "<group>"; };
+		D7E392322A2419F6006695C5 /* ActivityDetail-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityDetail-VM.swift"; sourceTree = "<group>"; };
+		D7E392342A241C45006695C5 /* ActivityReview-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityReview-VM.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,8 +201,8 @@
 			children = (
 				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
 				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
-				D7116C0429F8990500017DFC /* ActivityFormFields.swift */,
 				D7E391EC2A20515A006695C5 /* EditActivityView.swift */,
+				D7E392302A241745006695C5 /* CreateActivity-VM.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -344,8 +344,8 @@
 		D7C5872129DB67E800EC9955 /* ActivityReview */ = {
 			isa = PBXGroup;
 			children = (
-				D7C5871F29DB618500EC9955 /* ActivityReviewPlayerItem.swift */,
 				D7C5871D29DB591700EC9955 /* ActivityReviewView.swift */,
+				D7E392342A241C45006695C5 /* ActivityReview-VM.swift */,
 			);
 			path = ActivityReview;
 			sourceTree = "<group>";
@@ -353,10 +353,9 @@
 		D7C5873329DBCD6D00EC9955 /* ActivityDetailViews */ = {
 			isa = PBXGroup;
 			children = (
-				D7C5873129DBCD1400EC9955 /* ActivityDetailHeader.swift */,
-				D7C5872329DB692F00EC9955 /* ActivityActionButtonView.swift */,
 				D7C814E029D9F7E600C7DF7A /* ActivityMapView.swift */,
 				D7C814D129D765C800C7DF7A /* ActivityDetailView.swift */,
+				D7E392322A2419F6006695C5 /* ActivityDetail-VM.swift */,
 			);
 			path = ActivityDetailViews;
 			sourceTree = "<group>";
@@ -401,11 +400,10 @@
 		D7C814DF29D9F5F200C7DF7A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D7E3922F2A241575006695C5 /* Login */,
 				D7C814E729DAB64200C7DF7A /* DataManagers */,
 				D7C814CE29D74C0600C7DF7A /* NavBarView.swift */,
 				D7C814E829DAB69E00C7DF7A /* Modifiers.swift */,
-				D76CF91629E7589100A9EE8F /* LoginView.swift */,
-				D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */,
 				D7B018C12A05BED400D5C473 /* InfoPageView.swift */,
 			);
 			path = Helpers;
@@ -426,9 +424,19 @@
 			isa = PBXGroup;
 			children = (
 				D76CF91229E64B0600A9EE8F /* CreateUserView.swift */,
-				D7D070682A016E3800EE01E4 /* CreateUserFields.swift */,
+				D7E3922B2A240F12006695C5 /* CreateUser-VM.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		D7E3922F2A241575006695C5 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D7E3922D2A241181006695C5 /* Login-VM.swift */,
+				D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */,
+				D76CF91629E7589100A9EE8F /* LoginView.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -574,12 +582,12 @@
 				D7B9CAD429EF28D90085BD72 /* RatingView.swift in Sources */,
 				D7B9CAD629EF2A120085BD72 /* PointsView.swift in Sources */,
 				D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */,
+				D7E3922C2A240F12006695C5 /* CreateUser-VM.swift in Sources */,
 				D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */,
 				D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */,
 				D7C5872E29DBCB5A00EC9955 /* ClubHeaderView.swift in Sources */,
 				D7C814DE29D9F5A700C7DF7A /* LocationManager.swift in Sources */,
 				D7B018C22A05BED400D5C473 /* InfoPageView.swift in Sources */,
-				D7D070692A016E3800EE01E4 /* CreateUserFields.swift in Sources */,
 				D78D32A029D54AE700DD2F05 /* NextActivityView.swift in Sources */,
 				D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */,
 				D78D329E29D53B6E00DD2F05 /* ActivityListItem.swift in Sources */,
@@ -587,23 +595,22 @@
 				D78D32A429D600A300DD2F05 /* ProfilePicView.swift in Sources */,
 				D7C5873B29DBCF9F00EC9955 /* ProfileAchievementsList.swift in Sources */,
 				D78D32B029D6464100DD2F05 /* ActivityListView.swift in Sources */,
+				D7E392352A241C45006695C5 /* ActivityReview-VM.swift in Sources */,
 				D7BF82C329E4AB730064A7A5 /* CreateActivityView.swift in Sources */,
 				D78D329C29D5251100DD2F05 /* DashboardView.swift in Sources */,
 				D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */,
 				D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */,
 				D7C5873529DBCDE800EC9955 /* ProfileClubsList.swift in Sources */,
 				D7C5872C29DBCAF300EC9955 /* AchievementListItem.swift in Sources */,
-				D7C5872029DB618500EC9955 /* ActivityReviewPlayerItem.swift in Sources */,
-				D7C5873229DBCD1400EC9955 /* ActivityDetailHeader.swift in Sources */,
-				D7C5872429DB692F00EC9955 /* ActivityActionButtonView.swift in Sources */,
 				D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */,
-				D7116C0529F8990500017DFC /* ActivityFormFields.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,
 				D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */,
 				D762F4172A1E83CB00329601 /* FIrestoreService.swift in Sources */,
 				D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */,
+				D7E3922E2A241181006695C5 /* Login-VM.swift in Sources */,
 				D7C814D529D7A21600C7DF7A /* ClubDetailView.swift in Sources */,
+				D7E392332A2419F6006695C5 /* ActivityDetail-VM.swift in Sources */,
 				D7C814D229D765C900C7DF7A /* ActivityDetailView.swift in Sources */,
 				D78D32AB29D6142100DD2F05 /* ClubListView.swift in Sources */,
 				D78D329329D51F9F00DD2F05 /* User.swift in Sources */,
@@ -612,6 +619,7 @@
 				D7C5873029DBCBBE00EC9955 /* ClubMemberListItem.swift in Sources */,
 				D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */,
 				D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */,
+				D7E392312A241745006695C5 /* CreateActivity-VM.swift in Sources */,
 				D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */,
 				D7E391F22A2128C6006695C5 /* NotificationsController.swift in Sources */,
 				D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */,

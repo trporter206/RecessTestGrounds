@@ -24,6 +24,7 @@ protocol FirestoreServiceProtocol {
     func updateReviewCounts(user: User, review: Int)
     //deletion functions
     func deleteActivity(activity: Activity)
+    func deleteUser(_ user: User)
     func removePlayer(activity: Activity, user: User)
     //creation functions
     func createUser(user: User, avatar: String)
@@ -46,6 +47,14 @@ class FirestoreService: FirestoreServiceProtocol {
             "description" : data.description,
             "coordinates" : data.coordinates,
         ])
+    }
+    
+    func deleteUser(_ user: User) {
+        userRef.document("\(user.id)").delete() { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            }
+        }
     }
     
     func updateUser(data: User.Data, chosenAvatar: String, id: String) {
