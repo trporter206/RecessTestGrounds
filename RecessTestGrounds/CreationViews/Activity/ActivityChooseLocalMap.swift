@@ -11,6 +11,7 @@ import MapKit
 import SwiftUI
 
 struct CustomMapView: UIViewRepresentable {
+    @EnvironmentObject var lM: LocationManager
     @Binding var selectedCoordinate: CLLocationCoordinate2D
 
     func makeCoordinator() -> Coordinator {
@@ -21,6 +22,13 @@ struct CustomMapView: UIViewRepresentable {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
+        if let userLocation = lM.locationManager?.location?.coordinate {
+            print("User location found")
+                mapView.setRegion(MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
+                    span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+                ), animated: false)
+        }
         let longPressRecognizer = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleLongPress(gestureRecognizer:)))
             mapView.addGestureRecognizer(longPressRecognizer)
         return mapView
@@ -68,6 +76,7 @@ struct ActivityChooseLocalMap: View {
     var body: some View {
         ZStack {
             CustomMapView(selectedCoordinate: $coords)
+                .environmentObject(lM)
             .ignoresSafeArea()
             VStack {
                 Text("Hold your finger down on the desired location")
