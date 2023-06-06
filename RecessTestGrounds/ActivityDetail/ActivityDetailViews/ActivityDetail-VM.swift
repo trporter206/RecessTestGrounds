@@ -14,7 +14,7 @@ extension ActivityDetailView {
         @Published var userInfo: User = usersData[0]
         @Published var playerlist: [User] = []
         @Published var showingReviewSheet = false
-        @Published var showingAlert = false
+        @Published var showingAlert = false 
     }
     
     func onAppear(_ activity: Activity, _ vM: ViewModel) {
@@ -48,7 +48,7 @@ struct PlayerProfileLink: View {
     
     var body: some View {
         HStack {
-            NavigationLink(destination: PlayerProfile(tD: tD, player: $userInfo), label: {
+            NavigationLink(destination: PlayerProfile(player: $userInfo), label: {
                 ProfilePicView(profileString: userInfo.profilePicString, height: 90)
             })
             VStack(alignment: .leading) {
@@ -104,7 +104,12 @@ struct ActivityPlayerList: View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach($playerList) { $player in
-                    ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
+                    NavigationLink(destination: PlayerProfile(player: $player), label: {
+                        VStack {
+                            ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
+                            Text(player.name).font(.footnote)
+                        }
+                    })
                 }
             }
             .padding(.leading)

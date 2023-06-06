@@ -41,7 +41,7 @@ struct ActivityListView: View {
                                 Text("\(filteredActivities.count) Activities").padding()
                                 ForEach($filteredActivities.sorted(by: {distanceToMeters(activity: $0) < distanceToMeters(activity: $1)}))
                                 { $activity in
-                                        ActivityListItem(activity: $activity)
+                                        ActivityListItem(activity: getActivity($activity))
                                             .environmentObject(lM)
                                             .environmentObject(tD)
                                 }
@@ -66,6 +66,11 @@ extension ActivityListView {
             return 0.0
         }
         return distance!
+    }
+    
+    func getActivity(_ activity: Binding<Activity>) -> Binding<Activity> {
+        var originalActivity = $tD.activities.first(where: {$0.id == activity.id})
+        return originalActivity!
     }
 }
 

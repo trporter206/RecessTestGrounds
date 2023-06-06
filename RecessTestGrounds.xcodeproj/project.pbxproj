@@ -23,6 +23,7 @@
 		D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CF91629E7589100A9EE8F /* LoginView.swift */; };
 		D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */; };
 		D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78373CD29E50AF400FE3074 /* CreateClubView.swift */; };
+		D78B23AE2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78B23AD2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift */; };
 		D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */; };
 		D78D328629D51F0C00DD2F05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D328529D51F0C00DD2F05 /* ContentView.swift */; };
 		D78D328B29D51F0D00DD2F05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328A29D51F0D00DD2F05 /* Preview Assets.xcassets */; };
@@ -100,6 +101,7 @@
 		D76CF91629E7589100A9EE8F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChooseLocalMap.swift; sourceTree = "<group>"; };
 		D78373CD29E50AF400FE3074 /* CreateClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubView.swift; sourceTree = "<group>"; };
+		D78B23AD2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityAnnotationDetail-VM.swift"; sourceTree = "<group>"; };
 		D78D328029D51F0C00DD2F05 /* RecessTestGrounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecessTestGrounds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78D328329D51F0C00DD2F05 /* RecessTestGroundsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecessTestGroundsApp.swift; sourceTree = "<group>"; };
 		D78D328529D51F0C00DD2F05 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */,
 				D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */,
 				D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */,
+				D78B23AD2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */,
 				D7C814DB29D8A6C800C7DF7A /* TierView.swift in Sources */,
 				D7C814D829D8A00F00C7DF7A /* AchievementView.swift in Sources */,
+				D78B23AE2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift in Sources */,
 				D762F4092A1D372700329601 /* ActivityFilterView.swift in Sources */,
 				D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */,
 				D7B9CAD429EF28D90085BD72 /* RatingView.swift in Sources */,
@@ -846,7 +850,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.torriporter.RecessTestGrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -887,7 +891,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.torriporter.RecessTestGrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

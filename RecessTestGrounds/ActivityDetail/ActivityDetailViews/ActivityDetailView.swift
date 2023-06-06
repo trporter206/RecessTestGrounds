@@ -13,7 +13,11 @@ struct ActivityDetailView: View {
     @EnvironmentObject var tD: TestData
     @EnvironmentObject var lM: LocationManager
     @Binding var activity: Activity
-    @StateObject var vM = ViewModel()
+//    @StateObject var vM = ViewModel()
+    @State var userInfo: User = usersData[0]
+    @State var playerlist: [User] = []
+    @State var showingReviewSheet = false
+    @State var showingAlert = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -22,29 +26,49 @@ struct ActivityDetailView: View {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
                 PlayerProfileLink(activity: activity,
-                                  userInfo: $vM.userInfo)
+                                  userInfo: $userInfo)
                 ActivityDescription(activity: activity)
                 Divider().padding([.leading, .trailing])
                 ActivityStatus(activity: $activity)
-                ActivityPlayerList(playerList: $vM.playerlist)
+                ActivityPlayerList(playerList: $playerlist)
                 ActivityDateView(activity: activity)
                 ActivityActionButtonView(activity: $activity,
-                                         playerList: $vM.playerlist,
-                                         showingReview: $vM.showingReviewSheet).environmentObject(tD).environmentObject(lM)
+                                         playerList: $playerlist,
+                                         showingReview: $showingReviewSheet).environmentObject(tD).environmentObject(lM)
                 HStack {
                     EditActivityButton(activity: $activity).environmentObject(tD).environmentObject(lM)
                     ActivityDeleteButton(activity: $activity,
-                                         showingAlert: $vM.showingAlert)
+                                         showingAlert: $showingAlert)
                 }
             }
             .onAppear {
-                onAppear(activity, vM)
+//                onAppear(activity, vM)
+                FirestoreService.shared.getUserInfo(id: activity.creator) {
+                    result in
+                    switch result {
+                    case .success(let user):
+                        userInfo = user
+                    case .failure(let error):
+                        print("Error decoding creator info: \(error)")
+                    }
+                }
+                playerlist = []
+                for id in activity.players {
+                    FirestoreService.shared.getUserInfo(id: id) {result in
+                        switch result {
+                        case .success(let user):
+                            playerlist.append(user)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
             }
             
         }
         .background(Color("LightBlue"))
-        .sheet(isPresented: $vM.showingReviewSheet, content: {
-            ActivityReviewView(activity: $activity, playerList: $vM.playerlist, presentationMode: _presentationMode)
+        .sheet(isPresented: $showingReviewSheet, content: {
+            ActivityReviewView(activity: $activity, playerList: $playerlist, presentationMode: _presentationMode)
         })
     }
 }

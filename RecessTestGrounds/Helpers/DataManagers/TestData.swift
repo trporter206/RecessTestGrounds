@@ -114,4 +114,5 @@ var sportOptions: [String] = [
     "Spikeball",
     "Tennis",
     "Volleyball",
+    "Other"
 ]
