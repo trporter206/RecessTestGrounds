@@ -48,7 +48,7 @@ struct PlayerProfileLink: View {
     
     var body: some View {
         HStack {
-            NavigationLink(destination: PlayerProfile(player: $userInfo), label: {
+            NavigationLink(destination: PlayerProfile(player: $userInfo).environmentObject(tD), label: {
                 ProfilePicView(profileString: userInfo.profilePicString, height: 90)
             })
             VStack(alignment: .leading) {
@@ -96,6 +96,7 @@ struct ActivityStatus: View {
 }
 
 struct ActivityPlayerList: View {
+    @EnvironmentObject var tD: TestData
     @Binding var playerList: [User]
     
     var body: some View {
@@ -104,7 +105,7 @@ struct ActivityPlayerList: View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach($playerList) { $player in
-                    NavigationLink(destination: PlayerProfile(player: $player), label: {
+                    NavigationLink(destination: PlayerProfile(player: $player).environmentObject(tD), label: {
                         VStack {
                             ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
                             Text(player.name).font(.footnote)

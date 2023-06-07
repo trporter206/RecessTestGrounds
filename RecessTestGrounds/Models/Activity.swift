@@ -15,7 +15,6 @@ struct Activity: Identifiable, Codable {
     var points: Int
     var title: String
     var sport: String
-    var playerCount: Int
     var date: Date
     var description: String
     var creator: String
@@ -31,7 +30,6 @@ struct Activity: Identifiable, Codable {
         self.description = description
         self.coordinates = coordinates
         self.creator = creator
-        self.playerCount = 1
         self.players = [creator]
         self.currentlyActive = false
         self.points = 50
@@ -40,14 +38,12 @@ struct Activity: Identifiable, Codable {
     mutating func addPlayer(_ user: User) {
         if !players.contains(user.id) {
             players.append(user.id)
-            playerCount += 1
         }
     }
     
     mutating func removePlayer(_ user: User) {
         if let index = players.firstIndex(of: user.id) {
             players.remove(at: index)
-            playerCount -= 1
         }
     }
 }
@@ -78,7 +74,6 @@ extension Activity {
         description = data.description
         coordinates = data.coordinates
         creator = manager.currentUser.id
-        playerCount = 1
         players = [creator]
         currentlyActive = false
         points = 50

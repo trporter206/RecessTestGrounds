@@ -29,7 +29,7 @@ struct ActivityAnnotationDetailView: View {
                 ActivityDescription(activity: activity.wrappedValue)
                 Divider().padding([.leading, .trailing])
                 ActivityStatus(activity: activity)
-                ActivityPlayerList(playerList: $playerlist)
+                ActivityPlayerList(playerList: $playerlist).environmentObject(tD)
                 ActivityDateView(activity: activity.wrappedValue)
                 ActivityActionButtonView(activity: activity, playerList: $playerlist, showingReview: $showingReviewSheet)
                     .environmentObject(tD)

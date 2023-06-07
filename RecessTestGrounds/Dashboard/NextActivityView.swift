@@ -94,7 +94,7 @@ struct NextActivityPlayerList: View {
     var profileStrings: [String]
     
     var body: some View {
-        Text("\(activity.playerCount) Players").bold().padding(.leading)
+        Text("\(activity.players.count) Players").bold().padding(.leading)
         ScrollView(.horizontal) {
             HStack {
                 ForEach(profileStrings, id: \.self) { str in

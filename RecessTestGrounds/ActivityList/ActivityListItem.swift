@@ -72,7 +72,7 @@ struct ActivityListItemInfo: View {
     
     var body: some View {
         HStack {
-            Text("\(activity.playerCount)")
+            Text("\(activity.players.count)")
                 .fontWeight(.light)
             Image(systemName: "person.3.fill")
             Text(activity.date, format: .dateTime.day().month()).fontWeight(.light)

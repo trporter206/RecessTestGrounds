@@ -26,11 +26,15 @@ protocol FirestoreServiceProtocol {
     func deleteActivity(activity: Activity)
     func deleteUser(_ user: User)
     func removePlayer(activity: Activity, user: User)
+    func removeFollower(user: User, id: String)
+    func removeFollowing(user: User, id: String)
     //creation functions
     func createUser(user: User, avatar: String)
     func createActivityForLater(activity: Activity)
     func createActivityNow(activity: Activity, coordinates: [CLLocationDegrees])
     func addPlayer(activity: Activity, user: User)
+    func addFollower(user: User, id: String)
+    func addFollowing(user: User, id: String)
 }
 
 class FirestoreService: FirestoreServiceProtocol {
@@ -38,6 +42,30 @@ class FirestoreService: FirestoreServiceProtocol {
     static let shared = FirestoreService()
     let userRef = Firestore.firestore().collection("Users")
     let activityRef = Firestore.firestore().collection("Activities")
+    
+    func removeFollowing(user: User, id: String) {
+        userRef.document(user.id).updateData([
+            "following" : FieldValue.arrayRemove([id])
+        ])
+    }
+    
+    func addFollowing(user: User, id: String) {
+        userRef.document(user.id).updateData([
+            "following" : FieldValue.arrayUnion([id])
+        ])
+    }
+    
+    func removeFollower(user: User, id: String) {
+        userRef.document(user.id).updateData([
+            "followers" : FieldValue.arrayRemove([id])
+        ])
+    }
+    
+    func addFollower(user: User, id: String) {
+        userRef.document(user.id).updateData([
+            "followers" : FieldValue.arrayUnion([id])
+        ])
+    }
     
     func updateActivity(data: Activity.Data, id: String) {
         activityRef.document(id).updateData([
@@ -49,13 +77,56 @@ class FirestoreService: FirestoreServiceProtocol {
         ])
     }
     
-    func deleteUser(_ user: User) {
-        userRef.document("\(user.id)").delete() { error in
-            if let error = error {
-                print("Error removing document: \(error)")
+    func deleteUserHelper(snapShot: QuerySnapshot?, error: Error?, list: String, user: User) {
+        if let error = error {
+            print("Error getting documents: \(error)")
+        } else {
+            for document in snapShot!.documents {
+                let data = document.data()
+                var players = data[list] as? [String] ?? []
+                if let index = players.firstIndex(of: user.id) {
+                    players.remove(at: index)
+                    if list == "players" {
+                        self.activityRef.document(document.documentID).updateData([list: players]) { err in
+                            if let err = err {
+                                print("Error updating document: \(err)")
+                            } else {
+                                print("Document successfully updated")
+                            }
+                        }
+                    } else {
+                        self.userRef.document(document.documentID).updateData([list: players]) { err in
+                            if let err = err {
+                                print("Error updating document: \(err)")
+                            } else {
+                                print("Document successfully updated")
+                            }
+                        }
+                    }
+                }
             }
         }
     }
+    
+    func deleteUser(_ user: User) {
+        activityRef.whereField("players", arrayContains: user.id).getDocuments() { (querySnapshot, error) in
+            self.deleteUserHelper(snapShot: querySnapshot, error: error, list: "players", user: user)
+        }
+        userRef.whereField("followers", arrayContains: user.id).getDocuments() { (querySnapshot, error) in
+            self.deleteUserHelper(snapShot: querySnapshot, error: error, list: "followers", user: user)
+        }
+        userRef.whereField("following", arrayContains: user.id).getDocuments() { (querySnapshot, error) in
+            self.deleteUserHelper(snapShot: querySnapshot, error: error, list: "following", user: user)
+        }
+        userRef.document("\(user.id)").delete() { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+
     
     func updateUser(data: User.Data, chosenAvatar: String, id: String) {
         userRef.document(id).updateData([
@@ -73,14 +144,12 @@ class FirestoreService: FirestoreServiceProtocol {
     func addPlayer(activity: Activity, user: User) {
         activityRef.document(activity.id).updateData([
             "players" : FieldValue.arrayUnion([user.id]),
-            "playerCount" : FieldValue.increment(Int64(1))
         ])
     }
     
     func removePlayer(activity: Activity, user: User) {
         activityRef.document(activity.id).updateData([
             "players" : FieldValue.arrayRemove([user.id]),
-            "playerCount" : FieldValue.increment(Int64(-1))
         ])
     }
     
@@ -90,7 +159,6 @@ class FirestoreService: FirestoreServiceProtocol {
             "title" : activity.title,
             "points" : 50,
             "sport" : activity.sport,
-            "playerCount" : 1,
             "date" : Date.now,
             "description" : activity.description,
             "creator" : activity.creator,

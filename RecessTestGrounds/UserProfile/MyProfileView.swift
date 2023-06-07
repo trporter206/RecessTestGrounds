@@ -15,6 +15,7 @@ struct MyProfileView: View {
     @EnvironmentObject var tD: TestData
     @Binding var user: User
     @State private var deleteAccount = false
+    @State private var followers: [User] = []
 //    @State private var image = Image(systemName: "camera")
     
     var body: some View {
@@ -26,7 +27,16 @@ struct MyProfileView: View {
                 //})
                 //.padding()
 //                ProfileClubsList(user: $user)
-                
+                Text("Followers: \(user.followers.count)")
+                    .modifier(SectionHeader())
+                ScrollView(.horizontal) {
+                    ForEach($followers) { follower in
+                        VStack {
+                            ProfilePicView(profileString: follower.wrappedValue.profilePicString, height: 60)
+                            Text(follower.wrappedValue.name)
+                        }.padding(.leading)
+                    }
+                }
                 LogOutButton()
                 HStack {
                     EditProfileButton()
@@ -35,6 +45,18 @@ struct MyProfileView: View {
             }
         }
         .background(Color("LightBlue"))
+        .onAppear {
+            for id in user.followers {
+                FirestoreService.shared.getUserInfo(id: id) {result in
+                    switch result {
+                    case .success(let user):
+                        followers.append(user)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }
     }
 }
 

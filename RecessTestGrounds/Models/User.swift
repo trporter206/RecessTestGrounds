@@ -62,6 +62,30 @@ struct User: Identifiable, Equatable, Codable {
         self.checkTier()
     }
     
+    mutating func addFollower(_ id: String){
+        if !followers.contains(id) {
+            followers.append(id)
+        }
+    }
+    
+    mutating func removeFollower(_ id: String){
+        if let index = followers.firstIndex(of: id) {
+            followers.remove(at: index)
+        }
+    }
+    
+    mutating func addFollowing(_ id: String) {
+        if !following.contains(id) {
+            following.append(id)
+        }
+    }
+    
+    mutating func removeFollowing(_ id: String) {
+        if let index = following.firstIndex(of: id) {
+            following.remove(at: index)
+        }
+    }
+    
     mutating func checkTier() {
         switch self.points {
         case let p where p > 800:

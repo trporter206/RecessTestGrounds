@@ -26,11 +26,11 @@ struct ActivityDetailView: View {
                 ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                     .frame(height: 260)
                 PlayerProfileLink(activity: activity,
-                                  userInfo: $userInfo)
+                                  userInfo: $userInfo).environmentObject(tD)
                 ActivityDescription(activity: activity)
                 Divider().padding([.leading, .trailing])
                 ActivityStatus(activity: $activity)
-                ActivityPlayerList(playerList: $playerlist)
+                ActivityPlayerList(playerList: $playerlist).environmentObject(tD)
                 ActivityDateView(activity: activity)
                 ActivityActionButtonView(activity: $activity,
                                          playerList: $playerlist,
