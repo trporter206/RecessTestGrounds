@@ -28,7 +28,7 @@ struct LoginView: View {
     }
     
     func login() {
-        FirestoreService.shared.login(email: vM.email, password: vM.password) { result in
+        FirestoreService.shared.login(email: vM.email.lowercased(), password: vM.password) { result in
             switch result {
             case .success(let user):
                 tD.currentUser = user

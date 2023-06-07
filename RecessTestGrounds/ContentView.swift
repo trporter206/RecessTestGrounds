@@ -12,6 +12,17 @@ struct ContentView: View {
     @StateObject var lM = LocationManager()
     @StateObject var tD = TestData(skipFetching: true)
     
+    init() {
+//        must manually enter initial value inside function when using
+//        FirestoreService.shared.updateDocs(collection: "", fieldName: "") {error in
+//            if let error = error {
+//                print("error updating documents: \(error)")
+//            } else {
+//                print("successfully updated documents")
+//            }
+//        }
+    }
+    
     
     var body: some View {
         NavigationStack {

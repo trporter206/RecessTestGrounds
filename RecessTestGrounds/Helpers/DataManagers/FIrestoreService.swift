@@ -22,6 +22,7 @@ protocol FirestoreServiceProtocol {
     func updateTier(user: User, tier: Int)
     func updateRating(user: User, rating: String)
     func updateReviewCounts(user: User, review: Int)
+    func updateDocs(collection: String, fieldName: String, completion: @escaping (Error?) -> Void)
     //deletion functions
     func deleteActivity(activity: Activity)
     func deleteUser(_ user: User)
@@ -198,7 +199,7 @@ class FirestoreService: FirestoreServiceProtocol {
             "following" : user.following,
             "numRatings" : user.numRatings,
             "rating" : user.rating,
-            "emailAddress" : user.emailAddress
+            "emailAddress" : user.emailAddress.lowercased()
         ])
     }
     
@@ -274,4 +275,29 @@ class FirestoreService: FirestoreServiceProtocol {
             }
         }
     }
+    
+    //only call this function when adding a new field to users/activites
+    func updateDocs(collection: String, fieldName: String, completion: @escaping (Error?) -> Void) {
+        let ref = Firestore.firestore().collection(collection)
+        ref.getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(error)
+            } else {
+                for document in querySnapshot!.documents {
+                    ref.document(document.documentID).updateData([
+                        fieldName: "defaultValue" // Use the desired default value for your new field
+                    ]) { err in
+                        if let err = err {
+                            print("Error updating document: \(err)")
+                            completion(err)
+                            return
+                        }
+                    }
+                }
+                completion(nil)
+            }
+        }
+    }
+
 }
