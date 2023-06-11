@@ -55,7 +55,6 @@ struct ActivityListItemHeader: View {
                 .lineLimit(1)
                 .foregroundColor(Color("TextBlue"))
                 .bold()
-//                .padding(.trailing)
         } else {
             Text(activity.sport)
                 .font(.title2)
@@ -72,11 +71,14 @@ struct ActivityListItemInfo: View {
     
     var body: some View {
         HStack {
-            Text("\(activity.players.count)")
-                .fontWeight(.light)
             Image(systemName: "person.3.fill")
-            Text(activity.date, format: .dateTime.day().month()).fontWeight(.light)
+            Text("\(activity.players.count)")
+                .bold()
+                .foregroundColor(.orange)
             Image(systemName: "calendar")
+            Text(activity.date, format: .dateTime.day().month())
+                .bold()
+                .foregroundColor(.orange)
             ActivityListItemDistance(activity: activity)
         }
         .foregroundColor(Color("TextBlue"))
@@ -90,10 +92,10 @@ struct ActivityListItemDistance: View {
     var body: some View {
         if distanceToKilometers() != nil {
             HStack {
-                Text("\(distanceToKilometers()!)km")
-                    .fontWeight(.light)
-                    .foregroundColor(Color("TextBlue"))
                 Image(systemName: "location.fill")
+                Text("\(distanceToKilometers()!)km")
+                    .bold()
+                    .foregroundColor(.orange)
             }
         }
     }

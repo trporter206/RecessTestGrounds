@@ -1,59 +1,61 @@
 //
-//  MyProfileView.swift
+//  MyProfileView-VM.swift
 //  RecessTestGrounds
 //
-//  Created by Torri Ray Porter Jr on 2023-03-30.
+//  Created by Torri Ray Porter Jr on 2023-06-10.
 //
 
+import Foundation
 import SwiftUI
-import UIKit
 import FirebaseAuth
-import FirebaseFirestore
-//import FirebaseStorage
 
-struct MyProfileView: View {
-    @EnvironmentObject var tD: TestData
+struct UserCard: View {
     @Binding var user: User
-    @State private var deleteAccount = false
-    @State private var followers: [User] = []
-//    @State private var image = Image(systemName: "camera")
     
     var body: some View {
-        ScrollView(.vertical) {
-            VStack {
-                MyProfileHeader(user: user)
-                //CameraView(onCapture: { capturedImage in
-                //  user.profilePic = Image(uiImage: capturedImage)
-                //})
-                //.padding()
-//                ProfileClubsList(user: $user)
-                Text("Followers: \(user.followers.count)")
-                    .modifier(SectionHeader())
-                ScrollView(.horizontal) {
-                    ForEach($followers) { follower in
-                        VStack {
-                            ProfilePicView(profileString: follower.wrappedValue.profilePicString, height: 60)
-                            Text(follower.wrappedValue.name)
-                        }.padding(.leading)
-                    }
+        VStack {
+            ProfilePicView(profileString: user.profilePicString, height: 60)
+            Text(Array(user.name.split(separator: " "))[0]).foregroundColor(Color("TextBlue"))
+            Text("\(user.points)").bold()
+        }
+        .foregroundColor(.orange)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.white)
+        )
+        .padding(.leading)
+    }
+}
+
+struct FollowerList: View {
+    @Binding var user: User
+    @Binding var followers: [User]
+    
+    var body: some View {
+        VStack {
+            Text("Followers: \(user.followers.count)")
+                .modifier(SectionHeader())
+            ScrollView(.horizontal) {
+                ForEach($followers) { follower in
+                    UserCard(user: follower)
                 }
-                LogOutButton()
-                HStack {
-                    EditProfileButton()
-                    DeleteProfileButton(deleteAccount: $deleteAccount, action: deleteAccountInfo)
-                }.padding([.horizontal, .bottom])
             }
         }
-        .background(Color("LightBlue"))
-        .onAppear {
-            for id in user.followers {
-                FirestoreService.shared.getUserInfo(id: id) {result in
-                    switch result {
-                    case .success(let user):
-                        followers.append(user)
-                    case .failure(let error):
-                        print(error)
-                    }
+    }
+}
+
+struct FollowingList: View {
+    @Binding var user: User
+    @Binding var followings: [User]
+    
+    var body: some View {
+        VStack {
+            Text("Following: \(user.following.count)")
+                .modifier(SectionHeader())
+            ScrollView(.horizontal) {
+                ForEach($followings) { following in
+                    UserCard(user: following)
                 }
             }
         }
@@ -135,9 +137,3 @@ extension MyProfileView {
         print("Account Deleted")
     }
 }
-
-//struct MyProfileView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MyProfileView(user: .constant(usersData[0])).environmentObject(TestData())
-//    }
-//}

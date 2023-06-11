@@ -113,12 +113,12 @@ struct ActivityFormFields: View {
             SuperTextField(placeholder: Text("   Description (optional)"), text: $activityData.description)
                 .modifier(FormField())
             if activityType == "Later" {
-                Group {
-                    DatePickerField(title: "Time", selection: $activityData.date)
-                    ChooseLocationLink(activityData: $activityData)
-                }
-                .transition(AnyTransition.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
-                .animation(.easeIn, value: activityType)
+                DatePickerField(title: "Time", selection: $activityData.date)
+                    .transition(AnyTransition.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
+                    .animation(.easeIn, value: activityType)
+                ChooseLocationLink(activityData: $activityData)
+                    .transition(.opacity)
+                    .animation(.easeIn, value: activityType)
             } else {
                 Text("The activity will start automatically at your current location")
                     .foregroundColor(.orange)

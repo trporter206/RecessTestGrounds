@@ -23,15 +23,26 @@ struct ActivityDetailView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
-                    .frame(height: 260)
-                PlayerProfileLink(activity: activity,
-                                  userInfo: $userInfo).environmentObject(tD)
-                ActivityDescription(activity: activity)
-                Divider().padding([.leading, .trailing])
-                ActivityStatus(activity: $activity)
+                VStack(spacing: 0) {
+                    VStack {
+                        ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
+                            .frame(height: 260)
+                        PlayerProfileLink(activity: activity,
+                                          userInfo: $userInfo).environmentObject(tD)
+                        if activity.description != "" {
+                            Divider().padding([.leading, .trailing])
+                            ActivityDescription(activity: activity)
+                        }
+                    }
+                    .background(.white)
+                    HStack {
+                        ActivityDateView(activity: activity)
+                        ActivityStatus(activity: $activity)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(Color("TextBlue"))
+                }
                 ActivityPlayerList(playerList: $playerlist).environmentObject(tD)
-                ActivityDateView(activity: activity)
                 ActivityActionButtonView(activity: $activity,
                                          playerList: $playerlist,
                                          showingReview: $showingReviewSheet).environmentObject(tD).environmentObject(lM)
@@ -41,28 +52,9 @@ struct ActivityDetailView: View {
                                          showingAlert: $showingAlert)
                 }
             }
+            .navigationTitle("Activity")
             .onAppear {
-//                onAppear(activity, vM)
-                FirestoreService.shared.getUserInfo(id: activity.creator) {
-                    result in
-                    switch result {
-                    case .success(let user):
-                        userInfo = user
-                    case .failure(let error):
-                        print("Error decoding creator info: \(error)")
-                    }
-                }
-                playerlist = []
-                for id in activity.players {
-                    FirestoreService.shared.getUserInfo(id: id) {result in
-                        switch result {
-                        case .success(let user):
-                            playerlist.append(user)
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                }
+                onAppear(activity)
             }
             
         }

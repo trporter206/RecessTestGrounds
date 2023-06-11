@@ -10,6 +10,7 @@
 		D7116BFF29F8482F00017DFC /* ActivityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */; };
 		D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116C0029F872AB00017DFC /* PlayerProfile.swift */; };
 		D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */; };
+		D72E45922A35630A0076E851 /* Geohash in Frameworks */ = {isa = PBXBuildFile; productRef = D72E45912A35630A0076E851 /* Geohash */; };
 		D742A2F529F97EA100CFAF8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
 		D74DA37629F3371500E1C282 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329429D5216600DD2F05 /* Activity.swift */; };
 		D762F4092A1D372700329601 /* ActivityFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762F4082A1D372700329601 /* ActivityFilterView.swift */; };
@@ -68,6 +69,7 @@
 		D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */; };
 		D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E829DAB69E00C7DF7A /* Modifiers.swift */; };
 		D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */; };
+		D7E082632A357C720043A319 /* MyProfileView-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E082622A357C720043A319 /* MyProfileView-VM.swift */; };
 		D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EA2A1FF057006695C5 /* UserTests.swift */; };
 		D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EC2A20515A006695C5 /* EditActivityView.swift */; };
 		D7E391F02A21240B006695C5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D7E391EF2A21240B006695C5 /* FirebaseMessaging */; };
@@ -145,6 +147,7 @@
 		D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMapView.swift; sourceTree = "<group>"; };
 		D7C814E829DAB69E00C7DF7A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationDetailView.swift; sourceTree = "<group>"; };
+		D7E082622A357C720043A319 /* MyProfileView-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyProfileView-VM.swift"; sourceTree = "<group>"; };
 		D7E391EA2A1FF057006695C5 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		D7E391EC2A20515A006695C5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
 		D7E391EE2A2123D7006695C5 /* RecessTestGrounds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecessTestGrounds.entitlements; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D72E45922A35630A0076E851 /* Geohash in Frameworks */,
 				D7BF82BA29E4A96E0064A7A5 /* FirebaseAnalytics in Frameworks */,
 				D7BF82BC29E4A96E0064A7A5 /* FirebaseAuth in Frameworks */,
 				D7E391F02A21240B006695C5 /* FirebaseMessaging in Frameworks */,
@@ -305,9 +309,9 @@
 		D78D32B329D657C200DD2F05 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				D7E082612A357C5D0043A319 /* MyProfileView */,
 				D7B9CAD229EF28A10085BD72 /* Header */,
 				D7B9CAD129EF287A0085BD72 /* ProfileListVIews */,
-				D78D32B429D6747600DD2F05 /* MyProfileView.swift */,
 				D7C814E229DA21FE00C7DF7A /* CameraView.swift */,
 				D7116C0029F872AB00017DFC /* PlayerProfile.swift */,
 			);
@@ -432,6 +436,15 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		D7E082612A357C5D0043A319 /* MyProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				D78D32B429D6747600DD2F05 /* MyProfileView.swift */,
+				D7E082622A357C720043A319 /* MyProfileView-VM.swift */,
+			);
+			path = MyProfileView;
+			sourceTree = "<group>";
+		};
 		D7E3922F2A241575006695C5 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +502,7 @@
 				D7BF82BD29E4A96E0064A7A5 /* FirebaseFirestore */,
 				D7BF82BF29E4A96E0064A7A5 /* FirebaseFirestoreSwift */,
 				D7E391EF2A21240B006695C5 /* FirebaseMessaging */,
+				D72E45912A35630A0076E851 /* Geohash */,
 			);
 			productName = RecessTestGrounds;
 			productReference = D78D328029D51F0C00DD2F05 /* RecessTestGrounds.app */;
@@ -524,6 +538,7 @@
 			mainGroup = D78D327729D51F0B00DD2F05;
 			packageReferences = (
 				D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D72E45902A35630A0076E851 /* XCRemoteSwiftPackageReference "geohash" */,
 			);
 			productRefGroup = D78D328129D51F0C00DD2F05 /* Products */;
 			projectDirPath = "";
@@ -584,6 +599,7 @@
 				D762F4092A1D372700329601 /* ActivityFilterView.swift in Sources */,
 				D7C5872A29DBCAAC00EC9955 /* TierHeaderView.swift in Sources */,
 				D7B9CAD429EF28D90085BD72 /* RatingView.swift in Sources */,
+				D7E082632A357C720043A319 /* MyProfileView-VM.swift in Sources */,
 				D7B9CAD629EF2A120085BD72 /* PointsView.swift in Sources */,
 				D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */,
 				D7E3922C2A240F12006695C5 /* CreateUser-VM.swift in Sources */,
@@ -933,6 +949,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D72E45902A35630A0076E851 /* XCRemoteSwiftPackageReference "geohash" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nh7a/geohash.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -958,6 +982,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7BF82B829E4A96E0064A7A5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		D72E45912A35630A0076E851 /* Geohash */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D72E45902A35630A0076E851 /* XCRemoteSwiftPackageReference "geohash" */;
+			productName = Geohash;
 		};
 		D762F4102A1E679A00329601 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;

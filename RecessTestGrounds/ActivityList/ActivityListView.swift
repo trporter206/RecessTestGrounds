@@ -19,9 +19,7 @@ struct ActivityListView: View {
         NavigationStack {
             VStack {
                 if showingMap {
-                    VStack {
-                        Spacer()
-                            .frame(height: 5)
+                    VStack(spacing: 0) {
                         ActivityFilterView(filteredActivities: $filteredActivities,
                                            showingMap: $showingMap)
                         DashboardMapView(filteredActivites: $filteredActivities)

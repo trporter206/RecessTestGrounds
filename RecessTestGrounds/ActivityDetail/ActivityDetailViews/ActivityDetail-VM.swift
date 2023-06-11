@@ -17,22 +17,22 @@ extension ActivityDetailView {
         @Published var showingAlert = false 
     }
     
-    func onAppear(_ activity: Activity, _ vM: ViewModel) {
+    func onAppear(_ activity: Activity) {
         FirestoreService.shared.getUserInfo(id: activity.creator) {
             result in
             switch result {
             case .success(let user):
-                vM.userInfo = user
+                userInfo = user
             case .failure(let error):
                 print("Error decoding creator info: \(error)")
             }
         }
-        vM.playerlist = []
+        playerlist = []
         for id in activity.players {
             FirestoreService.shared.getUserInfo(id: id) {result in
                 switch result {
                 case .success(let user):
-                    vM.playerlist.append(user)
+                    playerlist.append(user)
                 case .failure(let error):
                     print(error)
                 }
@@ -47,23 +47,25 @@ struct PlayerProfileLink: View {
     @Binding var userInfo: User
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             NavigationLink(destination: PlayerProfile(player: $userInfo).environmentObject(tD), label: {
                 ProfilePicView(profileString: userInfo.profilePicString, height: 90)
-            })
+            }).padding(.trailing)
             VStack(alignment: .leading) {
                 if activity.title != "" {
                     Text(activity.title).bold().font(.title)
-                    Text(activity.sport).fontWeight(.light)
+                    Text(activity.sport).bold().font(.title3).foregroundColor(.orange)
                 } else {
-                    Text(activity.sport).bold().font(.title)
+                    Text(activity.sport)
+                        .bold()
+                        .font(.title)
                 }
+                Spacer()
                 Text("Hosted by \(userInfo.name)")
                     .font(.subheadline)
             }
             .foregroundColor(Color("TextBlue"))
         }
-        .padding(.bottom)
     }
 }
 
@@ -74,7 +76,6 @@ struct ActivityDescription: View {
         if activity.description != "" {
             Text(activity.description)
                 .foregroundColor(Color("TextBlue"))
-                .fontWeight(.light)
                 .padding([.leading, .bottom, .trailing])
         }
     }
@@ -86,11 +87,14 @@ struct ActivityStatus: View {
     var body: some View {
         if activity.currentlyActive {
             Text("Currently Active")
-                .foregroundColor(Color("TextBlue"))
+                .foregroundColor(.orange)
                 .bold()
                 .padding()
         } else {
-            Text("This activity has not started yet").padding()
+            Text("This activity has not started yet")
+                .foregroundColor(.orange)
+                .bold()
+                .padding()
         }
     }
 }
@@ -100,16 +104,14 @@ struct ActivityPlayerList: View {
     @Binding var playerList: [User]
     
     var body: some View {
-        Text("Players (\($playerList.count))")
+        Text("Players")
+            .bold()
             .foregroundColor(Color("TextBlue"))
         ScrollView(.horizontal) {
             HStack {
                 ForEach($playerList) { $player in
                     NavigationLink(destination: PlayerProfile(player: $player).environmentObject(tD), label: {
-                        VStack {
-                            ProfilePicView(profileString: $player.wrappedValue.profilePicString, height: 60)
-                            Text(player.name).font(.footnote)
-                        }
+                        UserCard(user: $player)
                     })
                 }
             }
@@ -122,9 +124,14 @@ struct ActivityDateView: View {
     let activity: Activity
     
     var body: some View {
-        Text("Date: \(activity.date.formatted())")
-            .foregroundColor(Color("TextBlue"))
-            .padding(.top)
+        HStack {
+            Image(systemName: "calendar").foregroundColor(.white)
+                .scaleEffect(2)
+                .padding(.trailing)
+            Text(activity.date.formatted())
+                .foregroundColor(.white)
+                .bold()
+        }.padding()
     }
 }
 
@@ -140,11 +147,13 @@ struct EditActivityButton: View {
             .environmentObject(tD)
             .environmentObject(lM),
                        label: {
-            Text("Edit Activity")
+            Text("Edit").padding()
         })
         .onAppear {
             activityData = activity.data
         }
+        .background(RoundedRectangle(cornerRadius: 50)
+            .fill(.white))
     }
 }
 
@@ -158,8 +167,12 @@ struct ActivityDeleteButton: View {
         if tD.currentUser.id == activity.creator {
             Button(action: { showingAlert.toggle() },
                    label: {
-                Text("Delete").foregroundColor(.red)
+                Text("Delete").foregroundColor(.white).bold().padding()
             })
+            .background(RoundedRectangle(cornerRadius: 50)
+                .fill(.red)
+                .foregroundColor(.white))
+            .padding()
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Delete this activity?"),
                       primaryButton: .default(
