@@ -13,6 +13,9 @@ import SwiftUI
 struct CustomMapView: UIViewRepresentable {
     @EnvironmentObject var lM: LocationManager
     @Binding var selectedCoordinate: CLLocationCoordinate2D
+    @Binding var showingLocations: Bool
+    @Binding var locations: [Location]
+    @Binding var selectedSport: String
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -31,11 +34,31 @@ struct CustomMapView: UIViewRepresentable {
         }
         let longPressRecognizer = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleLongPress(gestureRecognizer:)))
             mapView.addGestureRecognizer(longPressRecognizer)
+        
+        let locationAnnotations = locations.map { LocationAnnotation(location: $0, lM: lM) }
+        mapView.addAnnotations(locationAnnotations)
         return mapView
     }
 
     func updateUIView(_ view: MKMapView, context: Context) {
+        // Remove all annotations that aren't user location
+        let nonUserAnnotations = view.annotations.filter { !($0 is MKUserLocation) }
+        view.removeAnnotations(nonUserAnnotations)
+        // If showingLocations is true, add the locations as annotations
+        if showingLocations {
+            // Filter locations based on the selected sport
+            let filteredLocations = locations.filter { $0.sport == selectedSport }
+            let locationAnnotations = filteredLocations.map { location -> MKPointAnnotation in
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinates[0],
+                                                               longitude: location.coordinates[1])
+                return annotation
+            }
+            view.addAnnotations(locationAnnotations)
+        }
     }
+
+
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: CustomMapView
@@ -71,11 +94,17 @@ struct ActivityChooseLocalMap: View {
     @EnvironmentObject var lM: LocationManager
     @State private var coords = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     @Binding var activityData: Activity.Data
+    @State var showingLocations = false
+    @State var sport = sportOptions[0]
+    @State var locations: [Location] = []
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         ZStack {
-            CustomMapView(selectedCoordinate: $coords)
+            CustomMapView(selectedCoordinate: $coords,
+                          showingLocations: $showingLocations,
+                          locations: $locations,
+                          selectedSport: $sport)
                 .environmentObject(lM)
             .ignoresSafeArea()
             VStack {
@@ -87,6 +116,25 @@ struct ActivityChooseLocalMap: View {
                             .foregroundColor(.white)
                             .shadow(radius: 1)
                     )
+                HStack {
+                    Button(action: {
+                        showingLocations.toggle()
+                    }, label: {
+                        Text(showingLocations ? "Hide Locations" : "Show Locations")
+                            .foregroundColor(.orange)
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
+                    })
+                    Spacer()
+                    Picker(sport, selection: $sport) {
+                        ForEach(sportOptions, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
+                }
+                .padding()
                 Spacer()
                 Button(action: {
                     activityData.coordinates = [coords.latitude, coords.longitude]
@@ -95,6 +143,9 @@ struct ActivityChooseLocalMap: View {
                     ActivityButton("Save Location")
                 })
             }
+        }
+        .onAppear {
+            locations = mapLocations
         }
     }
 }

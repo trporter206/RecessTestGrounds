@@ -85,10 +85,3 @@ struct DashboardMapView: UIViewRepresentable {
     }
 }
 
-
-struct DashboardMapView_Previews: PreviewProvider {
-    static var previews: some View {
-        DashboardMapView(filteredActivites: .constant([]))
-            .environmentObject(TestData())
-    }
-}

@@ -69,6 +69,14 @@
 		D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */; };
 		D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E829DAB69E00C7DF7A /* Modifiers.swift */; };
 		D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */; };
+		D7D787CB2A3662DD00A87DCF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787CA2A3662DD00A87DCF /* Location.swift */; };
+		D7D787CC2A3662DD00A87DCF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787CA2A3662DD00A87DCF /* Location.swift */; };
+		D7D787D02A3663FA00A87DCF /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787CF2A3663FA00A87DCF /* LocationAnnotation.swift */; };
+		D7D787D12A3663FA00A87DCF /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787CF2A3663FA00A87DCF /* LocationAnnotation.swift */; };
+		D7D787D32A3664E900A87DCF /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */; };
+		D7D787D42A3664E900A87DCF /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */; };
+		D7D787D62A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */; };
+		D7D787D72A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */; };
 		D7E082632A357C720043A319 /* MyProfileView-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E082622A357C720043A319 /* MyProfileView-VM.swift */; };
 		D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EA2A1FF057006695C5 /* UserTests.swift */; };
 		D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EC2A20515A006695C5 /* EditActivityView.swift */; };
@@ -147,6 +155,10 @@
 		D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMapView.swift; sourceTree = "<group>"; };
 		D7C814E829DAB69E00C7DF7A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationDetailView.swift; sourceTree = "<group>"; };
+		D7D787CA2A3662DD00A87DCF /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D7D787CF2A3663FA00A87DCF /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
+		D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationDetailView.swift; sourceTree = "<group>"; };
 		D7E082622A357C720043A319 /* MyProfileView-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyProfileView-VM.swift"; sourceTree = "<group>"; };
 		D7E391EA2A1FF057006695C5 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		D7E391EC2A20515A006695C5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
@@ -187,11 +199,8 @@
 		D7116BFB29F8464300017DFC /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */,
+				D7D787CD2A36638C00A87DCF /* Activities */,
 				D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */,
-				D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */,
-				D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */,
-				D78B23AD2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -206,7 +215,7 @@
 		D78373CC29E50AD800FE3074 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
+				D7D787D82A366CB100A87DCF /* map */,
 				D7BF82C229E4AB730064A7A5 /* CreateActivityView.swift */,
 				D7E391EC2A20515A006695C5 /* EditActivityView.swift */,
 				D7E392302A241745006695C5 /* CreateActivity-VM.swift */,
@@ -272,6 +281,7 @@
 				D78D329229D51F9F00DD2F05 /* User.swift */,
 				D78D329429D5216600DD2F05 /* Activity.swift */,
 				D78D32A829D60CB300DD2F05 /* Club.swift */,
+				D7D787CA2A3662DD00A87DCF /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -436,6 +446,36 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		D7D787CD2A36638C00A87DCF /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */,
+				D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */,
+				D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */,
+				D78B23AD2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
+		D7D787CE2A3663A700A87DCF /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				D7D787CF2A3663FA00A87DCF /* LocationAnnotation.swift */,
+				D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */,
+				D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		D7D787D82A366CB100A87DCF /* map */ = {
+			isa = PBXGroup;
+			children = (
+				D7D787CE2A3663A700A87DCF /* Locations */,
+				D78373CA29E4D5D100FE3074 /* ActivityChooseLocalMap.swift */,
+			);
+			path = map;
+			sourceTree = "<group>";
+		};
 		D7E082612A357C5D0043A319 /* MyProfileView */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,6 +621,10 @@
 				D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */,
 				D762F4122A1E68FF00329601 /* User.swift in Sources */,
 				D762F4132A1E691900329601 /* TestData.swift in Sources */,
+				D7D787CC2A3662DD00A87DCF /* Location.swift in Sources */,
+				D7D787D72A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */,
+				D7D787D42A3664E900A87DCF /* LocationAnnotationView.swift in Sources */,
+				D7D787D12A3663FA00A87DCF /* LocationAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,11 +664,13 @@
 				D78D329C29D5251100DD2F05 /* DashboardView.swift in Sources */,
 				D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */,
 				D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */,
+				D7D787D32A3664E900A87DCF /* LocationAnnotationView.swift in Sources */,
 				D7C5873529DBCDE800EC9955 /* ProfileClubsList.swift in Sources */,
 				D7C5872C29DBCAF300EC9955 /* AchievementListItem.swift in Sources */,
 				D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,
 				D78D329A29D522E700DD2F05 /* TestData.swift in Sources */,
+				D7D787D02A3663FA00A87DCF /* LocationAnnotation.swift in Sources */,
 				D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */,
 				D762F4172A1E83CB00329601 /* FIrestoreService.swift in Sources */,
 				D78373CB29E4D5D100FE3074 /* ActivityChooseLocalMap.swift in Sources */,
@@ -633,6 +679,7 @@
 				D7E392332A2419F6006695C5 /* ActivityDetail-VM.swift in Sources */,
 				D7C814D229D765C900C7DF7A /* ActivityDetailView.swift in Sources */,
 				D78D32AB29D6142100DD2F05 /* ClubListView.swift in Sources */,
+				D7D787D62A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */,
 				D78D329329D51F9F00DD2F05 /* User.swift in Sources */,
 				D7C814E129D9F7E600C7DF7A /* ActivityMapView.swift in Sources */,
 				D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */,
@@ -640,6 +687,7 @@
 				D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */,
 				D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */,
 				D7E392312A241745006695C5 /* CreateActivity-VM.swift in Sources */,
+				D7D787CB2A3662DD00A87DCF /* Location.swift in Sources */,
 				D78D32B729D679D200DD2F05 /* MyProfileHeader.swift in Sources */,
 				D7E391F22A2128C6006695C5 /* NotificationsController.swift in Sources */,
 				D76CF91329E64B0600A9EE8F /* CreateUserView.swift in Sources */,

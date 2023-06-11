@@ -67,7 +67,7 @@ extension ActivityListView {
     }
     
     func getActivity(_ activity: Binding<Activity>) -> Binding<Activity> {
-        var originalActivity = $tD.activities.first(where: {$0.id == activity.id})
+        let originalActivity = $tD.activities.first(where: {$0.id == activity.id})
         return originalActivity!
     }
 }
