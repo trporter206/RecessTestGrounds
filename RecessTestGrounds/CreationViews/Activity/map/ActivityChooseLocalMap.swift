@@ -6,133 +6,49 @@
 //
 
 import Foundation
-import UIKit
 import MapKit
 import SwiftUI
 
-struct CustomMapView: UIViewRepresentable {
-    @EnvironmentObject var lM: LocationManager
-    @Binding var selectedCoordinate: CLLocationCoordinate2D
-    @Binding var showingLocations: Bool
-    @Binding var locations: [Location]
-    @Binding var selectedSport: String
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    func makeUIView(context: Context) -> MKMapView {
-        let mapView = MKMapView()
-        mapView.delegate = context.coordinator
-        mapView.showsUserLocation = true
-        if let userLocation = lM.locationManager?.location?.coordinate {
-            print("User location found")
-                mapView.setRegion(MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
-                    span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
-                ), animated: false)
-        }
-        let longPressRecognizer = UILongPressGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleLongPress(gestureRecognizer:)))
-            mapView.addGestureRecognizer(longPressRecognizer)
-        return mapView
-    }
-
-    func updateUIView(_ view: MKMapView, context: Context) {
-        // Remove all annotations that aren't user location
-        let nonUserAnnotations = view.annotations.filter { !($0 is MKUserLocation) }
-        view.removeAnnotations(nonUserAnnotations)
-        // If showingLocations is true, add the locations as annotations
-        if showingLocations {
-            // Filter locations based on the selected sport
-            let filteredLocations = locations.filter { $0.sport == selectedSport }
-            let locationAnnotations = filteredLocations.map { location -> LocationAnnotation in
-                let annotation = LocationAnnotation(location: location, lM: lM)
-                return annotation
-            }
-            view.addAnnotations(locationAnnotations)
-        }
-    }
-
-
-
-    class Coordinator: NSObject, MKMapViewDelegate {
-        var parent: CustomMapView
-
-        init(_ parent: CustomMapView) {
-            self.parent = parent
-        }
-        
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            if let locationAnnotation = annotation as? LocationAnnotation {
-                let identifier = "LocationAnnotationView"
-                let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                
-                let customView = LocationAnnotationView(location: locationAnnotation.location)
-                
-                let hostingController = UIHostingController(rootView: customView)
-                hostingController.view.backgroundColor = .clear
-                hostingController.view.frame = CGRect(origin: .zero, size: customView.frameSize)
-                
-                annotationView.addSubview(hostingController.view)
-                annotationView.frame = hostingController.view.frame
-                annotationView.clusteringIdentifier = "activity"
-                
-                return annotationView
-            } else if let cluster = annotation as? MKClusterAnnotation {
-                let identifier = "Cluster"
-                let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                annotationView.displayPriority = .defaultHigh
-                annotationView.clusteringIdentifier = "location"
-                annotationView.glyphText = "\(cluster.memberAnnotations.count)"
-                annotationView.markerTintColor = UIColor(named: "TextBlue")
-                return annotationView
-            }
-            
-            return nil
-        }
-
-        @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-            if gestureRecognizer.state == .began {
-                let touchPoint = gestureRecognizer.location(in: gestureRecognizer.view)
-                let coordinate = (gestureRecognizer.view as? MKMapView)?.convert(touchPoint, toCoordinateFrom: gestureRecognizer.view)
-
-                if let coord = coordinate, let mapView = gestureRecognizer.view as? MKMapView {
-                    parent.selectedCoordinate = coord
-
-                    // Remove previous annotations
-                    let currentAnnotations = mapView.annotations.filter { !($0 is MKUserLocation) }
-                    mapView.removeAnnotations(currentAnnotations)
-
-                    // Add a new annotation for the selected coordinate
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = coord
-                    mapView.addAnnotation(annotation)
-                }
-            }
-        }
-    }
-
-}
-
 struct ActivityChooseLocalMap: View {
     @EnvironmentObject var lM: LocationManager
-    @State private var coords = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+        span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+    )
     @Binding var activityData: Activity.Data
-    @State var showingLocations = false
-    @State var sport = sportOptions[0]
+    @State var chosenCoords = [0.0,0.0]
+    @Binding var sport: String
     @State var locations: [Location] = []
+    @State private var showingInfo = false
+    @State private var selectedLocation: Location? = nil
+
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         ZStack {
-            CustomMapView(selectedCoordinate: $coords,
-                          showingLocations: $showingLocations,
-                          locations: $locations,
-                          selectedSport: $sport)
-                .environmentObject(lM)
+            Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: locations) { location in
+                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinates[0], longitude: location.coordinates[1])) {
+                    if sport == location.sport {
+                        LocationAnnotationView(location: location, selectedCoords: $chosenCoords)
+                            .onTapGesture {
+                                chosenCoords = [location.coordinates[0], location.coordinates[1]]
+                            }
+                            .onLongPressGesture {
+                                selectedLocation = location
+                                showingInfo = true
+                            }
+                    } else {
+                        EmptyView()
+                    }
+                }
+            }
+            .sheet(item: $selectedLocation) { location in
+                LocationDetailsView(location: location)
+                    .presentationDetents([.medium])
+            }
             .ignoresSafeArea()
             VStack {
-                Text("Hold your finger down on the desired location")
+                Text("Tap to select, hold for info")
                     .foregroundColor(Color("TextBlue"))
                     .padding()
                     .background(
@@ -140,37 +56,44 @@ struct ActivityChooseLocalMap: View {
                             .foregroundColor(.white)
                             .shadow(radius: 1)
                     )
-                HStack {
-                    Button(action: {
-                        showingLocations.toggle()
-                    }, label: {
-                        Text(showingLocations ? "Hide Locations" : "Show Locations")
-                            .foregroundColor(.orange)
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
-                    })
-                    Spacer()
-                    Picker(sport, selection: $sport) {
-                        ForEach(sportOptions, id: \.self) {
-                            Text($0)
-                        }
+                Picker(sport, selection: $sport) {
+                    ForEach(sportOptions, id: \.self) {
+                        Text($0)
                     }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
                 }
+                .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
                 .padding()
                 Spacer()
                 Button(action: {
-                    activityData.coordinates = [coords.latitude, coords.longitude]
+                    activityData.coordinates = [chosenCoords[0], chosenCoords[1]]
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ActivityButton("Save Location")
                 })
+                .disabled(chosenCoords == [0.0,0.0])
             }
         }
         .onAppear {
             locations = mapLocations
+            if let userLocation = lM.locationManager?.location?.coordinate {
+                print("User location found")
+                region.center = CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude)
+            }
         }
+    }
+}
+
+struct LocationDetailsView: View {
+    let location: Location
+    
+    var body: some View {
+        VStack {
+            Text(location.sport)
+            Text(location.notes)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .foregroundColor(Color("TextBlue"))
+        .background(.white)
     }
 }
 

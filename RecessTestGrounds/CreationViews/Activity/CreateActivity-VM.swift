@@ -174,7 +174,7 @@ struct ChooseLocationLink: View {
     @EnvironmentObject var lM: LocationManager
     @Binding var activityData: Activity.Data
     var body: some View {
-        NavigationLink(destination: ActivityChooseLocalMap(activityData: $activityData).environmentObject(lM), label: {
+        NavigationLink(destination: ActivityChooseLocalMap(activityData: $activityData, sport: $activityData.sport).environmentObject(lM), label: {
             Text("Choose Location         ")
                 .bold()
                 .foregroundColor(.orange)

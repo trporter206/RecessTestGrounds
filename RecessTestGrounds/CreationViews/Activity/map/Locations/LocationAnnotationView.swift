@@ -12,13 +12,16 @@ struct LocationAnnotationView: View {
     var location: Location?
     var title: String
     dynamic var coordinate: CLLocationCoordinate2D
+    @Binding var chosenCoords: [Double]
     var frameSize: CGSize = CGSize(width: 24, height: 24)
     
-    init(location: Location) {
+    init(location: Location, selectedCoords: Binding<[Double]>) {
         self.location = location
         self.coordinate = CLLocationCoordinate2D(latitude: location.coordinates[0], longitude: location.coordinates[1])
         self.title = location.sport
+        self._chosenCoords = selectedCoords
     }
+
     
     func getIcon(_ location: Location) -> String {
         switch location.sport {
@@ -48,11 +51,14 @@ struct LocationAnnotationView: View {
                 .scaledToFit()
                 .frame(width: frameSize.width, height: frameSize.height)
                 .bold()
-                .foregroundColor(Color("TextBlue"))
+                .foregroundColor(chosenCoords == location.coordinates ? .orange : Color("TextBlue"))
                 .padding(12)
                 .background(Circle()
                     .fill(.white)
                     .shadow(radius: 1))
+                .onAppear {
+                    
+                }
         } else {
             EmptyView()
         }
@@ -62,6 +68,6 @@ struct LocationAnnotationView: View {
 
 struct LocationAnnotationView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationAnnotationView(location: Location(sport: "Basketball", coordinates: [0.0,0.0], notes: ""))
+        LocationAnnotationView(location: Location(sport: "Basketball", coordinates: [0.0,0.0], notes: ""), selectedCoords: .constant([]))
     }
 }
