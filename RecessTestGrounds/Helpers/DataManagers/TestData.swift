@@ -118,5 +118,6 @@ var sportOptions: [String] = [
 ]
 
 var mapLocations: [Location] = [
-    Location(sport: "Basketball", coordinates: [45.569186, -122.672717], notes: "2 small courts")
+    Location(sport: "Basketball", coordinates: [45.569186, -122.672717], notes: "2 small courts"),
+    Location(sport: "Tennis", coordinates: [45.569423, -122.672766], notes: "2 full sized tennis courts")
 ]

@@ -10,11 +10,14 @@ import CoreLocation
 
 struct LocationAnnotationView: View {
     var location: Location?
+    var title: String
     dynamic var coordinate: CLLocationCoordinate2D
+    var frameSize: CGSize = CGSize(width: 24, height: 24)
     
     init(location: Location) {
         self.location = location
         self.coordinate = CLLocationCoordinate2D(latitude: location.coordinates[0], longitude: location.coordinates[1])
+        self.title = location.sport
     }
     
     func getIcon(_ location: Location) -> String {
@@ -41,17 +44,24 @@ struct LocationAnnotationView: View {
     var body: some View {
         if let location = location {
             Image(systemName: getIcon(location))
-                .padding()
-                .background(Circle().fill(.white))
-                .shadow(radius: 1)
+                .resizable() // Makes the image resizable
+                .scaledToFit()
+                .frame(width: frameSize.width, height: frameSize.height)
+                .bold()
+                .foregroundColor(Color("TextBlue"))
+                .padding(12)
+                .background(Circle()
+                    .fill(.white)
+                    .shadow(radius: 1))
         } else {
             EmptyView()
         }
     }
+
 }
 
-//struct LocationAnnotationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LocationAnnotationView()
-//    }
-//}
+struct LocationAnnotationView_Previews: PreviewProvider {
+    static var previews: some View {
+        LocationAnnotationView(location: Location(sport: "Basketball", coordinates: [0.0,0.0], notes: ""))
+    }
+}

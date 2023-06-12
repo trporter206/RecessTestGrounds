@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreLocation
-import FirebaseFirestore
 
 struct ActivityAnnotationView: View {
     var activity: Binding<Activity>?
