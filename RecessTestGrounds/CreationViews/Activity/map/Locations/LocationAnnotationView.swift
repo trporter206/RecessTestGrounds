@@ -52,7 +52,7 @@ struct LocationAnnotationView: View {
                 .frame(width: frameSize.width, height: frameSize.height)
                 .bold()
                 .foregroundColor(chosenCoords == location.coordinates ? .orange : Color("TextBlue"))
-                .padding(12)
+                .padding(8)
                 .background(Circle()
                     .fill(.white)
                     .shadow(radius: 1))
@@ -68,6 +68,6 @@ struct LocationAnnotationView: View {
 
 struct LocationAnnotationView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationAnnotationView(location: Location(sport: "Basketball", coordinates: [0.0,0.0], notes: ""), selectedCoords: .constant([]))
+        LocationAnnotationView(location: Location(sport: "Basketball", coordinates: [0.0,0.0], notes: "", address: ""), selectedCoords: .constant([]))
     }
 }

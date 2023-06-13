@@ -13,7 +13,7 @@ struct ActivityChooseLocalMap: View {
     @EnvironmentObject var lM: LocationManager
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
-        span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+        span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
     )
     @Binding var activityData: Activity.Data
     @State var chosenCoords = [0.0,0.0]
