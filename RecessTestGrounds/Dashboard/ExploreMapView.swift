@@ -13,7 +13,7 @@ struct ExploreMapView: View {
     @EnvironmentObject var lM: LocationManager
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
-        span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
+        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     )
     @State var locations: [Location] = []
     @State var sport: String = sportOptions[0]
@@ -56,7 +56,9 @@ struct ExploreMapView: View {
                         Text($0)
                     }
                 }
-                .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
+                .background(RoundedRectangle(cornerRadius: 50)
+                    .foregroundColor(.white)
+                    .shadow(radius: 1))
                 .padding()
                 Spacer()
             }

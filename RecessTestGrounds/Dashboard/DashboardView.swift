@@ -65,7 +65,7 @@ struct CreateActivityLinkView: View {
         NavigationLink(destination: CreateActivityView().environmentObject(lM)
             .environmentObject(tD), label: {
                 ZStack {
-                    Text("Play")
+                    Text("Create")
                         .foregroundColor(.white)
                         .bold()
                         .padding()

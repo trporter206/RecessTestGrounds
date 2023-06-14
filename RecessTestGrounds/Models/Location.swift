@@ -15,6 +15,8 @@ struct Location: Identifiable, Codable {
     var coordinates: [Double]
     var notes: String
     var about: String?
+    var numTotalActivities: Int
+    var currentActivities: [Activity]
     
     init(sport: String, name: String, coordinates: [Double], notes: String, address: String, about: String? = nil) {
         self.id = UUID().uuidString
@@ -24,5 +26,7 @@ struct Location: Identifiable, Codable {
         self.address = address
         self.name = name
         self.about = about
+        self.numTotalActivities = 0
+        self.currentActivities = []
     }
 }

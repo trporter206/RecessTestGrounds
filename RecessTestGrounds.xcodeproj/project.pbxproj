@@ -75,8 +75,6 @@
 		D7D787D12A3663FA00A87DCF /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787CF2A3663FA00A87DCF /* LocationAnnotation.swift */; };
 		D7D787D32A3664E900A87DCF /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */; };
 		D7D787D42A3664E900A87DCF /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */; };
-		D7D787D62A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */; };
-		D7D787D72A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */; };
 		D7E082632A357C720043A319 /* MyProfileView-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E082622A357C720043A319 /* MyProfileView-VM.swift */; };
 		D7E391EB2A1FF057006695C5 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EA2A1FF057006695C5 /* UserTests.swift */; };
 		D7E391ED2A20515A006695C5 /* EditActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E391EC2A20515A006695C5 /* EditActivityView.swift */; };
@@ -159,7 +157,6 @@
 		D7D787CA2A3662DD00A87DCF /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D7D787CF2A3663FA00A87DCF /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
 		D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
-		D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationDetailView.swift; sourceTree = "<group>"; };
 		D7E082622A357C720043A319 /* MyProfileView-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyProfileView-VM.swift"; sourceTree = "<group>"; };
 		D7E391EA2A1FF057006695C5 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		D7E391EC2A20515A006695C5 /* EditActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityView.swift; sourceTree = "<group>"; };
@@ -463,7 +460,6 @@
 			children = (
 				D7D787CF2A3663FA00A87DCF /* LocationAnnotation.swift */,
 				D7D787D22A3664E900A87DCF /* LocationAnnotationView.swift */,
-				D7D787D52A36680800A87DCF /* LocationAnnotationDetailView.swift */,
 			);
 			path = Locations;
 			sourceTree = "<group>";
@@ -621,7 +617,6 @@
 				D762F4122A1E68FF00329601 /* User.swift in Sources */,
 				D762F4132A1E691900329601 /* TestData.swift in Sources */,
 				D7D787CC2A3662DD00A87DCF /* Location.swift in Sources */,
-				D7D787D72A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */,
 				D7D787D42A3664E900A87DCF /* LocationAnnotationView.swift in Sources */,
 				D7D787D12A3663FA00A87DCF /* LocationAnnotation.swift in Sources */,
 			);
@@ -679,7 +674,6 @@
 				D7E392332A2419F6006695C5 /* ActivityDetail-VM.swift in Sources */,
 				D7C814D229D765C900C7DF7A /* ActivityDetailView.swift in Sources */,
 				D78D32AB29D6142100DD2F05 /* ClubListView.swift in Sources */,
-				D7D787D62A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */,
 				D78D329329D51F9F00DD2F05 /* User.swift in Sources */,
 				D7C814E129D9F7E600C7DF7A /* ActivityDetailMapView.swift in Sources */,
 				D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */,

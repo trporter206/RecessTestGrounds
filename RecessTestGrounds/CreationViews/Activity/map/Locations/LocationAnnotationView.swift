@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 
 struct LocationAnnotationView: View {
-    var location: Location?
+    @State var location: Location?
     var title: String
     dynamic var coordinate: CLLocationCoordinate2D
     @Binding var chosenCoords: [Double]
@@ -34,7 +34,7 @@ struct LocationAnnotationView: View {
         case "Soccer":
             return "figure.soccer"
         case "Football":
-            return "figure.football"
+            return "figure.american.football"
         case "Rugby":
             return "figure.rugby"
         case "Tennis":
@@ -56,9 +56,6 @@ struct LocationAnnotationView: View {
                 .background(Circle()
                     .fill(.white)
                     .shadow(radius: 1))
-                .onAppear {
-                    
-                }
         } else {
             EmptyView()
         }
@@ -66,8 +63,8 @@ struct LocationAnnotationView: View {
 
 }
 
-struct LocationAnnotationView_Previews: PreviewProvider {
-    static var previews: some View {
-        LocationAnnotationView(location: Location(sport: "Basketball", coordinates: [0.0,0.0], notes: "", address: ""), selectedCoords: .constant([]))
-    }
-}
+//struct LocationAnnotationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LocationAnnotationView(location: Location(sport: "Basketball", coordinates: [0.0,0.0], notes: "", address: ""), selectedCoords: .constant([]))
+//    }
+//}

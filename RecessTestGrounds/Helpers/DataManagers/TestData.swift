@@ -110,12 +110,9 @@ var sportOptions: [String] = [
     "Baseball",
     "Basketball",
     "Football",
-    "Rugby",
     "Soccer",
-    "Spikeball",
     "Tennis",
     "Volleyball",
-    "Other"
 ]
 
 var mapLocations: [Location] = [
