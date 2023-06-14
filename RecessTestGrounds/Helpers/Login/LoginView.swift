@@ -11,6 +11,7 @@ struct LoginView: View {
     @EnvironmentObject var tD: TestData
     @EnvironmentObject var lM: LocationManager
     @StateObject private var vM = ViewModel()
+    @State private var isLoggingIn = false
     
     var body: some View {
         VStack {
@@ -21,14 +22,23 @@ struct LoginView: View {
             Spacer()
             ErrorMessageText(errorMessage: $vM.errorMessage)
             Spacer()
-            LoginButton(action: login)
-            SignUpButton()
+            
+            if isLoggingIn {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                    .scaleEffect(1.5)
+            } else {
+                LoginButton(action: login)
+                SignUpButton()
+            }
         }
         .background(Color("LightBlue"))
     }
     
     func login() {
+        isLoggingIn = true
         FirestoreService.shared.login(email: vM.email.lowercased(), password: vM.password) { result in
+            isLoggingIn = false
             switch result {
             case .success(let user):
                 tD.currentUser = user
