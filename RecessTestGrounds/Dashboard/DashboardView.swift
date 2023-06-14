@@ -19,7 +19,10 @@ struct DashboardView: View {
             ScrollView(.vertical) {
                 MyProfileHeader(user: tD.currentUser)
                 VStack() {
-                    CreateActivityLinkView()
+                    HStack {
+                        CreateActivityLinkView()
+                        ExploreButton()
+                    }
                         .environmentObject(tD)
                         .environmentObject(lM)
                     ScheduledActivitiesListView()
@@ -36,6 +39,24 @@ struct DashboardView: View {
     }
 }
 
+struct ExploreButton: View {
+    @EnvironmentObject var lM: LocationManager
+    var body: some View {
+        NavigationLink(destination: ExploreMapView().environmentObject(lM), label: {
+            ZStack {
+                Text("Explore")
+                    .foregroundColor(.white)
+                    .bold()
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 50)
+                        .frame(width: 100)
+                        .foregroundColor(.orange))
+            }
+            .padding()
+        })
+    }
+}
+
 struct CreateActivityLinkView: View {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
@@ -43,15 +64,16 @@ struct CreateActivityLinkView: View {
     var body: some View {
         NavigationLink(destination: CreateActivityView().environmentObject(lM)
             .environmentObject(tD), label: {
-            ZStack {
-                RoundedRectangle(cornerRadius: 50)
-                    .foregroundColor(.orange)
-                    .frame(width: 300, height: 60)
-                Text("Create Activity")
-                    .foregroundColor(.white)
-                    .bold()
-            }
-            .padding()
+                ZStack {
+                    Text("Play")
+                        .foregroundColor(.white)
+                        .bold()
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 50)
+                            .frame(width: 100)
+                            .foregroundColor(.orange))
+                }
+                .padding()
         })
     }
 }

@@ -22,7 +22,7 @@ struct ActivityAnnotationDetailView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.wrappedValue.coordinates[0], longitude: activity.wrappedValue.coordinates[1]))
+                ActivityDetailMapView(coordinate: CLLocationCoordinate2D( latitude: activity.wrappedValue.coordinates[0], longitude: activity.wrappedValue.coordinates[1]))
                     .frame(height: 260)
                 PlayerProfileLink(activity: activity.wrappedValue, userInfo: $userInfo)
                     .environmentObject(tD)

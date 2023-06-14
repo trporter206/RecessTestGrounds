@@ -22,7 +22,7 @@ struct ActivityListView: View {
                     VStack(spacing: 0) {
                         ActivityFilterView(filteredActivities: $filteredActivities,
                                            showingMap: $showingMap)
-                        DashboardMapView(filteredActivites: $filteredActivities)
+                        ActivityMapView(filteredActivites: $filteredActivities)
                             .frame(maxHeight: .infinity)
                     }
                 } else {

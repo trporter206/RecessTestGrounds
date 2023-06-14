@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D7116BFF29F8482F00017DFC /* ActivityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */; };
 		D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7116C0029F872AB00017DFC /* PlayerProfile.swift */; };
+		D71671692A3A2448006A9208 /* ExploreMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71671682A3A2448006A9208 /* ExploreMapView.swift */; };
 		D7222D1D29F1D9DD00E5F5D1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */; };
 		D742A2F529F97EA100CFAF8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D78D328729D51F0D00DD2F05 /* Assets.xcassets */; };
 		D74DA37629F3371500E1C282 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D329429D5216600DD2F05 /* Activity.swift */; };
@@ -63,9 +64,9 @@
 		D7C814D829D8A00F00C7DF7A /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814D729D8A00F00C7DF7A /* AchievementView.swift */; };
 		D7C814DB29D8A6C800C7DF7A /* TierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814DA29D8A6C800C7DF7A /* TierView.swift */; };
 		D7C814DE29D9F5A700C7DF7A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814DD29D9F5A700C7DF7A /* LocationManager.swift */; };
-		D7C814E129D9F7E600C7DF7A /* ActivityMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E029D9F7E600C7DF7A /* ActivityMapView.swift */; };
+		D7C814E129D9F7E600C7DF7A /* ActivityDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E029D9F7E600C7DF7A /* ActivityDetailMapView.swift */; };
 		D7C814E329DA21FE00C7DF7A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E229DA21FE00C7DF7A /* CameraView.swift */; };
-		D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */; };
+		D7C814E629DAB17800C7DF7A /* ActivityMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E529DAB17800C7DF7A /* ActivityMapView.swift */; };
 		D7C814E929DAB69E00C7DF7A /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814E829DAB69E00C7DF7A /* Modifiers.swift */; };
 		D7D0706B2A01821400EE01E4 /* ActivityAnnotationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */; };
 		D7D787CB2A3662DD00A87DCF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D787CA2A3662DD00A87DCF /* Location.swift */; };
@@ -101,6 +102,7 @@
 /* Begin PBXFileReference section */
 		D7116BFE29F8482F00017DFC /* ActivityAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationView.swift; sourceTree = "<group>"; };
 		D7116C0029F872AB00017DFC /* PlayerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfile.swift; sourceTree = "<group>"; };
+		D71671682A3A2448006A9208 /* ExploreMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreMapView.swift; sourceTree = "<group>"; };
 		D7222D1C29F1D9DD00E5F5D1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		D74DA36C29F3363600E1C282 /* RecessTestGroundsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecessTestGroundsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D762F4082A1D372700329601 /* ActivityFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterView.swift; sourceTree = "<group>"; };
@@ -149,9 +151,9 @@
 		D7C814DA29D8A6C800C7DF7A /* TierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierView.swift; sourceTree = "<group>"; };
 		D7C814DC29D9F49E00C7DF7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D7C814DD29D9F5A700C7DF7A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		D7C814E029D9F7E600C7DF7A /* ActivityMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMapView.swift; sourceTree = "<group>"; };
+		D7C814E029D9F7E600C7DF7A /* ActivityDetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailMapView.swift; sourceTree = "<group>"; };
 		D7C814E229DA21FE00C7DF7A /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMapView.swift; sourceTree = "<group>"; };
+		D7C814E529DAB17800C7DF7A /* ActivityMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMapView.swift; sourceTree = "<group>"; };
 		D7C814E829DAB69E00C7DF7A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		D7D0706A2A01821400EE01E4 /* ActivityAnnotationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotationDetailView.swift; sourceTree = "<group>"; };
 		D7D787CA2A3662DD00A87DCF /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -198,7 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				D7D787CD2A36638C00A87DCF /* Activities */,
-				D7C814E529DAB17800C7DF7A /* DashboardMapView.swift */,
+				D7C814E529DAB17800C7DF7A /* ActivityMapView.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -290,6 +292,7 @@
 				D78D329B29D5251100DD2F05 /* DashboardView.swift */,
 				D78D329F29D54AE700DD2F05 /* NextActivityView.swift */,
 				D78D32A329D600A300DD2F05 /* ProfilePicView.swift */,
+				D71671682A3A2448006A9208 /* ExploreMapView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -368,7 +371,7 @@
 		D7C5873329DBCD6D00EC9955 /* ActivityDetailViews */ = {
 			isa = PBXGroup;
 			children = (
-				D7C814E029D9F7E600C7DF7A /* ActivityMapView.swift */,
+				D7C814E029D9F7E600C7DF7A /* ActivityDetailMapView.swift */,
 				D7C814D129D765C800C7DF7A /* ActivityDetailView.swift */,
 				D7E392322A2419F6006695C5 /* ActivityDetail-VM.swift */,
 			);
@@ -630,9 +633,10 @@
 			files = (
 				D7116BFF29F8482F00017DFC /* ActivityAnnotationView.swift in Sources */,
 				D78D32B529D6747600DD2F05 /* MyProfileView.swift in Sources */,
+				D71671692A3A2448006A9208 /* ExploreMapView.swift in Sources */,
 				D78D32A929D60CB300DD2F05 /* Club.swift in Sources */,
 				D78D32AD29D61DD600DD2F05 /* ClubListItem.swift in Sources */,
-				D7C814E629DAB17800C7DF7A /* DashboardMapView.swift in Sources */,
+				D7C814E629DAB17800C7DF7A /* ActivityMapView.swift in Sources */,
 				D7C814DB29D8A6C800C7DF7A /* TierView.swift in Sources */,
 				D7C814D829D8A00F00C7DF7A /* AchievementView.swift in Sources */,
 				D78B23AE2A2FE26B002BF8CF /* ActivityAnnotationDetail-VM.swift in Sources */,
@@ -677,7 +681,7 @@
 				D78D32AB29D6142100DD2F05 /* ClubListView.swift in Sources */,
 				D7D787D62A36680800A87DCF /* LocationAnnotationDetailView.swift in Sources */,
 				D78D329329D51F9F00DD2F05 /* User.swift in Sources */,
-				D7C814E129D9F7E600C7DF7A /* ActivityMapView.swift in Sources */,
+				D7C814E129D9F7E600C7DF7A /* ActivityDetailMapView.swift in Sources */,
 				D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */,
 				D7C5873029DBCBBE00EC9955 /* ClubMemberListItem.swift in Sources */,
 				D7C5871E29DB591700EC9955 /* ActivityReviewView.swift in Sources */,

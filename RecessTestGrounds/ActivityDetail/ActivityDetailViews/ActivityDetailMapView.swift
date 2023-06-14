@@ -10,7 +10,7 @@ import SwiftUI
 import MapKit
 import UIKit
 
-struct ActivityMapView: UIViewRepresentable {
+struct ActivityDetailMapView: UIViewRepresentable {
     @EnvironmentObject var lM: LocationManager
     let coordinate: CLLocationCoordinate2D
     

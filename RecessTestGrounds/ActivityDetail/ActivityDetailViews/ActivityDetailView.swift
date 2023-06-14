@@ -25,7 +25,7 @@ struct ActivityDetailView: View {
             VStack {
                 VStack(spacing: 0) {
                     VStack {
-                        ActivityMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
+                        ActivityDetailMapView(coordinate: CLLocationCoordinate2D( latitude: activity.coordinates[0], longitude: activity.coordinates[1]))
                             .frame(height: 260)
                         PlayerProfileLink(activity: activity,
                                           userInfo: $userInfo).environmentObject(tD)

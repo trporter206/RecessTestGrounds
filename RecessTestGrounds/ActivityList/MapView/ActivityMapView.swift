@@ -8,11 +8,11 @@
 import SwiftUI
 import MapKit
 
-class DashboardMapCoordinator: NSObject, MKMapViewDelegate {
-    var dashboardMapView: DashboardMapView
+class ActivityMapCoordinator: NSObject, MKMapViewDelegate {
+    var activityMapView: ActivityMapView
 
-    init(_ dashboardMapView: DashboardMapView) {
-        self.dashboardMapView = dashboardMapView
+    init(_ activityMapView: ActivityMapView) {
+        self.activityMapView = activityMapView
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -47,7 +47,7 @@ class DashboardMapCoordinator: NSObject, MKMapViewDelegate {
 
 
 
-struct DashboardMapView: UIViewRepresentable {
+struct ActivityMapView: UIViewRepresentable {
     @EnvironmentObject var lM: LocationManager
     @EnvironmentObject var tD: TestData
     @Binding var filteredActivites: [Activity]
@@ -57,8 +57,8 @@ struct DashboardMapView: UIViewRepresentable {
         span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
     )
 
-    func makeCoordinator() -> DashboardMapCoordinator {
-        DashboardMapCoordinator(self)
+    func makeCoordinator() -> ActivityMapCoordinator {
+        ActivityMapCoordinator(self)
     }
 
     func makeUIView(context: Context) -> MKMapView {
