@@ -182,10 +182,10 @@ struct ActivityDeleteButton: View {
                       secondaryButton: .destructive(
                         Text("Delete"),
                         action: {
-                            presentationMode.wrappedValue.dismiss()
                             if let indexToRemove = tD.activities.firstIndex(where: {$0.id == activity.id}) {
                                 FirestoreService.shared.deleteActivity(activity: activity)
                                 tD.activities.remove(at: indexToRemove)
+                                presentationMode.wrappedValue.dismiss()
                             }
                         }
                       )

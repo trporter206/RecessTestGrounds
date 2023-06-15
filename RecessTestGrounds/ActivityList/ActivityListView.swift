@@ -37,12 +37,12 @@ struct ActivityListView: View {
                                     .padding()
                             } else {
                                 Text("\(filteredActivities.count) Activities").padding()
-                                ForEach($filteredActivities.sorted(by: {distanceToMeters(activity: $0) < distanceToMeters(activity: $1)}))
-                                { $activity in
-                                        ActivityListItem(activity: getActivity($activity))
-                                            .environmentObject(lM)
-                                            .environmentObject(tD)
+                                ForEach($filteredActivities.sorted(by: {distanceToMeters(activity: $0) < distanceToMeters(activity: $1)})) { $activity in
+                                    ActivityListItem(activity: $activity)
+                                        .environmentObject(lM)
+                                        .environmentObject(tD)
                                 }
+
                             }
                         }
                     }
@@ -66,10 +66,10 @@ extension ActivityListView {
         return distance!
     }
     
-    func getActivity(_ activity: Binding<Activity>) -> Binding<Activity> {
-        let originalActivity = $tD.activities.first(where: {$0.id == activity.id})
-        return originalActivity!
-    }
+//    func getActivity(_ activity: Binding<Activity>) -> Binding<Activity> {
+//        let originalActivity = $tD.activities.first(where: {$0.id == activity.id})
+//        return originalActivity!
+//    }
 }
 
 //struct ActivityListView_Previews: PreviewProvider {
