@@ -9,10 +9,12 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 import CoreLocation
+import SwiftUI
 
 protocol FirestoreServiceProtocol {
     //helper functions
     func getUserInfo(id: String, completion: @escaping (Result<User, Error>) -> Void)
+    func getProfileStrings(tD: TestData, activity: Activity) -> [String]
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void)
     func makeActivityActive(activity: Activity)
     //update functions
@@ -39,10 +41,31 @@ protocol FirestoreServiceProtocol {
 }
 
 class FirestoreService: FirestoreServiceProtocol {
-    
     static let shared = FirestoreService()
     let userRef = Firestore.firestore().collection("Users")
     let activityRef = Firestore.firestore().collection("Activities")
+    
+    func getProfileStrings(tD: TestData, activity: Activity) -> [String] {
+        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
+            return []
+        }
+        var strings: [String] = []
+        for player in tD.activities[activityIndex].players {
+            Firestore.firestore().collection("Users").document(player).getDocument() { documentSnapshot, error in
+                if let error = error {
+                    print("Erro getting creator info \(error)")
+                } else {
+                    do {
+                        let user = try documentSnapshot!.data(as: User.self)
+                        strings.append(user.profilePicString)
+                    } catch {
+                        print("Erro decoding creator info \(error)")
+                    }
+                }
+            }
+        }
+        return strings
+    }
     
     func removeFollowing(user: User, id: String) {
         userRef.document(user.id).updateData([

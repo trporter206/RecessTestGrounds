@@ -5,7 +5,7 @@
 //  Created by Torri Ray Porter Jr on 2023-03-31.
 //
 
-//import SwiftUI
+import SwiftUI
 //
 //struct ClubDetailView: View {
 //    @Binding var club: Club

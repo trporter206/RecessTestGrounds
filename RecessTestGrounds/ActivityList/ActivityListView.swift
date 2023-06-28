@@ -65,11 +65,6 @@ extension ActivityListView {
         }
         return distance!
     }
-    
-//    func getActivity(_ activity: Binding<Activity>) -> Binding<Activity> {
-//        let originalActivity = $tD.activities.first(where: {$0.id == activity.id})
-//        return originalActivity!
-//    }
 }
 
 //struct ActivityListView_Previews: PreviewProvider {

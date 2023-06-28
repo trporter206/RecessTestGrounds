@@ -85,6 +85,7 @@
 		D7E392312A241745006695C5 /* CreateActivity-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E392302A241745006695C5 /* CreateActivity-VM.swift */; };
 		D7E392332A2419F6006695C5 /* ActivityDetail-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E392322A2419F6006695C5 /* ActivityDetail-VM.swift */; };
 		D7E392352A241C45006695C5 /* ActivityReview-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E392342A241C45006695C5 /* ActivityReview-VM.swift */; };
+		D7EC3EF12A45609400468AE2 /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC3EF02A45609400468AE2 /* LocationDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,7 @@
 		D7E392302A241745006695C5 /* CreateActivity-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateActivity-VM.swift"; sourceTree = "<group>"; };
 		D7E392322A2419F6006695C5 /* ActivityDetail-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityDetail-VM.swift"; sourceTree = "<group>"; };
 		D7E392342A241C45006695C5 /* ActivityReview-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityReview-VM.swift"; sourceTree = "<group>"; };
+		D7EC3EF02A45609400468AE2 /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 				D7BF82C129E4AB620064A7A5 /* CreationViews */,
 				D7C814DF29D9F5F200C7DF7A /* Helpers */,
 				D7C814D629D89FF300C7DF7A /* Achievements */,
+				D7EC3EEF2A45606C00468AE2 /* LocationDetail */,
 				D7C814D329D7A20000C7DF7A /* ClubDetail */,
 				D7C814D029D765B700C7DF7A /* ActivityDetail */,
 				D78D32B329D657C200DD2F05 /* UserProfile */,
@@ -492,6 +495,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		D7EC3EEF2A45606C00468AE2 /* LocationDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D7EC3EF02A45609400468AE2 /* LocationDetailsView.swift */,
+			);
+			path = LocationDetail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -641,6 +652,7 @@
 				D7E082632A357C720043A319 /* MyProfileView-VM.swift in Sources */,
 				D7B9CAD629EF2A120085BD72 /* PointsView.swift in Sources */,
 				D7116C0129F872AB00017DFC /* PlayerProfile.swift in Sources */,
+				D7EC3EF12A45609400468AE2 /* LocationDetailsView.swift in Sources */,
 				D7E3922C2A240F12006695C5 /* CreateUser-VM.swift in Sources */,
 				D78373CE29E50AF400FE3074 /* CreateClubView.swift in Sources */,
 				D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */,

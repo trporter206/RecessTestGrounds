@@ -83,45 +83,6 @@ struct ActivityChooseLocalMap: View {
     }
 }
 
-struct LocationDetailsView: View {
-    @State var location: Location
-    
-    var body: some View {
-        ScrollView(.vertical) {
-            VStack {
-                VStack(spacing: 1) {
-                    Text(location.name)
-                        .font(.title)
-                        .bold()
-                        .padding(.top)
-                    Text(location.address)
-                        .font(.caption)
-                        .textSelection(.enabled)
-                        .padding(.bottom)
-                }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-                .background(Color("TextBlue"))
-                Text(location.notes)
-                    .padding()
-//                if location.currentActivities.count == 0 {
-//                    Text("No activities scheduled here")
-//                } else {
-//                    Text("Current scheduled activities:")
-//                    ForEach($location.currentActivities) { $activity in
-//                        ActivityListItem(activity: $activity)
-//                    }
-//                }
-                if let description = location.about {
-                    Text(description).padding()
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .foregroundColor(Color("TextBlue"))
-        .background(.white)
-    }
-}
 
 
 

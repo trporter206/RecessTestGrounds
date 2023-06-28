@@ -55,7 +55,7 @@ struct NextActivityView: View {
                     print("Error decoding creator info: \(error)")
                 }
             }
-            getProfileStrings()
+            profileStrings = FirestoreService.shared.getProfileStrings(tD: tD, activity: activity)
         }
     }
 }
@@ -101,29 +101,6 @@ struct NextActivityPlayerList: View {
                     ProfilePicView(profileString: str, height: 60)
                 }
             }.padding(.horizontal)
-        }
-    }
-}
-
-extension NextActivityView {
-    func getProfileStrings() {
-        guard let activityIndex = tD.activities.firstIndex(where: { $0.id == activity.id }) else {
-            return
-        }
-        profileStrings = []
-        for player in tD.activities[activityIndex].players {
-            Firestore.firestore().collection("Users").document(player).getDocument() { documentSnapshot, error in
-                if let error = error {
-                    print("Erro getting creator info \(error)")
-                } else {
-                    do {
-                        let user = try documentSnapshot!.data(as: User.self)
-                        profileStrings.append(user.profilePicString)
-                    } catch {
-                        print("Erro decoding creator info \(error)")
-                    }
-                }
-            }
         }
     }
 }
