@@ -58,6 +58,7 @@
 		D7C5873529DBCDE800EC9955 /* ProfileClubsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */; };
 		D7C5873B29DBCF9F00EC9955 /* ProfileAchievementsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */; };
 		D7C5873F29DBD2A800EC9955 /* ActivityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */; };
+		D7C68FC42A55F317000B2564 /* LocationDetails-VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C68FC32A55F317000B2564 /* LocationDetails-VM.swift */; };
 		D7C814CF29D74C0600C7DF7A /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814CE29D74C0600C7DF7A /* NavBarView.swift */; };
 		D7C814D229D765C900C7DF7A /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814D129D765C800C7DF7A /* ActivityDetailView.swift */; };
 		D7C814D529D7A21600C7DF7A /* ClubDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C814D429D7A21600C7DF7A /* ClubDetailView.swift */; };
@@ -143,6 +144,7 @@
 		D7C5873429DBCDE800EC9955 /* ProfileClubsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileClubsList.swift; sourceTree = "<group>"; };
 		D7C5873A29DBCF9F00EC9955 /* ProfileAchievementsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAchievementsList.swift; sourceTree = "<group>"; };
 		D7C5873E29DBD2A800EC9955 /* ActivityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAnnotation.swift; sourceTree = "<group>"; };
+		D7C68FC32A55F317000B2564 /* LocationDetails-VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationDetails-VM.swift"; sourceTree = "<group>"; };
 		D7C814CE29D74C0600C7DF7A /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
 		D7C814D129D765C800C7DF7A /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		D7C814D429D7A21600C7DF7A /* ClubDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetailView.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 			isa = PBXGroup;
 			children = (
 				D7EC3EF02A45609400468AE2 /* LocationDetailsView.swift */,
+				D7C68FC32A55F317000B2564 /* LocationDetails-VM.swift */,
 			);
 			path = LocationDetail;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				D78D328429D51F0C00DD2F05 /* RecessTestGroundsApp.swift in Sources */,
 				D7D787D32A3664E900A87DCF /* LocationAnnotationView.swift in Sources */,
 				D7C5873529DBCDE800EC9955 /* ProfileClubsList.swift in Sources */,
+				D7C68FC42A55F317000B2564 /* LocationDetails-VM.swift in Sources */,
 				D7C5872C29DBCAF300EC9955 /* AchievementListItem.swift in Sources */,
 				D76CF91729E7589100A9EE8F /* LoginView.swift in Sources */,
 				D78D329529D5216600DD2F05 /* Activity.swift in Sources */,

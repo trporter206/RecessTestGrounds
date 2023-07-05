@@ -22,7 +22,7 @@ struct EditActivityView: View {
                 DatePickerField(title: "Time", selection: $activityData.date)
                 SuperTextField(placeholder: Text("   Description (optional)"), text: $activityData.description)
                     .modifier(FormField())
-                ChooseLocationLink(activityData: $activityData)
+                ChooseLocationLink(activityData: $activityData, locationName: Binding.constant(""))
             }
             Spacer()
             UpdateActivityButton(activityData: $activityData, id: id).environmentObject(tD)

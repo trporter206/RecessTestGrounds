@@ -8,42 +8,43 @@
 import SwiftUI
 
 struct LocationDetailsView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @StateObject private var vM = ViewModel()
+    
+    var exploreOnly: Bool
     @State var location: Location
+    
+    @Binding var activityData: Activity.Data
     
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                VStack(spacing: 1) {
-                    Text(location.name)
-                        .font(.title)
-                        .bold()
-                        .padding(.top)
-                    Text(location.address)
-                        .font(.caption)
-                        .textSelection(.enabled)
-                        .padding([.bottom, .horizontal])
+                LocationHeader(location: location)
+                if !exploreOnly {
+                    Button(action: {
+                        activityData.coordinates = [location.coordinates[0][0], location.coordinates[0][1]]
+                        self.presentationMode.wrappedValue.dismiss()
+                        self.presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        ActivityButton("Save Location")
+                    })
                 }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-                .background(Color("TextBlue"))
-//                Text(location.notes)
-//                    .padding()
-                HStack {
-//                    ForEach(
-                }
-                if location.currentActivities.count == 0 {
-                    Text("No activities scheduled here")
-                        .foregroundColor(.orange)
-                        .bold()
-                } else {
-                    Text("Current scheduled activities:")
-                    ForEach($location.currentActivities, id: \.self) { $activity in
-                        Text($activity.wrappedValue)
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(location.sports, id: \.self) { sport in
+                            LocationSportIcon(sport: sport, noteSport: vM.noteSport)
+                                .onTapGesture {
+                                    vM.checkUpdateNotes(sport, location)
+                                }
+                                .animation(.default, value: vM.noteSport)
+                        }
                     }
+                    .padding(.leading)
                 }
-                if let description = location.about {
-                    Text(description).padding()
-                }
+                .labelsHidden()
+                CourtNotes(noteSport: vM.noteSport, noteText: vM.noteText)
+                LocationActivities(location: $location)
+                LocationDescription(location: location)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -52,8 +53,54 @@ struct LocationDetailsView: View {
     }
 }
 
-struct LocationDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        LocationDetailsView(location: mapLocations[0])
+struct LocationDetailsEO: View {
+    @State var noteText: String = "Temp"
+    @State var noteSport: String = "Tap icon for notes"
+    var location: Location
+    
+    func checkUpdateNotes(_ sport: String, _ location: Location) {
+        guard let index = location.sports.firstIndex(of: sport) else {
+            noteText = "No Notes"
+            return
+        }
+        noteSport = location.sports[index]
+        let isIndexValid = location.notes.indices.contains(index)
+        if isIndexValid {
+            noteText = location.notes[index]
+        } else {
+            noteText = ""
+        }
+    }
+    
+    var body: some View {
+        ScrollView(.vertical) {
+            VStack {
+                LocationHeader(location: location)
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(location.sports, id: \.self) { sport in
+                            LocationSportIcon(sport: sport, noteSport: noteSport)
+                                .onTapGesture {
+                                    checkUpdateNotes(sport, location)
+                                }
+                                .animation(.default, value: noteSport)
+                        }
+                    }
+                    .padding(.leading)
+                }
+                .labelsHidden()
+                CourtNotes(noteSport: noteSport, noteText: noteText)
+                LocationDescription(location: location)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .foregroundColor(Color("TextBlue"))
+        .background(.white)
     }
 }
+
+//struct LocationDetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LocationDetailsView(location: mapLocations[0])
+//    }
+//}

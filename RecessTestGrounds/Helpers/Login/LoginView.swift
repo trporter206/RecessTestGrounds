@@ -14,25 +14,39 @@ struct LoginView: View {
     @State private var isLoggingIn = false
     
     var body: some View {
-        VStack {
-            Heading()
-            EmailTextField(email: $vM.email)
-            PasswordTextField(password: $vM.password)
-            ForgotPasswordLink()
-            Spacer()
-            ErrorMessageText(errorMessage: $vM.errorMessage)
-            Spacer()
-            
-            if isLoggingIn {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                    .scaleEffect(1.5)
-            } else {
-                LoginButton(action: login)
-                SignUpButton()
+        NavigationStack {
+            VStack {
+                Heading()
+                EmailTextField(email: $vM.email)
+                PasswordTextField(password: $vM.password)
+                ForgotPasswordLink()
+                Spacer()
+                NavigationLink(destination: ExploreMapView(exploreMode: true).environmentObject(lM), label: {
+                    Text("Just Explore")
+                        .foregroundColor(.white)
+                        .bold()
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 50)
+                            .foregroundColor(Color("TextBlue")))
+                })
+                Spacer()
+                ErrorMessageText(errorMessage: $vM.errorMessage)
+                Spacer()
+                
+                if isLoggingIn {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        .scaleEffect(1.5)
+                } else {
+                    LoginButton(action: login)
+                    SignUpButton().environmentObject(tD)
+                }
+            }
+            .background(Color("LightBlue"))
+            .onAppear {
+                lM.checkIfLocationServicesEnabled()
             }
         }
-        .background(Color("LightBlue"))
     }
     
     func login() {

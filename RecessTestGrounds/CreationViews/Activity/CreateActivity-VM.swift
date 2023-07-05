@@ -105,6 +105,8 @@ struct ActivityFormFields: View {
     @Binding var activityData: Activity.Data
     @Binding var activityType: String
     
+    @State var locationName = ""
+    
     var body: some View {
         VStack {
             SuperTextField(placeholder: Text("   Title (optional)"), text: $activityData.title)
@@ -116,7 +118,14 @@ struct ActivityFormFields: View {
                 DatePickerField(title: "Time", selection: $activityData.date)
                     .transition(AnyTransition.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
                     .animation(.easeIn, value: activityType)
-                ChooseLocationLink(activityData: $activityData)
+                if locationName != "" {
+                    Text(locationName)
+                        .foregroundColor(.orange)
+                        .font(.title2)
+                        .bold()
+                        .padding()
+                }
+                ChooseLocationLink(activityData: $activityData, locationName: $locationName)
                     .transition(.opacity)
                     .animation(.easeIn, value: activityType)
             } else {
@@ -173,8 +182,9 @@ struct DatePickerField: View {
 struct ChooseLocationLink: View {
     @EnvironmentObject var lM: LocationManager
     @Binding var activityData: Activity.Data
+    @Binding var locationName: String
     var body: some View {
-        NavigationLink(destination: ActivityChooseLocalMap(activityData: $activityData, sport: $activityData.sport).environmentObject(lM), label: {
+        NavigationLink(destination: ActivityChooseLocalMap(activityData: $activityData, sport: $activityData.sport, locationName: $locationName).environmentObject(lM), label: {
             Text("Choose Location         ")
                 .bold()
                 .foregroundColor(.orange)

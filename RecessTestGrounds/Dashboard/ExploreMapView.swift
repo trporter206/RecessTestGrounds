@@ -19,6 +19,7 @@ struct ExploreMapView: View {
     @State var sport: String = sportOptions[0]
     @State private var showingInfo = false
     @State private var selectedLocation: Location?
+    @State var exploreMode: Bool = false
     
     var body: some View {
         ZStack {
@@ -36,8 +37,15 @@ struct ExploreMapView: View {
                 }
             }
             .sheet(item: $selectedLocation) { location in
-                LocationDetailsView(location: location)
-                    .presentationDetents([.medium])
+                if exploreMode {
+                    LocationDetailsEO(location: location)
+                        .presentationDetents([.medium])
+                } else {
+                    LocationDetailsView(exploreOnly: true,
+                                        location: location,
+                                        activityData: Binding.constant(Activity.Data()))
+                        .presentationDetents([.medium])
+                }
             }
             .ignoresSafeArea()
             VStack {
@@ -66,6 +74,8 @@ struct ExploreMapView: View {
             if let userLocation = lM.locationManager?.location?.coordinate {
                 print("User location found")
                 region.center = CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude)
+            } else {
+                print("Location not found")
             }
         }
     }

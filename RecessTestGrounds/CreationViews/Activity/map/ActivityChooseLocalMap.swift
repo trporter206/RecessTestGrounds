@@ -11,14 +11,14 @@ import SwiftUI
 
 struct ActivityChooseLocalMap: View {
     @EnvironmentObject var lM: LocationManager
-    @Environment(\.presentationMode) var presentationMode
     
     @Binding var activityData: Activity.Data
     @Binding var sport: String
+    @Binding var locationName: String
     
     @State var locations: [Location] = []
     @State private var showingInfo = false
-    @State private var selectedLocation: Location? = nil
+    @State var selectedLocation: Location?
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
         span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
@@ -32,6 +32,7 @@ struct ActivityChooseLocalMap: View {
                         LocationAnnotationView(location: location, selectedLocation: $selectedLocation)
                             .onTapGesture {
                                 selectedLocation = location
+                                locationName = location.name
                                 showingInfo = true
                             }
                     } else {
@@ -40,12 +41,14 @@ struct ActivityChooseLocalMap: View {
                 }
             }
             .sheet(item: $selectedLocation) { location in
-                LocationDetailsView(location: location)
+                LocationDetailsView(exploreOnly: false,
+                                    location: location,
+                                    activityData: $activityData)
                     .presentationDetents([.medium])
             }
             .ignoresSafeArea()
             VStack {
-                Text("Tap to select, hold for info")
+                Text("Tap to select")
                     .foregroundColor(Color("TextBlue"))
                     .padding()
                     .background(
@@ -55,23 +58,22 @@ struct ActivityChooseLocalMap: View {
                     )
                 Picker(sport, selection: $sport) {
                     ForEach(sportOptions, id: \.self) {
+                        Text("All").tag("All")
                         Text($0)
                     }
                 }
                 .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
                 .padding()
                 Spacer()
-                Button(action: {
-                    activityData.coordinates = [selectedLocation!.coordinates[0][0], selectedLocation!.coordinates[0][1]]
-                    self.presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    ActivityButton("Save Location")
-                })
-                .disabled(selectedLocation == nil)
+                ActivityButton(selectedLocation?.name ?? "Select a location")
             }
         }
         .onAppear {
-            locations = Array(mapLocations.filter({$0.sports.contains(sport)}))
+            if sport == "All" {
+                locations = mapLocations
+            } else {
+                locations = Array(mapLocations.filter({$0.sports.contains(sport)}))
+            }
             if let userLocation = lM.locationManager?.location?.coordinate {
                 region.center = CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude)
             }
