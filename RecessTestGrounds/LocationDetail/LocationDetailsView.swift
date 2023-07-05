@@ -26,8 +26,8 @@ struct LocationDetailsView: View {
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.white)
                 .background(Color("TextBlue"))
-                Text(location.notes)
-                    .padding()
+//                Text(location.notes)
+//                    .padding()
                 HStack {
 //                    ForEach(
                 }

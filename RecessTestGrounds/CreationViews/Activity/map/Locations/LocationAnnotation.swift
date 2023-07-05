@@ -14,7 +14,7 @@ class LocationAnnotation: NSObject, MKAnnotation {
     
     init(location: Location, lM: LocationManager) {
         self.location = location
-        self.coordinate = CLLocationCoordinate2D(latitude: location.coordinates[0], longitude: location.coordinates[1])
+        self.coordinate = CLLocationCoordinate2D(latitude: location.coordinates[0][0], longitude: location.coordinates[0][1])
         super.init()
     }
 }

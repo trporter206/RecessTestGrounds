@@ -11,29 +11,26 @@ import SwiftUI
 
 struct ActivityChooseLocalMap: View {
     @EnvironmentObject var lM: LocationManager
+    @Environment(\.presentationMode) var presentationMode
+    
+    @Binding var activityData: Activity.Data
+    @Binding var sport: String
+    
+    @State var locations: [Location] = []
+    @State private var showingInfo = false
+    @State private var selectedLocation: Location? = nil
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
         span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
     )
-    @Binding var activityData: Activity.Data
-    @State var chosenCoords = [0.0,0.0]
-    @Binding var sport: String
-    @State var locations: [Location] = []
-    @State private var showingInfo = false
-    @State private var selectedLocation: Location? = nil
-
-    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         ZStack {
             Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: locations) { location in
-                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinates[0], longitude: location.coordinates[1])) {
-                    if sport == location.sport {
-                        LocationAnnotationView(location: location, selectedCoords: $chosenCoords)
+                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinates[0][0], longitude: location.coordinates[0][1])) {
+                    if location.sports.contains(sport) {
+                        LocationAnnotationView(location: location, selectedLocation: $selectedLocation)
                             .onTapGesture {
-                                chosenCoords = [location.coordinates[0], location.coordinates[1]]
-                            }
-                            .onLongPressGesture {
                                 selectedLocation = location
                                 showingInfo = true
                             }
@@ -65,18 +62,17 @@ struct ActivityChooseLocalMap: View {
                 .padding()
                 Spacer()
                 Button(action: {
-                    activityData.coordinates = [chosenCoords[0], chosenCoords[1]]
+                    activityData.coordinates = [selectedLocation!.coordinates[0][0], selectedLocation!.coordinates[0][1]]
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ActivityButton("Save Location")
                 })
-                .disabled(chosenCoords == [0.0,0.0])
+                .disabled(selectedLocation == nil)
             }
         }
         .onAppear {
-            locations = mapLocations
+            locations = Array(mapLocations.filter({$0.sports.contains(sport)}))
             if let userLocation = lM.locationManager?.location?.coordinate {
-                print("User location found")
                 region.center = CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude)
             }
         }

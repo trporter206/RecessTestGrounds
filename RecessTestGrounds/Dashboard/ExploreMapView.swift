@@ -18,18 +18,16 @@ struct ExploreMapView: View {
     @State var locations: [Location] = []
     @State var sport: String = sportOptions[0]
     @State private var showingInfo = false
-    @State private var selectedLocation: Location? = nil
-    @State private var chosenCoords: [Double] = [0.0,0.0]
+    @State private var selectedLocation: Location?
     
     var body: some View {
         ZStack {
             Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: locations) { location in
-                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinates[0], longitude: location.coordinates[1])) {
-                    if sport == location.sport {
-                        LocationAnnotationView(location: location, selectedCoords: $chosenCoords)
+                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinates[0][0], longitude: location.coordinates[0][1])) {
+                    if location.sports.contains(sport) {
+                        LocationAnnotationView(location: location, selectedLocation: $selectedLocation)
                             .onTapGesture {
                                 selectedLocation = location
-                                chosenCoords = location.coordinates
                                 showingInfo = true
                             }
                     } else {
