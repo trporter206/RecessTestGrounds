@@ -43,7 +43,8 @@ struct ExploreMapView: View {
                 } else {
                     LocationDetailsView(exploreOnly: true,
                                         location: location,
-                                        activityData: Binding.constant(Activity.Data()))
+                                        activityData: Binding.constant(Activity.Data()),
+                                        locationName: Binding.constant(""))
                         .presentationDetents([.medium])
                 }
             }

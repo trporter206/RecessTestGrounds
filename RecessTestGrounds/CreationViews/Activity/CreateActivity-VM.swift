@@ -120,7 +120,7 @@ struct ActivityFormFields: View {
                     .animation(.easeIn, value: activityType)
                 if locationName != "" {
                     Text(locationName)
-                        .foregroundColor(.orange)
+                        .foregroundColor(Color("TextBlue"))
                         .font(.title2)
                         .bold()
                         .padding()
@@ -185,9 +185,10 @@ struct ChooseLocationLink: View {
     @Binding var locationName: String
     var body: some View {
         NavigationLink(destination: ActivityChooseLocalMap(activityData: $activityData, sport: $activityData.sport, locationName: $locationName).environmentObject(lM), label: {
-            Text("Choose Location         ")
+            Text(locationName == "" ? "Choose Location" : "Change Location")
                 .bold()
                 .foregroundColor(.orange)
+                .padding()
                 .background(RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(Color("TextBlue"))
                     .frame(height: 40))

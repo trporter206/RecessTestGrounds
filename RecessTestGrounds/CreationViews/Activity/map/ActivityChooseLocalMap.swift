@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 import SwiftUI
-
+//TODO: improve performance of this page and get the selected location to stay
 struct ActivityChooseLocalMap: View {
     @EnvironmentObject var lM: LocationManager
     
@@ -32,7 +32,6 @@ struct ActivityChooseLocalMap: View {
                         LocationAnnotationView(location: location, selectedLocation: $selectedLocation)
                             .onTapGesture {
                                 selectedLocation = location
-                                locationName = location.name
                                 showingInfo = true
                             }
                     } else {
@@ -43,7 +42,8 @@ struct ActivityChooseLocalMap: View {
             .sheet(item: $selectedLocation) { location in
                 LocationDetailsView(exploreOnly: false,
                                     location: location,
-                                    activityData: $activityData)
+                                    activityData: $activityData,
+                                    locationName: $locationName)
                     .presentationDetents([.medium])
             }
             .ignoresSafeArea()
@@ -65,7 +65,7 @@ struct ActivityChooseLocalMap: View {
                 .background(RoundedRectangle(cornerRadius: 50).foregroundColor(.white))
                 .padding()
                 Spacer()
-                ActivityButton(selectedLocation?.name ?? "Select a location")
+//                ActivityButton(selectedLocation?.name ?? "Select a location")
             }
         }
         .onAppear {

@@ -204,7 +204,8 @@ class FirestoreService: FirestoreServiceProtocol {
             "creator" : activity.creator,
             "players" : [activity.creator],
             "coordinates" : activity.coordinates,
-            "currentlyActive" : false
+            "currentlyActive" : false,
+            "location" : activity.location!
         ])
     }
     

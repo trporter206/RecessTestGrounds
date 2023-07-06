@@ -20,9 +20,10 @@ struct Activity: Identifiable, Codable {
     var creator: String
     var players: [String]
     var coordinates: [Double]
+    var location: String?
     var currentlyActive: Bool
     
-    init(title: String, sport: String, date: Date, description: String = "", coordinates: [Double], creator: String) {
+    init(title: String, sport: String, date: Date, description: String = "", coordinates: [Double], location: String? = nil, creator: String) {
         self.id = UUID().uuidString
         self.title = title
         self.sport = sport
@@ -33,6 +34,7 @@ struct Activity: Identifiable, Codable {
         self.players = [creator]
         self.currentlyActive = false
         self.points = 50
+        self.location = location
     }
     
     mutating func addPlayer(_ user: User) {
@@ -55,6 +57,7 @@ extension Activity {
         var date: Date = Date.now
         var description: String = ""
         var coordinates: [Double] = [0.0, 0.0]
+        var location: String? = nil
     }
     
     var data: Data {
@@ -63,7 +66,8 @@ extension Activity {
             sport: sport,
             date: date,
             description: description,
-            coordinates: coordinates)
+            coordinates: coordinates,
+            location: location)
     }
     
     init(data: Data, idString: String = UUID().uuidString, manager: TestData) {
@@ -73,6 +77,7 @@ extension Activity {
         date = data.date
         description = data.description
         coordinates = data.coordinates
+        location = data.location
         creator = manager.currentUser.id
         players = [creator]
         currentlyActive = false

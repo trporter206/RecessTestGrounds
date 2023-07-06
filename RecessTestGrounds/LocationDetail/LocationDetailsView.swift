@@ -15,6 +15,7 @@ struct LocationDetailsView: View {
     @State var location: Location
     
     @Binding var activityData: Activity.Data
+    @Binding var locationName: String
     
     var body: some View {
         ScrollView(.vertical) {
@@ -23,10 +24,11 @@ struct LocationDetailsView: View {
                 if !exploreOnly {
                     Button(action: {
                         activityData.coordinates = [location.coordinates[0][0], location.coordinates[0][1]]
-                        self.presentationMode.wrappedValue.dismiss()
+                        activityData.location = location.id
+                        locationName = location.name
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
-                        ActivityButton("Save Location")
+                        ActivityButton("Choose Location")
                     })
                 }
                 ScrollView(.horizontal) {
@@ -53,6 +55,8 @@ struct LocationDetailsView: View {
     }
 }
 
+
+//view for Explore Only map views
 struct LocationDetailsEO: View {
     @State var noteText: String = "Temp"
     @State var noteSport: String = "Tap icon for notes"
