@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var appDelegate: NotificationsController
     @StateObject var lM = LocationManager()
-    @StateObject var tD = TestData(skipFetching: false) //MAKE SURE IS FALSE FOR PRODUCTION
+    @StateObject var tD = TestData(skipFetching: true) //MAKE SURE IS FALSE FOR PRODUCTION
     
     init() {
 //        must manually enter initial value inside function when using

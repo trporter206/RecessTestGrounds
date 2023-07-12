@@ -21,12 +21,13 @@ class TestData: ObservableObject {
     static let previewTestData = TestData(skipFetching: true)
     
     init(skipFetching: Bool = false) {
-        if !skipFetching {
-            getActivities()
-        } else {
+        if skipFetching {
             activities = activitiesData
+        } else {
+            getActivities()
         }
-//        print(mapLocations.count)
+        print("\(mapLocations.count) Locations")
+        print("\(activities.count) activities")
     }
     
     func getActivities() {
