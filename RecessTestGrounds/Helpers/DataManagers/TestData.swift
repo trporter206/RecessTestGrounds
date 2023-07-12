@@ -23,8 +23,10 @@ class TestData: ObservableObject {
     init(skipFetching: Bool = false) {
         if !skipFetching {
             getActivities()
+        } else {
+            activities = activitiesData
         }
-        print(mapLocations.count)
+//        print(mapLocations.count)
     }
     
     func getActivities() {
@@ -59,12 +61,33 @@ var usersData: [User] = [
 ]
 
 var activitiesData: [Activity] = [
-    Activity(title: "Blacktop basketball",
+    Activity(title: "Blacktop Basketball",
              sport: "Basketball",
              date: Date.now,
              description: "Casual game downtown. Come join the crew!",
              coordinates: [45.568978, -122.673523],
-             creator: usersData[0].id)
+             creator: usersData[0].id),
+    Activity(title: "Portland Pickle",
+             sport: "Tennis",
+             date: Date.now,
+             description: "A bunch of pickleball noobs",
+             coordinates: [45.563596, -122.645790],
+             location: "Alberta Park",
+             creator: usersData[0].id),
+    Activity(title: "Sunday Soccer",
+             sport: "Soccer",
+             date: Date.now,
+             description: "Fast paced! Get ready to sweat",
+             coordinates: [45.563596, -122.645790],
+             location: "Alberta Park",
+             creator: usersData[0].id),
+    Activity(title: "Tennis Match",
+             sport: "Tennis",
+             date: Date.now,
+             description: "Looking for someone to join for a scrimmage",
+             coordinates: [45.516145, -122.646788],
+             creator: usersData[0].id),
+    
 ]
 
 var clubsData: [Club] = [
